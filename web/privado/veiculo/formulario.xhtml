@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="form-onibus">
+            <div class="card">
+                <div class="row">
+                     <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
+                     
+                    <div class="input-field col s12 m4">
+                        <h:inputText id="num" value="#{onibusBean.onibus.numero}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
+                        <label class="normal" for="num">Número</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <h:inputText id="marca" value="#{onibusBean.onibus.marca}" class="validate" required="true" requiredMessage="Campo Marca está vazio!"/>
+                        <label class="normal" for="marca">Marca</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <h:inputText id="modelo" value="#{onibusBean.onibus.modelo}" class="validate" required="true" requiredMessage="Campo Modelo está vazio!"/>
+                        <label class="normal" for="modelo">Modelo</label>
+                    </div>
+                    <div class="input-field col s12 m2">
+                        <h:inputText class="validate" id="ano" value="#{onibusBean.onibus.ano}" required="true" requiredMessage="Campo Ano está vazio">
+                            <f:convertNumber integerOnly="true" minIntegerDigits="1"  type="number"/>
+                        </h:inputText>
+                        <label class="normal" for="ano">Ano</label>
+                    </div>
+                    <div class="input-field col s12 m5">
+                        <h:inputText class="validate" id="chassi" value="#{onibusBean.onibus.chassi}" required="true" requiredMessage="Campo Chassi está vazio!">
+                            <f:convertNumber integerOnly="true" minIntegerDigits="1"  type="number"/>
+                        </h:inputText>
+                        <label class="normal" for="chassi" >Chassi</label>
+                    </div>
+                    <div class="input-field col s12 m5">
+                        <h:inputText class="validate" id="placa" value="#{onibusBean.onibus.placa}" required="true" requiredMessage="Campo Placa está vazio!"/>
+                        <label class="normal" for="placa">Placa</label>
+                    </div>
+
+
+                    <div class="col s12">
+                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
+                                       action="#{onibusBean.salvar()}">
+                            <i class="material-icons">check</i>
+                        </h:commandLink>
+                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
+                                       action="#{linkUtilBean.listaVeiculos()}">
+                            <i class="material-icons">close</i>
+                        </h:commandLink>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

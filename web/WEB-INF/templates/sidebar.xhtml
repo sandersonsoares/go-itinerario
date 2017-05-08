@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ul id="slide-out" class="side-nav fixed">
+        <li><div class="userView">
+                <div class="background cor-secundaria">
+                    <!--<img src="images/office.jpg"/>-->
+                </div>
+                <a href="#!user"><img class="circle z-depth-5" src="https://daks2k3a4ib2z.cloudfront.net/582b31f886dc4d6a59a7f316/582c30ecbf8884fe1c33387f_FlorianWeber.jpg"/></a>
+                <a href="#!name"><span class="white-text name medium">John Doe</span></a>
+                <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            </div></li>
+
+        <h:form id="form-sidebar">
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Principal</a></li>
+            <li>
+                <h:commandLink action="#{linkUtilBean.listaVeiculos()}">
+                    <i class="material-icons">directions_bus</i> Veículos
+                </h:commandLink>
+            </li>
+            <li>
+                <h:commandLink action="#{linkUtilBean.listaPassageiros()}">
+                    <i class="material-icons">people_outline</i> Passageiros
+                </h:commandLink>
+            </li>
+            <li>
+                <h:commandLink action="#{linkUtilBean.listaVeiculos()}">
+                    <i class="material-icons">library_books</i> Bilhetes
+                </h:commandLink>    
+            </li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Administrativo</a></li>
+            <li>
+                <h:commandLink action="#{linkUtilBean.listaVeiculos()}">
+                    <i class="material-icons">people</i> Usuários
+                </h:commandLink>    
+            </li>
+        </h:form>
+    </ul>
+</ui:composition>
+

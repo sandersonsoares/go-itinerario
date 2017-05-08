@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form id="form-pessoa" class="col s12">
+        <div class="row card">
+            <div class="input-field col s12 m4">
+                <p:inputMask id="cpf" value="#{pessoaBean.passageiro.cpf}" mask="999.999.999-99" required="true" requiredMessage="Campo CPF está vazio!"/>
+                <label class="normal" for="cpf">CPF</label>
+            </div>
+            <div class="input-field col s12 m8">
+                <p:inputText id="nome" value="#{pessoaBean.passageiro.nome}" class="validate" required="true" requiredMessage="Campo Nome está vazio!"/>
+                <label class="normal" for="nome">Nome</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <h:selectOneMenu id="sexo" value="#{pessoaBean.passageiro.sexo}" class="validate" required="true" requiredMessage="Campo Sexo está vazio!">
+                    <f:selectItem value="#{null}" itemLabel="Selecione" class="active"/>
+                    <f:selectItems value="#{pessoaBean.listarSexos}" var="s" itemLabel="#{s.sexo}" itemValue="#{sexo}"/>
+                </h:selectOneMenu>
+                <h:outputLabel value="Sexo" for="sexo" />
+            </div>
+            <div class="input-field col s12 m6">
+                <p:inputText id="email" value="#{pessoaBean.passageiro.email}" class="validate" required="true" requiredMessage="Campo Email está vazio!"/>
+                <label class="normal" for="email" data-error="Email Inválido">Email</label>
+            </div>
+
+            <div class="col s12">
+                <p:commandLink class="btn btn-floating btn-large waves-effect waves-light green right"
+                               action="#{pessoaBean.salvarPassageiro()}" >
+                    <i class="material-icons">check</i>
+                </p:commandLink>
+                <p:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
+                               action="#{linkUtilBean.listaPassageiros()}">
+                    <i class="material-icons">close</i>
+                </p:commandLink>
+            </div>
+
+        </div>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>GO. Itinerário</title>
+
+        <!--JQuery-->
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.js"></script>
+
+        <!--Css-->
+        <link rel="stylesheet" type="text/css" href="resources/css/materialize.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+
+        <!--JavaScripts-->
+        <script type="text/javascript" src="resources/js/materialize.min.js"></script>
+        <script src="resources/js/font-awesome.js"></script>
+        <script type="text/javascript" src="resources/js/scripts.js"></script>
+
+    </h:head>
+    <h:body>
+
+        <div class="row">
+            <div class="col s12 m6 offset-m3 l4 offset-l4" style="margin-top: 20vh">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <p class="card-title bold">Login</p>
+
+                        <div class="card-action">
+                            <div class="row">
+
+                                <div class="input-field col s12">
+                                    <p:inputText id="email" type="email" class="validate" />                            
+                                    <label for="email" data-error="Email Invalido" data-success="O email está correto.">Email</label>
+                                </div>
+
+                                <div class="input-field col s12">
+                                    <p:password id="password" class="form-control" />
+                                    <label for="password" data-error="Senha Invalida">Senha</label>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <p class="left">
+                                    <input type="checkbox"  id="test6" name="remember" />
+                                    <label for="test6">Lembrar-me</label>
+                                </p>
+                                <p class="right">
+                                    <a href="#">Esqueci minha senha</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action row">
+                        <h:form>
+                            <p:commandButton value="Login" action="#{linkUtilBean.paginaPrincipal()}" class="btn waves-effect waves-light col s12" ajax="false" />
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
