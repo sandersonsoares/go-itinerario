@@ -2,10 +2,12 @@ package br.com.itinerario.facade;
 
 import br.com.itinerario.business.OnibusBusiness;
 import br.com.itinerario.business.PassageiroBusiness;
+import br.com.itinerario.business.UsuarioBusiness;
 import br.com.itinerario.exception.DAOException;
 
 import br.com.itinerario.model.Onibus;
 import br.com.itinerario.model.Passageiro;
+import br.com.itinerario.model.Usuario;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,10 +15,12 @@ public class Facade implements Serializable {
 
     private PassageiroBusiness passageiroBusiness;
     private OnibusBusiness onibusBusiness;
+    private UsuarioBusiness usuarioBusiness;
 
     public Facade() {
         passageiroBusiness = new PassageiroBusiness();
         onibusBusiness = new OnibusBusiness();
+        usuarioBusiness = new UsuarioBusiness();
     }
 
     // Assento
@@ -35,7 +39,6 @@ public class Facade implements Serializable {
     public void listarAssentos() {
 
     }
-
 
     // Funcionario
     public void cadastrarFuncionario() {
@@ -93,7 +96,6 @@ public class Facade implements Serializable {
         onibusBusiness.salvar(onibus);
     }
 
-
     public List<Onibus> listarOnibus() throws Exception {
         return onibusBusiness.listar();
     }
@@ -115,7 +117,6 @@ public class Facade implements Serializable {
         return passageiroBusiness.listar();
     }
 
-
     // Rota
     public void cadastrarRota() {
 
@@ -134,8 +135,8 @@ public class Facade implements Serializable {
     }
 
     // Usuario
-    public void cadastrarUsuario() {
-
+    public void cadastrarUsuario(Usuario usuario) throws Exception {
+        usuarioBusiness.salvar(usuario);
     }
 
     public void removerUsuario() {
@@ -146,8 +147,8 @@ public class Facade implements Serializable {
 
     }
 
-    public void listarUsuarios() {
-
+    public List<Usuario> listarUsuarios() throws Exception {
+        return usuarioBusiness.listar();
     }
 
     // VendaBilhete
