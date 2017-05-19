@@ -9,41 +9,144 @@
         <h:form id="form-grupos">
             <div class="card">
                 <div class="row">
-                     <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
-                     
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="titulo" value="#{onibusBean.onibus.numero}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
-                        <label class="normal" for="titulo">Título</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="marca" value="#{onibusBean.onibus.marca}" class="validate" required="true" requiredMessage="Campo Marca está vazio!"/>
-                        <label class="normal" for="marca">Marca</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="modelo" value="#{onibusBean.onibus.modelo}" class="validate" required="true" requiredMessage="Campo Modelo está vazio!"/>
-                        <label class="normal" for="modelo">Modelo</label>
-                    </div>
-                    <div class="input-field col s12 m2">
-                        <h:inputText class="validate" id="ano" value="#{onibusBean.onibus.ano}" required="true" requiredMessage="Campo Ano está vazio">
-                            <f:convertNumber integerOnly="true" minIntegerDigits="1"  type="number"/>
-                        </h:inputText>
-                        <label class="normal" for="ano">Ano</label>
-                    </div>
-                    <div class="input-field col s12 m5">
-                        <h:inputText class="validate" id="chassi" value="#{onibusBean.onibus.chassi}" required="true" requiredMessage="Campo Chassi está vazio!">
-                            <f:convertNumber integerOnly="true" minIntegerDigits="1"  type="number"/>
-                        </h:inputText>
-                        <label class="normal" for="chassi" >Chassi</label>
-                    </div>
-                    <div class="input-field col s12 m5">
-                        <h:inputText class="validate" id="placa" value="#{onibusBean.onibus.placa}" required="true" requiredMessage="Campo Placa está vazio!"/>
-                        <label class="normal" for="placa">Placa</label>
-                    </div>
+                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
+                    <h4 class="bold">Cadastro de Grupos</h4>
+                    <div class="card-action"></div>
+                    <div class="input-field col s12 m12">
+                        <h:inputText id="titulo" value="#{grupoBean.grupo.titulo}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
+                        <label class="normal" for="titulo">Título do Grupo</label>
+                    </div>
 
                     <div class="col s12">
+                        <h5 class="bold grey-text">Adicione as permissões ao grupo</h5>
+                    </div>
+
+                    <div class="col s12 l6">
+
+                        <!--Tabela-->
+                        <h:dataTable id="permissoes" value="#{grupoBean.permissoes}" var="permissao" class="responsive-table striped display"
+                                     >
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Permissões Disponíveis"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{permissao.permissao}"/>    
+                                </center>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Adicionar"/>
+                                </f:facet>
+                                <p:commandLink actionListener="#{grupoBean.adicionarPermissao(permissao)}"
+                                               class="btn btn-flat btn-floating waves-effect waves-light green" update="form-grupos">
+                                    <i class="material-icons">add</i>
+                                </p:commandLink>
+                            </h:column>
+                        </h:dataTable>
+
+                        <!--Paginação-->
+                        <ul class="pagination center">
+                            <li class="#{grupoBean.paginaAtiva == 1 ? 'disabled' : 'waves-effect'}">
+                                <p:commandLink actionListener="#{grupoBean.setPaginaAtiva(grupoBean.paginaAtiva - 1)}" 
+                                               disabled="#{grupoBean.paginaAtiva == 1 ? 'true' : 'false'}"
+                                               action="#{grupoBean.getPagina(grupoBean.paginaAtiva)}" update="form-grupos">
+                                    <i class="material-icons">chevron_left</i>
+                                </p:commandLink>
+                            </li>
+                            <ui:repeat value="#{grupoBean.pagination.listaPaginas}" var="num">
+                                <li class="#{num == grupoBean.paginaAtiva ? 'active' : 'waves-effect'}" value="#{num}">
+                                    <p:commandLink actionListener="#{grupoBean.setPaginaAtiva(num)}" action="#{grupoBean.getPagina(num)}" update="form-grupos">
+                                        #{num}
+                                    </p:commandLink>
+                                </li>
+                            </ui:repeat>
+                            <li class="#{grupoBean.pagination.listaPaginas.size() == grupoBean.paginaAtiva ? 'disabled' : 'waves-effect'}">
+                                <p:commandLink actionListener="#{grupoBean.setPaginaAtiva(grupoBean.paginaAtiva + 1)}" 
+                                               disabled="#{grupoBean.paginaAtiva == grupoBean.pagination.listaPaginas.size() ? 'true' : 'false'}"
+                                               action="#{grupoBean.getPagina(grupoBean.paginaAtiva)}" update="form-grupos">
+                                    <i class="material-icons">chevron_right</i>
+                                </p:commandLink>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col s12 l6">
+                        <h:dataTable id="permissoesGrupo" value="#{grupoBean.grupo.permissoes}" var="item" class="highlight responsive-table striped display"
+                                     >
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Permissões do Grupo"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{item.permissao}"/>    
+                                </center>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Remover"/>
+                                </f:facet>
+                                <p:commandLink actionListener="#{grupoBean.removerPermissao(item)}"
+                                               class="btn btn-flat btn-floating waves-effect waves-light red" update="form-grupos">
+                                    <i class="material-icons">delete</i>
+                                </p:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="card-action"></div>
+                        <h5 class="bold grey-text">Adicione os usuários ao grupo</h5>
+                       
+                        <!-- Modal Add -->
+                        <a class="waves-effect waves-light btn btn-floating right" href="#modal1"><i class="material-icons">add</i></a>
+                    </div>
+
+                    <div class="col s12">
+                        <h:dataTable id="usuariosGrupo" value="#{grupoBean.usuarios}" var="usuario" class="responsive-table striped display">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{usuario.nome}"/>    
+                                </center>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Login"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{usuario.username}"/>  
+                                </center>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{usuario.email}"/>  
+                                </center>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="CPF"/>
+                                </f:facet>
+                                <center>
+                                    <h:outputText value="#{usuario.cpf}"/>  
+                                </center>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+
+                    <div class="col s12">
+                        <div class="card-action"></div>
+
+                    </div>
+                    <div class="col s12">
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{onibusBean.salvar()}">
+                                       action="#{grupoBean.salvar()}">
                             <i class="material-icons">check</i>
                         </h:commandLink>
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
@@ -55,5 +158,52 @@
                 </div>
             </div>
         </h:form>
+
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4 class="bold">Usuários do Sistema</h4>
+                <h:dataTable id="usuariosGrupo" value="#{grupoBean.usuarios}" var="usuario" class="responsive-table striped display">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{usuario.nome}"/>    
+                        </center>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Login"/>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{usuario.username}"/>  
+                        </center>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{usuario.email}"/>  
+                        </center>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CPF"/>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{usuario.cpf}"/>  
+                        </center>
+                    </h:column>
+                </h:dataTable>
+            </div>
+            <div class="modal-footer center center-align">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+                <a class="btn tooltipped center btn-floating" data-position="right" data-delay="50" data-tooltip="Adicionar usuários no grupo"><i class="material-icons">arrow_downward</i></a>
+            </div>
+        </div>
+
     </ui:define>
 </ui:composition>

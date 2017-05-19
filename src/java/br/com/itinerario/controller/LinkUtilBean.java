@@ -33,6 +33,10 @@ public class LinkUtilBean {
     public String novoVeiculo() {
         return "/privado/veiculo/formulario.xhtml" + FACES_REDIRECT;
     }
+    
+    public String novoGrupo() {
+        return "/privado/grupos/formulario.xhtml" + FACES_REDIRECT;
+    }
 
     public String listaVeiculos() {
         return "/privado/veiculo/lista.xhtml" + FACES_REDIRECT;

@@ -1,8 +1,10 @@
 package br.com.itinerario.facade;
 
+import br.com.itinerario.business.GrupoBusiness;
 import br.com.itinerario.business.OnibusBusiness;
 import br.com.itinerario.business.PassageiroBusiness;
 import br.com.itinerario.exception.DAOException;
+import br.com.itinerario.model.Grupo;
 
 import br.com.itinerario.model.Onibus;
 import br.com.itinerario.model.Passageiro;
@@ -13,10 +15,12 @@ public class Facade implements Serializable {
 
     private PassageiroBusiness passageiroBusiness;
     private OnibusBusiness onibusBusiness;
+        private GrupoBusiness grupoBusiness;
 
     public Facade() {
         passageiroBusiness = new PassageiroBusiness();
         onibusBusiness = new OnibusBusiness();
+        grupoBusiness = new GrupoBusiness();
     }
 
     // Assento
@@ -165,6 +169,15 @@ public class Facade implements Serializable {
 
     public void listarVendaBilhetes() {
 
+    }
+    
+    // Grupos de Usuario
+    public void cadastrarGrupo(Grupo grupo) throws Exception {
+        grupoBusiness.salvar(grupo);
+    }
+
+    public List<Grupo> listarGrupos() throws Exception {
+        return grupoBusiness.listar();
     }
 
 }

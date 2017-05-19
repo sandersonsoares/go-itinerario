@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.slider').slider();
      $('.tooltipped').tooltip({delay: 50});
     $('select').material_select();
+    $('.modal').modal();
     $('.carousel.carousel-slider').carousel({ fullWidth: true });
     $('.carousel.carousel-slider').carousel({
         padding: 200
