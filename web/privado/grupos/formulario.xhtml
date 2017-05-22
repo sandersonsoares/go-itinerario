@@ -98,7 +98,7 @@
                     <div class="col s12">
                         <div class="card-action"></div>
                         <h5 class="bold grey-text">Adicione os usuários ao grupo</h5>
-                       
+
                         <!-- Modal Add -->
                         <a class="waves-effect waves-light btn btn-floating right" href="#modal1"><i class="material-icons">add</i></a>
                     </div>
@@ -164,39 +164,30 @@
         <div id="modal1" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <h4 class="bold">Usuários do Sistema</h4>
-                <h:dataTable id="usuariosGrupo" value="#{grupoBean.usuarios}" var="usuario" class="responsive-table striped display">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <center>
-                            <h:outputText value="#{usuario.nome}"/>    
-                        </center>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Login"/>
-                        </f:facet>
-                        <center>
-                            <h:outputText value="#{usuario.username}"/>  
-                        </center>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <center>
-                            <h:outputText value="#{usuario.email}"/>  
-                        </center>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="CPF"/>
-                        </f:facet>
-                        <center>
-                            <h:outputText value="#{usuario.cpf}"/>  
-                        </center>
-                    </h:column>
+                <h:dataTable id="selectUsuarios" class="responsive-table striped display" var="usuario" 
+                             value="#{grupoBean.usuarios}">
+                    <f:facet name="header">
+                        <p:selectManyCheckbox id="basic" value="#{checkboxView.selectedConsoles}">
+                        <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                        <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                        <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                    </p:selectManyCheckbox>
+                    </f:facet>
+
+                    
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{usuario.nome}" />
+                    </p:column>
+                    <p:column headerText="Login">
+                        <h:outputText value="#{usuario.username}" />
+                    </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{usuario.email}" />
+                    </p:column>
+                    <p:column headerText="CPF">
+                        <h:outputText value="#{usuario.cpf}" />
+                    </p:column>
                 </h:dataTable>
             </div>
             <div class="modal-footer center center-align">

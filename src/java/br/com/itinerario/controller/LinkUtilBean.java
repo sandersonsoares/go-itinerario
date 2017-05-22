@@ -26,6 +26,14 @@ public class LinkUtilBean {
         }
     }
 
+    public String novoUsuario() {
+        return "/privado/usuario/formulario.xhtml" + FACES_REDIRECT;
+    }
+
+    public String listaUsuarios() {
+        return "/privado/usuario/lista.xhtml" + FACES_REDIRECT;
+    }
+
     public String novoPassageiro() {
         return "/privado/passageiros/formulario.xhtml" + FACES_REDIRECT;
     }
@@ -41,11 +49,11 @@ public class LinkUtilBean {
     public String listaVeiculos() {
         return "/privado/veiculo/lista.xhtml" + FACES_REDIRECT;
     }
-    
+
     public String listaPassageiros() {
         return "/privado/passageiros/lista.xhtml" + FACES_REDIRECT;
     }
-    
+
     public String paginaPrincipal() {
         return "/privado/principal.xhtml" + FACES_REDIRECT;
     }

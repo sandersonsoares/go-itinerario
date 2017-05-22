@@ -11,9 +11,11 @@ import org.primefaces.context.RequestContext;
 public class DefaultBean implements Serializable {
 
     private Facade facade;
+    private LinkUtilBean linkBean;
 
     public DefaultBean() {
         facade = new Facade();
+        linkBean = new LinkUtilBean();
     }
 
     protected void imprimirMensagem(String mensagem) {
@@ -35,5 +37,11 @@ public class DefaultBean implements Serializable {
         RequestContext request = RequestContext.getCurrentInstance();
         request.execute("PF('" + dialog + "').hide()");
     }
+
+    public LinkUtilBean getLinkBean() {
+        return linkBean;
+    }
+    
+    
 
 }
