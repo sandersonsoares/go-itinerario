@@ -2,6 +2,7 @@ package br.com.itinerario.model;
 
 import br.com.itinerario.enums.Permissoes;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -26,6 +27,10 @@ public class Usuario extends Pessoa implements Serializable {
     @Enumerated(EnumType.STRING)
     private List<Permissoes> permissoes;
     private boolean status;
+
+    public Usuario() {
+        this.permissoes = new ArrayList<>();
+    }
 
     public String getUsername() {
         return username;

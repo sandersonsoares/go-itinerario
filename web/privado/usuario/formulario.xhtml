@@ -8,69 +8,88 @@
         <h:form id="form-usuario">
             <div class="card">
                 <div class="row">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>    
+                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>   
 
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="nome" value="#{usuarioBean.usuario.nome}"  class="validate" required="true" requiredMessage="Campo Nome está vazio!"/>
-                        <label class="normal" for="nome">Nome</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="user" value="#{usuarioBean.usuario.username}"  class="validate" required="true" requiredMessage="Campo Nome está vazio!"/>
-                        <label class="normal" for="user">Nome de Usuário</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="senha" value="#{usuarioBean.usuario.senha}"  class="validate" required="true" requiredMessage="Campo Nome está vazio!"/>
-                        <label class="normal" for="senha">Senha</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="cpf" value="#{usuarioBean.usuario.cpf}"  class="validate" required="true" requiredMessage="Campo CPF está vazio!"/>
-                        <label class="normal" for="cpf">CPF</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="email" value="#{usuarioBean.usuario.email}"  class="validate" required="true" requiredMessage="Campo Email está vazio!"/>
-                        <label class="normal" for="email">Email</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="tel" value="#{usuarioBean.usuario.telefone}"  class="validate" required="true" requiredMessage="Campo Telefone está vazio!"/>
-                        <label class="normal" for="tel">Telefone</label>
-                    </div>
-<!--                    <div class="input-field col s12 m4">
-                        <h:inputText id="sexo" value="#{usuarioBean.usuario.sexo}"  class="validate" required="true" requiredMessage="Campo sexo está vazio!"/>
-                        <label class="normal" for="sexo">Sexo</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="data" value="#{usuarioBean.usuario.dataNascimento}"  class="validate" required="true" requiredMessage="Campo Data de Nascimento está vazio!"/>
-                        <label class="normal" for="data">Data de Nacimento</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="rua" value="#{usuarioBean.usuario.endereco.logradouro}"  class="validate" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
-                        <label class="normal" for="rua">Logradouro</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="num" value="#{usuarioBean.usuario.endereco.numero}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
-                        <label class="normal" for="num">Numero</label>
+                    <div class="section col s12">
+                        <h5 class="bold">Dados Pessoais</h5>
+                        <div class="divider col s12"></div>
+
+                        <div class="input-field col s12 m12">
+                            <h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <label class="normal" for="nome">Nome</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:inputText id="user" value="#{usuarioBean.usuario.username}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <label class="normal" for="user">Nome de Usuário</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <label class="normal" for="senha">Senha</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:inputSecret id="csenha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <label class="normal" for="csenha">Confirmar Senha</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <p:inputMask mask="999.999.999-99" id="cpf" value="#{usuarioBean.usuario.cpf}" required="true" requiredMessage="Campo CPF está vazio!"/>
+                            <label class="normal" for="cpf">CPF</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <h:inputText id="email" value="#{usuarioBean.usuario.email}"  class="validate" required="true" requiredMessage="Campo Email está vazio!"/>
+                            <label class="normal" for="email">Email</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <p:inputMask id="tel" mask="(99) 99999-9999" value="#{usuarioBean.usuario.telefone}" required="true" requiredMessage="Campo Telefone está vazio!"/>
+                            <label class="normal" for="tel">Telefone</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:selectOneMenu id="sexo" value="#{usuarioBean.usuario.sexo}" required="true" requiredMessage="Campo Sexo está vazio!">
+                                <f:selectItem value="#{null}" itemLabel="Selecione" class="active"/>
+                                <f:selectItems value="#{pessoaBean.listarSexos}" var="s" itemLabel="#{s.sexo}" itemValue="#{sexo}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Sexo" for="sexo" />
+                        </div>
+                        <div class="input-field col s12 m12">
+                            <input type="date" id="data" class="datepicker" value="#{usuarioBean.usuario.dataNascimento}"/>
+                            <label class="normal" for="data">Data de Nacimento</label>
+                        </div>
                     </div>
 
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="bairro" value="#{usuarioBean.usuario.endereco.bairro}"  class="validate" required="true" requiredMessage="Campo Bairro está vazio!"/>
-                        <label class="normal" for="bairro">Bairro</label>
+
+                    <div class="section col s12">
+                        <h5 class="bold">Endereço</h5>
+                        <div class="divider col s12"></div>
+                        <div class="input-field col s12 m6">
+                            <h:inputText id="rua" value="#{usuarioBean.usuario.endereco.logradouro}"  class="validate" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
+                            <label class="normal" for="rua">Logradouro</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:inputText id="num" value="#{usuarioBean.usuario.endereco.numero}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
+                            <label class="normal" for="num">Numero</label>
+                        </div>
+
+                        <div class="input-field col s12 m3">
+                            <h:inputText id="bairro" value="#{usuarioBean.usuario.endereco.bairro}"  class="validate" required="true" requiredMessage="Campo Bairro está vazio!"/>
+                            <label class="normal" for="bairro">Bairro</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <p:inputMask id="cep" mask="99999-999" value="#{usuarioBean.usuario.endereco.cep}"  class="validate" required="true" requiredMessage="Campo CEP está vazio!"/>
+                            <label class="normal" for="cep">CEP</label>
+                        </div>
+                        <div class="input-field col s12 m3">
+                            <h:inputText id="cidade" value="#{usuarioBean.usuario.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
+                            <label class="normal" for="cidade">Cidade</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <h:inputText id="comp" value="#{usuarioBean.usuario.endereco.complemento}"  class="validate" required="true" requiredMessage="Campo Complemento está vazio!"/>
+                            <label class="normal" for="comp">Complemento</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <h:inputText id="ponto" value="#{usuarioBean.usuario.endereco.pontoReferencia}"  class="validate" required="true" requiredMessage="Campo Ponto de Referência está vazio!"/>
+                            <label class="normal" for="ponto">Ponto de Referência</label>
+                        </div>
                     </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="cep" value="#{usuarioBean.usuario.endereco.cep}"  class="validate" required="true" requiredMessage="Campo CEP está vazio!"/>
-                        <label class="normal" for="cep">CEP</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="cidade" value="#{usuarioBean.usuario.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
-                        <label class="normal" for="cidade">Cidade</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="comp" value="#{usuarioBean.usuario.endereco.complemento}"  class="validate" required="true" requiredMessage="Campo Complemento está vazio!"/>
-                        <label class="normal" for="comp">Complemento</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="ponto" value="#{usuarioBean.usuario.endereco.pontoReferencia}"  class="validate" required="true" requiredMessage="Campo Ponto de Referência está vazio!"/>
-                        <label class="normal" for="ponto">Ponto de Referência</label>
-                    </div>-->
+
 
                     <div class="col s12">
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 

@@ -56,6 +56,14 @@ public class Pessoa implements Serializable{
         this.nome = nome;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -96,17 +104,6 @@ public class Pessoa implements Serializable{
         this.telefone = telefone;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    @Override
-    public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", endereco=" + endereco + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", email=" + email + ", telefone=" + telefone + '}';
-    }
+   
     
 }

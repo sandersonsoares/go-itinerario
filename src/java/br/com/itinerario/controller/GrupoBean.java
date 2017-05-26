@@ -25,7 +25,7 @@ public class GrupoBean extends DefaultBean {
     private Permissoes permissao;
     private List<Permissoes> permissoes;
     private Facade fachada;
-    
+
 //    Paginação
     private int quantidadePorPagina;
     private PaginationUtil pagination;
@@ -36,6 +36,7 @@ public class GrupoBean extends DefaultBean {
         paginaAtiva = 1;
         permissoes = new ArrayList<>();
         fachada = new Facade();
+        this.usuariosSelecionados = new ArrayList<>();
     }
 
     @PostConstruct
@@ -67,8 +68,12 @@ public class GrupoBean extends DefaultBean {
         pagination = new PaginationUtil((List<Object>) (List) this.permissoes, quantidadePorPagina);
         permissoes = (List<Permissoes>) (List) pagination.getListaPaginada();
     }
-    
-    public void salvar(){
+
+    public void adicionarUsuarios() {
+        System.out.println(this.usuariosSelecionados);
+    }
+
+    public void salvar() {
         try {
             fachada.cadastrarGrupo(grupo);
         } catch (Exception ex) {
@@ -152,5 +157,5 @@ public class GrupoBean extends DefaultBean {
     public void setUsuariosSelecionados(List<Usuario> usuariosSelecionados) {
         this.usuariosSelecionados = usuariosSelecionados;
     }
-    
+
 }
