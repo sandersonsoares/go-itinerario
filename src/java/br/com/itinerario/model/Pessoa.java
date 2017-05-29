@@ -3,6 +3,7 @@ package br.com.itinerario.model;
 import br.com.itinerario.enums.Sexo;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,8 +39,12 @@ public class Pessoa implements Serializable{
     @NotNull
     @Size(max = 255)
     private String email;
-    private int telefone;
+    private String telefone;
 
+    public Pessoa() {
+        endereco = new Endereco();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -96,14 +101,33 @@ public class Pessoa implements Serializable{
         this.email = email;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-   
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

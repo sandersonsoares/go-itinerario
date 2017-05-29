@@ -33,6 +33,10 @@ public class LinkUtilBean {
     public String listaUsuarios() {
         return "/privado/usuario/lista.xhtml" + FACES_REDIRECT;
     }
+    
+    public String editarUsuario(Long id) {
+        return "/privado/usuario/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
+    }
 
     public String novoPassageiro() {
         return "/privado/passageiros/formulario.xhtml" + FACES_REDIRECT;
@@ -44,6 +48,10 @@ public class LinkUtilBean {
     
     public String novoGrupo() {
         return "/privado/grupos/formulario.xhtml" + FACES_REDIRECT;
+    }
+    
+    public String listaGrupos() {
+        return "/privado/grupos/lista.xhtml" + FACES_REDIRECT;
     }
 
     public String listaVeiculos() {

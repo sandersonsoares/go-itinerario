@@ -1,5 +1,8 @@
 package br.com.itinerario.controller;
 
+import br.com.itinerario.enums.Estados;
+import br.com.itinerario.enums.Sexo;
+import br.com.itinerario.exception.DAOException;
 import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Usuario;
 import java.io.Serializable;
@@ -11,6 +14,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -21,23 +25,47 @@ public class UsuarioBean extends DefaultBean implements Serializable {
     private Facade fachada;
     private String busca;
 
+    private RequestBean requestBean;
+
     public UsuarioBean() {
         usuario = new Usuario();
     }
 
     @PostConstruct
     private void init() {
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+
         fachada = new Facade();
+        if (id != null) {
+            try {
+                this.usuario = fachada.buscarUsuario(Long.parseLong(id));
+            } catch (DAOException ex) {
+                imprimirErro(ex.getMessage());
+            }
+        }
+
         try {
             usuarios = fachada.listarUsuarios();
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+            imprimirErro(ex.getMessage());
         }
+    }
+
+    public Sexo[] getListarSexos() {
+        return Sexo.values();
+    }
+
+    public Estados[] getListarEstados() {
+        return Estados.values();
     }
 
     public String salvar() {
         try {
-            fachada.cadastrarUsuario(usuario);
+            if (usuario.getId() != null) {
+                fachada.atualizarUsuario(usuario);
+            } else {
+                fachada.cadastrarUsuario(usuario);
+            }
             return getLinkBean().listaUsuarios();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
@@ -49,7 +77,7 @@ public class UsuarioBean extends DefaultBean implements Serializable {
         try {
             usuarios = fachada.listarUsuarios();
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+            imprimirErro(ex.getMessage());
         }
 
         Iterator<Usuario> intUsuario = this.usuarios.iterator();

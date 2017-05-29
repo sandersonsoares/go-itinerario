@@ -19,4 +19,15 @@ $(document).ready(function () {
         selectYears: 15 // Creates a dropdown of 15 years to control year
     });
 
+
+
 })
+
+
+function abrirDialog($nomeDialog) {
+    $($nomeDialog).modal('open');
+}
+
+function abrirDialog($nomeDialog) {
+    $($nomeDialog).modal('close');
+}

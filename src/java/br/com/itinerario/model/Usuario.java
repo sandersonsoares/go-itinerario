@@ -1,13 +1,8 @@
 package br.com.itinerario.model;
 
-import br.com.itinerario.enums.Permissoes;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,14 +17,12 @@ public class Usuario extends Pessoa implements Serializable {
     @NotNull
     @Size(min = 6, max = 20)
     private String senha;
-    
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
-    private List<Permissoes> permissoes;
+    @OneToOne
+    private Grupo grupo;
     private boolean status;
 
     public Usuario() {
-        this.permissoes = new ArrayList<>();
+        grupo = new Grupo();
     }
 
     public String getUsername() {
@@ -48,14 +41,6 @@ public class Usuario extends Pessoa implements Serializable {
         this.senha = senha;
     }
 
-    public List<Permissoes> getPermissoes() {
-        return permissoes;
-    }
-
-    public void setPermissoes(List<Permissoes> permissoes) {
-        this.permissoes = permissoes;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -64,4 +49,17 @@ public class Usuario extends Pessoa implements Serializable {
         this.status = status;
     }
 
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+    
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }

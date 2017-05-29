@@ -19,7 +19,7 @@ public class GrupoBusiness {
      private DaoGeneric gruposDao;
 
     public GrupoBusiness() {
-        this.gruposDao = DAOFactory.createOnibusDAO();
+        this.gruposDao = DAOFactory.createGrupoDAO();
     }
     
      public void salvar(Grupo grupo) throws DAOException {

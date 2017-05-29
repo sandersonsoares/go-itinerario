@@ -6,9 +6,12 @@
         <nav>
             <div class="nav-wrapper cor-principal">
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                <h:form>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a>Go. Sistema Itineráio</a></li>
+                    <li><h:commandLink actionListener="#{requestBean.logout()}">Sair</h:commandLink></li>
                 </ul>
+                </h:form>
             </div>
         </nav>
     </header>

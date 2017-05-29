@@ -139,16 +139,24 @@ public class Facade implements Serializable {
     }
 
     // Usuario
+    public Usuario logarUsuario(String login) {
+        return usuarioBusiness.logarUsuario(login);
+    }
+    
     public void cadastrarUsuario(Usuario usuario) throws Exception {
         usuarioBusiness.salvar(usuario);
+    }
+    
+    public void atualizarUsuario(Usuario usuario) throws Exception {
+        usuarioBusiness.atualizar(usuario);
     }
 
     public void removerUsuario() {
 
     }
 
-    public void buscarUsuario() {
-
+    public Usuario buscarUsuario(Long id) throws DAOException {
+        return usuarioBusiness.buscar(id);
     }
 
     public List<Usuario> listarUsuarios() throws Exception {
@@ -181,5 +189,4 @@ public class Facade implements Serializable {
         return grupoBusiness.listar();
     }
 
-    
 }

@@ -10,11 +10,16 @@
                     <!--<img src="images/office.jpg"/>-->
                 </div>
                 <a href="#!user"><img class="circle z-depth-5" src="https://daks2k3a4ib2z.cloudfront.net/582b31f886dc4d6a59a7f316/582c30ecbf8884fe1c33387f_FlorianWeber.jpg"/></a>
-                <a href="#!name"><span class="white-text name medium">John Doe</span></a>
-                <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                <a href="#!name"><span class="white-text name medium">#{requestBean.usuarioLogado.nome}</span></a>
+                <a href="#!email"><span class="white-text email">#{requestBean.usuarioLogado.email}</span></a>
             </div></li>
 
         <h:form id="form-sidebar">
+            <li>
+                <h:commandLink action="#{linkUtilBean.paginaPrincipal()}">
+                    <i class="material-icons">home</i> Início
+                </h:commandLink>
+            </li>
             <li><div class="divider"></div></li>
             <li><a class="subheader">Principal</a></li>
             <li>
@@ -35,12 +40,12 @@
             <li><div class="divider"></div></li>
             <li><a class="subheader">Administrativo</a></li>
             <li>
-                <h:commandLink action="#{linkUtilBean.novoUsuario()}">
+                <h:commandLink action="#{linkUtilBean.listaUsuarios()}">
                     <i class="material-icons">people</i> Usuários
                 </h:commandLink>    
             </li>
             <li>
-                <h:commandLink action="#{linkUtilBean.novoGrupo()}">
+                <h:commandLink action="#{linkUtilBean.listaGrupos()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_GRUPOS')}">
                     <i class="material-icons">group_work</i> Grupos
                 </h:commandLink>    
             </li>

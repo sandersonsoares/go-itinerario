@@ -139,6 +139,11 @@ option:hover, option:focus, option::-moz-selection {
   background: gray;
   text-shadow: none; }
 
+#login {
+  background-image: url("../img/bg-login.jpg");
+  height: 100vh;
+  background-size: cover; }
+
 .cor-principal {
   background: #183A56 !important; }
 

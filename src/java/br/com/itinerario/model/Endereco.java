@@ -1,6 +1,7 @@
 package br.com.itinerario.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,15 +13,19 @@ public class Endereco implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
-    private String Logradouro;
+    private String logradouro;
     private int numero;
-    private int cep;
+    private String cep;
     private String bairro;
     private String pontoReferencia;
     private String complemento;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cidade cidade;
 
+    public Endereco() {
+        cidade = new Cidade();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -30,11 +35,11 @@ public class Endereco implements Serializable{
     }
 
     public String getLogradouro() {
-        return Logradouro;
+        return logradouro;
     }
 
     public void setLogradouro(String Logradouro) {
-        this.Logradouro = Logradouro;
+        this.logradouro = Logradouro;
     }
 
     public int getNumero() {
@@ -45,11 +50,11 @@ public class Endereco implements Serializable{
         this.numero = numero;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

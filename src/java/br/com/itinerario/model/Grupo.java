@@ -4,6 +4,7 @@ import br.com.itinerario.enums.Permissoes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,12 +27,9 @@ public class Grupo implements Serializable{
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<Permissoes> permissoes;
-    @OneToMany
-    private List<Usuario> usuarios;
 
     public Grupo() {
         this.permissoes = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
     }
     
     public String getTitulo() {
@@ -51,14 +48,6 @@ public class Grupo implements Serializable{
         this.permissoes = permissoes;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
     public Long getId() {
         return id;
     }
@@ -66,5 +55,26 @@ public class Grupo implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Grupo other = (Grupo) obj;
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -29,92 +29,40 @@
                     </div> 
                 </div>
 
-                <h:dataTable id="usuarioTable" value="#{usuarioBean.usuarios}" var="item" class="highlight responsive-table striped">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome de Usuário"/>
-                        </f:facet>
-                        <h:outputText value="#{item.username}"/>
-                    </h:column>
+                <h:dataTable id="usuarioTable" value="#{usuarioBean.usuarios}" var="usuario" class="centered responsive-table striped">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nome"/>
                         </f:facet>
-                        <h:outputText value="#{item.nome}"/>
+                        <h:outputText value="#{usuario.nome}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="CPF"/>
+                            <h:outputText value="Nome de Usuário"/>
                         </f:facet>
-                        <h:outputText value="#{item.cpf}"/>
+                        <h:outputText value="#{usuario.username}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Email"/>
                         </f:facet>
-                        <h:outputText value="#{item.email}"/>
+                        <h:outputText value="#{usuario.email}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Telefone"/>
+                            <h:outputText value="Grupo"/>
                         </f:facet>
-                        <h:outputText value="#{item.telefone}"/>
+                        <h:outputText value="#{usuario.grupo.titulo}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Sexo"/>
+                            <h:outputText value="Ações"/>
                         </f:facet>
-                        <h:outputText value="#{item.sexo}"/>
+                        <h:commandLink action="#{linkUtilBean.editarUsuario(usuario.id)}">
+                            <i class="material-icons orange-text">edit</i>
+                        </h:commandLink>
+                        <i class="material-icons red-text">cancel</i>
                     </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Data de Nascimento"/>
-                        </f:facet>
-                        <h:outputText value="#{item.dataNascimento}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Logradouro"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.logradouro}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Numero"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.numero}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Bairro"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.bairro}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="CEP"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.cep}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Cidade"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.cidade}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Complemento"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.complemento}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ponto de Referencia"/>
-                        </f:facet>
-                        <h:outputText value="#{item.endereco.pontoReferencia}"/>
-                    </h:column>
-
                 </h:dataTable>
             </div>
         </h:form>

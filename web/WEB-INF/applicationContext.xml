@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans	
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    <http use-expressions="true">
+        
+        <!--Acesso ao Sistema-->
+        <intercept-url pattern="/faces/privado/**" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
+        
+        <!--Usuarios-->
+        
+        
+        <!--Passageiros-->
+        
+        <!--Veiculos-->
+        
+        <!--Grupos-->
+        <intercept-url pattern="/faces/privado/grupos/" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>
+        
+        <form-login login-page="/faces/index.xhtml" login-processing-url="/j_spring_security_check"
+                    always-use-default-target="false" default-target-url="/faces/privado/principal.xhtml"
+                    username-parameter="j_username" password-parameter="j_password"
+                    authentication-failure-url="/faces/index.xhtml" />
+        <access-denied-handler error-page="/faces/privado/principal.xhtml"/>
+        <logout logout-url="/j_spring_security_logout" />
+        <remember-me />
+    </http>
+
+    <beans:bean class="br.com.itinerario.security.UserDetailServiceImpl" id="userDetailService"></beans:bean>
+    
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailService">
+        </authentication-provider>
+    </authentication-manager>
+        
+</beans:beans>
