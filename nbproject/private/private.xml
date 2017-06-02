@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/web/privado/usuario/formulario.xhtml</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/src/java/br/com/itinerario/utils/PermissoesUtil.java</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/web/privado/usuario/lista.xhtml</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/src/java/br/com/itinerario/enums/Permissoes.java</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/src/java/br/com/itinerario/controller/LinkUtilBean.java</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/web/WEB-INF/templates/sidebar.xhtml</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/web/WEB-INF/applicationContext.xml</file>
-            <file>file:/C:/Users/sande/Documents/NetBeansProjects/ItinerarioWeb/src/java/br/com/itinerario/controller/UsuarioBean.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

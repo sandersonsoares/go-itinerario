@@ -61,6 +61,10 @@ public class LinkUtilBean {
     public String listaGrupos() {
         return "/privado/grupos/lista.xhtml" + FACES_REDIRECT;
     }
+    
+    public String editarGrupo(Long id) {
+        return "/privado/grupos/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
+    }
 
     public String listaVeiculos() {
         return "/privado/veiculo/lista.xhtml" + FACES_REDIRECT;

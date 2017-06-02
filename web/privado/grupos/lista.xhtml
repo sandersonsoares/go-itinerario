@@ -6,7 +6,7 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <h:form id="form-onibus-list" class="card">
+        <h:form id="form-grupos-list" class="card">
             <div class="fixed-action-btn">
                 <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
                                action="#{linkUtilBean.novoGrupo()}">
@@ -17,18 +17,6 @@
             <div class="row">
                 <h4 class="bold">Lista de Grupos</h4>
                 <div class="card-action"></div>
-
-                <!--                <div class="row">
-                                    <div class="col s10 l11 input-field">
-                                        <h:inputText id="busca" value="#{onibusBean.busca}"  class="validate"/>
-                                        <label class="normal" for="busca">Busca</label>
-                                    </div>
-                                    <div class="col s2 l1">
-                                        <p:commandLink class="waves-effect waves-light btn-floating btn-large" actionListener="#{onibusBean.filtrar()}" update="veiculosTable">
-                                            <i class="material-icons">search</i>
-                                        </p:commandLink>
-                                    </div> 
-                                </div>-->
 
                 <h:dataTable id="veiculosTable" value="#{grupoBean.grupos}" var="grupo" class="responsive-table striped centered">
                     <h:column>
@@ -41,11 +29,19 @@
                         <f:facet name="header">
                             <h:outputText value="Permissões"/>
                         </f:facet>
-                      
+
                         <p:commandLink actionListener="#{grupoBean.verPermissoesGrupo(grupo)}" oncomplete="abrirDialog('#permissoes');"  update=":form-permissoes:tabela-p">
                             <i class="material-icons purple-text">lock</i>
                         </p:commandLink>
 
+                    </h:column>
+                    <h:column rendered="#{request.isUserInRole('ROLE_EDITAR_GRUPOS')}">
+                        <f:facet name="header">
+                            <h:outputText value="Ações"/>
+                        </f:facet>
+                        <p:commandLink action="#{linkUtilBean.editarGrupo(grupo.id)}">
+                            <i class="material-icons orange-text">edit</i>
+                        </p:commandLink>
                     </h:column>
                 </h:dataTable>
             </div>

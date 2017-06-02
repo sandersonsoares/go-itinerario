@@ -10,11 +10,11 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 public class DefaultBean implements Serializable {
 
-    protected Facade facade;
-    private LinkUtilBean linkBean;
+    protected Facade fachada;
+    protected LinkUtilBean linkBean;
 
     public DefaultBean() {
-        facade = new Facade();
+        fachada = new Facade();
         linkBean = new LinkUtilBean();
     }
 
@@ -37,11 +37,5 @@ public class DefaultBean implements Serializable {
         RequestContext request = RequestContext.getCurrentInstance();
         request.execute("PF('" + dialog + "').hide()");
     }
-
-    public LinkUtilBean getLinkBean() {
-        return linkBean;
-    }
-    
-    
 
 }

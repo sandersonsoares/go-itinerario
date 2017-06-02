@@ -10,6 +10,10 @@ public class Passageiro extends Pessoa implements Serializable{
     
     private boolean estudante;
 
+    public Passageiro() {
+        this.estudante = false;
+    }
+    
     public boolean isEstudante() {
         return estudante;
     }

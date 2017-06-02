@@ -2,15 +2,11 @@ package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Estados;
 import br.com.itinerario.enums.Sexo;
-import br.com.itinerario.exception.DAOException;
-import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,30 +18,26 @@ public class UsuarioBean extends DefaultBean implements Serializable {
 
     private Usuario usuario;
     private List<Usuario> usuarios;
-    private Facade fachada;
     private String busca;
 
     private RequestBean requestBean;
 
     public UsuarioBean() {
-        usuario = new Usuario();
+        super();
+        requestBean = new RequestBean();
     }
 
     @PostConstruct
     private void init() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 
-        fachada = new Facade();
-        if (id != null) {
-            try {
-                this.usuario = fachada.buscarUsuario(Long.parseLong(id));
-            } catch (DAOException ex) {
-                imprimirErro(ex.getMessage());
-            }
-        }
-
         try {
-            usuarios = fachada.listarUsuarios();
+            if (id != null) {
+                this.usuario = fachada.buscarUsuario(Long.parseLong(id));
+            } else {
+                this.usuario = new Usuario();
+            }
+            this.usuarios = fachada.listarUsuarios();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
@@ -61,12 +53,8 @@ public class UsuarioBean extends DefaultBean implements Serializable {
 
     public String salvar() {
         try {
-            if (usuario.getId() != null) {
-                fachada.atualizarUsuario(usuario);
-            } else {
-                fachada.cadastrarUsuario(usuario);
-            }
-            return getLinkBean().listaUsuarios();
+            fachada.cadastrarUsuario(usuario);
+            return this.linkBean.listaUsuarios();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }

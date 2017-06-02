@@ -11,8 +11,7 @@ import java.util.List;
 public class PermissoesUtil {
 
 //    PERMISSOES ////////////////////////////////
-    // Sistema
-    private boolean acessoSistema;
+
     // Passageiros
     private boolean cadastroPassageiros;
     private boolean visualizarPassageiros;
@@ -33,67 +32,117 @@ public class PermissoesUtil {
     private boolean visualizarGrupos;
     private boolean alterarGrupos;
     private boolean removerGrupos;
-    
-/////////////////////////////////////////////////
 
+/////////////////////////////////////////////////
 //    Variaveis
     private List<Permissoes> permissoes;
 
     public List<Permissoes> toForm() {
         this.permissoes = new ArrayList<>();
-        if (cadastroPassageiros){
+        
+        if (cadastroPassageiros) {
             permissoes.add(Permissoes.ROLE_CADASTRAR_PASSAGEIROS);
         }
-        if (visualizarPassageiros){
+        if (visualizarPassageiros) {
             permissoes.add(Permissoes.ROLE_VISUALIZAR_PASSAGEIROS);
         }
-        if (alterarPassageiros){
+        if (alterarPassageiros) {
             permissoes.add(Permissoes.ROLE_ALTERAR_PASSAGEIROS);
         }
-        if (removerPassageiros){
+        if (removerPassageiros) {
             permissoes.add(Permissoes.ROLE_REMOVER_PASSAGEIROS);
         }
-        if (cadastroVeiculos){
+        if (cadastroVeiculos) {
             permissoes.add(Permissoes.ROLE_CADASTRAR_VEICULOS);
         }
-        if (visualizarVeiculos){
+        if (visualizarVeiculos) {
             permissoes.add(Permissoes.ROLE_VISUALIZAR_VEICULOS);
         }
-        if (alterarVeiculos){
+        if (alterarVeiculos) {
             permissoes.add(Permissoes.ROLE_ALTERAR_VEICULOS);
         }
-        if (removerVeiculos){
+        if (removerVeiculos) {
             permissoes.add(Permissoes.ROLE_REMOVER_VEICULOS);
         }
-        if (cadastroUsuarios){
+        if (cadastroUsuarios) {
             permissoes.add(Permissoes.ROLE_CADASTRAR_USUARIOS);
         }
-        if (visualizarUsuarios){
+        if (visualizarUsuarios) {
             permissoes.add(Permissoes.ROLE_VISUALIZAR_USUARIOS);
         }
-        if (alterarUsuarios){
+        if (alterarUsuarios) {
             permissoes.add(Permissoes.ROLE_ALTERAR_USUARIOS);
         }
-        if (removerUsuarios){
+        if (removerUsuarios) {
             permissoes.add(Permissoes.ROLE_REMOVER_USUARIOS);
         }
-        if (cadastroGrupos){
+        if (cadastroGrupos) {
             permissoes.add(Permissoes.ROLE_CADASTRAR_GRUPOS);
         }
-        if (visualizarGrupos){
+        if (visualizarGrupos) {
             permissoes.add(Permissoes.ROLE_VISUALIZAR_GRUPOS);
         }
-        if (alterarGrupos){
+        if (alterarGrupos) {
             permissoes.add(Permissoes.ROLE_ALTERAR_GRUPOS);
         }
-        if (removerGrupos){
+        if (removerGrupos) {
             permissoes.add(Permissoes.ROLE_REMOVER_GRUPOS);
         }
-        if (acessoSistema) {
-            permissoes.add(Permissoes.ROLE_ACESSO_SISTEMA);
-        }
-        
+
+        permissoes.add(Permissoes.ROLE_ACESSO_SISTEMA);
+
         return permissoes;
+    }
+
+    public void fromForm(List<Permissoes> permissoes) {
+        if (permissoes.contains(Permissoes.ROLE_CADASTRAR_PASSAGEIROS)) {
+            cadastroPassageiros = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_VISUALIZAR_PASSAGEIROS)) {
+            visualizarPassageiros = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_ALTERAR_PASSAGEIROS)) {
+            alterarPassageiros = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_REMOVER_PASSAGEIROS)) {
+            removerPassageiros = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_CADASTRAR_VEICULOS)) {
+            cadastroVeiculos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_VISUALIZAR_VEICULOS)) {
+            visualizarVeiculos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_ALTERAR_VEICULOS)) {
+            alterarVeiculos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_REMOVER_VEICULOS)) {
+            removerVeiculos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_CADASTRAR_USUARIOS)) {
+            cadastroUsuarios = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_VISUALIZAR_USUARIOS)) {
+            visualizarUsuarios = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_ALTERAR_USUARIOS)) {
+            alterarUsuarios = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_REMOVER_USUARIOS)) {
+            removerUsuarios = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_CADASTRAR_GRUPOS)) {
+            cadastroGrupos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_ALTERAR_GRUPOS)) {
+            alterarGrupos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_VISUALIZAR_GRUPOS)) {
+            visualizarGrupos = true;
+        }
+        if (permissoes.contains(Permissoes.ROLE_REMOVER_GRUPOS)) {
+            removerGrupos = true;
+        }
     }
 
     public boolean getCadastroPassageiros() {
@@ -224,14 +273,6 @@ public class PermissoesUtil {
         this.removerGrupos = removerGrupos;
     }
 
-    public boolean isAcessoSistema() {
-        return acessoSistema;
-    }
-
-    public void setAcessoSistema(boolean acessoSistema) {
-        this.acessoSistema = acessoSistema;
-    }
-
     public List<Permissoes> getPermissoes() {
         return permissoes;
     }
@@ -240,5 +281,4 @@ public class PermissoesUtil {
         this.permissoes = permissoes;
     }
 
-    
 }

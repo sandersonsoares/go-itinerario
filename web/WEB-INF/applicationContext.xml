@@ -10,25 +10,29 @@
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <http use-expressions="true">
         
-<!--        Acesso ao Sistema
+        <!--Acesso ao Sistema-->
         <intercept-url pattern="/faces/privado/**" access="hasRole('ROLE_ACESSO_SISTEMA')"/>
         
-        Usuarios
-        <intercept-url pattern="/faces/privado/usuario/" access="hasRole('ROLE_VISUALIZAR_USUARIOS')"/>
+        <!--Usuarios-->
+        <intercept-url pattern="/faces/privado/usuario/*" access="hasRole('ROLE_VISUALIZAR_USUARIOS')"/>
+        <intercept-url pattern="/faces/privado/usuario/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_USUARIOS', 'ROLE_EDITAR_USUARIOS')"/>
         
-        Passageiros
-        <intercept-url pattern="/faces/privado/passageiros/" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
+        <!--Passageiros-->
+        <intercept-url pattern="/faces/privado/passageiros/*" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
+        <intercept-url pattern="/faces/privado/passageiros/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_PASSAGEIROS', 'ROLE_EDITAR_PASSAGEIROS')"/>
         
-        Veiculos
-        <intercept-url pattern="/faces/privado/veiculo/" access="hasRole('ROLE_VISUALIZAR_VEICULOS')"/>
+        <!--Veiculos-->
+        <intercept-url pattern="/faces/privado/veiculo/*" access="hasRole('ROLE_VISUALIZAR_VEICULOS')"/>
+        <intercept-url pattern="/faces/privado/veiculo/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_VEICULOS', 'ROLE_EDITAR_VEICULOS')"/>
         
-        Grupos
-        <intercept-url pattern="/faces/privado/grupos/" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>-->
+        <!--Grupos-->
+        <intercept-url pattern="/faces/privado/grupos/*" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>
+        <intercept-url pattern="/faces/privado/grupos/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_GRUPOS', 'ROLE_EDITAR_GRUPOS')"/>
         
         <form-login login-page="/faces/index.xhtml" login-processing-url="/j_spring_security_check"
                     always-use-default-target="false" default-target-url="/faces/privado/principal.xhtml"
                     username-parameter="j_username" password-parameter="j_password"
-                    authentication-failure-url="/faces/index.xhtml" />
+                    authentication-failure-url="/faces/index.xhtml?i=erro" />
         <access-denied-handler error-page="/faces/privado/principal.xhtml"/>
         <logout logout-url="/j_spring_security_logout" />
         <remember-me />

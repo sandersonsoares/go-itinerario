@@ -126,10 +126,10 @@
                     <div class="col s12">
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
                                        action="#{grupoBean.salvar()}">
-                            <i class="material-icons">check</i>
+                            <i class="material-icons">#{grupoBean.grupo.id == null ? 'check' : 'sync'}</i>
                         </h:commandLink>
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaVeiculos()}">
+                                       action="#{linkUtilBean.listaGrupos()}">
                             <i class="material-icons">close</i>
                         </h:commandLink>
                     </div>

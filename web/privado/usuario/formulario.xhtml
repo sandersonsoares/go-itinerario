@@ -44,23 +44,27 @@
                         <div class="divider col s12"></div>
 
                         <div class="input-field col s12 m4">
-                            <h:inputText id="user" value="#{usuarioBean.usuario.username}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <h:inputText id="user" value="#{usuarioBean.usuario.username}" 
+                                         required="true" requiredMessage="Campo Nome está vazio!"/>
                             <label class="normal" for="user">Nome de Usuário</label>
                         </div>
                         <div class="input-field col s12 m4">
-                            <h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
+                                           required="true" requiredMessage="Campo Nome está vazio!"/>
                             <label class="normal" for="senha">Senha</label>
                         </div>
                         <div class="input-field col s12 m4">
-                            <h:inputSecret id="csenha" value="#{usuarioBean.usuario.senha}" required="true" requiredMessage="Campo Nome está vazio!"/>
+                            <h:inputSecret id="csenha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
+                                           required="true" requiredMessage="Campo Nome está vazio!"/>
                             <label class="normal" for="csenha">Confirmar Senha</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <h:inputText id="email" value="#{usuarioBean.usuario.email}"  class="validate" required="true" requiredMessage="Campo Email está vazio!"/>
+                            <h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Campo Email está vazio!"/>
                             <label class="normal" for="email">Email</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <h:selectOneMenu id="grupos" value="#{usuarioBean.usuario.grupo}" converter="GrupoConverter">
+                            <h:selectOneMenu id="grupos" value="#{usuarioBean.usuario.grupo}" disabled="#{usuarioBean.usuario.id != null}"
+                                             converter="GrupoConverter">
                                 <f:selectItem  itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{grupoBean.grupos}" var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.titulo}"/>
                             </h:selectOneMenu>

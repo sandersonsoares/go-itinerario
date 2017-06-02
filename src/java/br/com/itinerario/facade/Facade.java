@@ -121,8 +121,8 @@ public class Facade implements Serializable {
         passageiroBusiness.remover(passageiro);
     }
 
-    public void buscarPassageiro() {
-
+    public Passageiro buscarPassageiro(Long id) throws DAOException{
+        return passageiroBusiness.buscar(id);
     }
 
     public List<Passageiro> listarPassageiros() throws DAOException {
@@ -191,6 +191,10 @@ public class Facade implements Serializable {
     // Grupos de Usuario
     public void cadastrarGrupo(Grupo grupo) throws Exception {
         grupoBusiness.salvar(grupo);
+    }
+    
+    public Grupo buscarGrupo(Long id) throws Exception {
+        return grupoBusiness.buscarGrupo(id);
     }
 
     public List<Grupo> listarGrupos() throws Exception {

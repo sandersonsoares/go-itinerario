@@ -1,16 +1,14 @@
 package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Permissoes;
-import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Grupo;
 import br.com.itinerario.utils.PermissoesUtil;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -18,39 +16,47 @@ public class GrupoBean extends DefaultBean {
 
     private Grupo grupo;
     private List<Grupo> grupos;
-    
+
     private Permissoes permissao;
     private List<Permissoes> permissoes;
     private PermissoesUtil permissoesUtil;
 
-    private Facade fachada;
-
     public GrupoBean() {
-        this.grupo = new Grupo();
+        super();
         permissoes = new ArrayList<>();
         permissoesUtil = new PermissoesUtil();
-        fachada = new Facade();
     }
 
     @PostConstruct
     private void init() {
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+
         try {
+            if (id != null) {
+                this.grupo = fachada.buscarGrupo(Long.parseLong(id));
+                permissoesUtil.fromForm(grupo.getPermissoes());
+            } else {
+                this.grupo = new Grupo();
+            }
+
             grupos = fachada.listarGrupos();
         } catch (Exception ex) {
-            Logger.getLogger(GrupoBean.class.getName()).log(Level.SEVERE, null, ex);
+            imprimirErro(ex.getMessage());
         }
     }
 
-    public void salvar() {
+    public String salvar() {
         try {
             grupo.setPermissoes(this.permissoesUtil.toForm());
             fachada.cadastrarGrupo(grupo);
+            return this.linkBean.listaGrupos();
         } catch (Exception ex) {
-            Logger.getLogger(GrupoBean.class.getName()).log(Level.SEVERE, null, ex);
+            imprimirErro(ex.getMessage());
         }
+        return null;
     }
-    
-    public void verPermissoesGrupo(Grupo grupo){
+
+    public void verPermissoesGrupo(Grupo grupo) {
         this.permissoes = grupo.getPermissoes();
     }
 

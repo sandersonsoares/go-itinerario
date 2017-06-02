@@ -30,39 +30,40 @@
                     </div> 
                 </div>
 
-                <h:dataTable id="passageirosTable" value="#{pessoaBean.passageirosList}" var="item" class="highlight responsive-table striped">
+                <h:dataTable id="passageirosTable" value="#{pessoaBean.passageiros}" var="passageiro" class="centered responsive-table striped">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Cpf"/>
                         </f:facet>
-                        <h:outputText value="#{item.cpf}"/>
+                        <h:outputText value="#{passageiro.cpf}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nome"/>
                         </f:facet>
-                        <h:outputText value="#{item.nome}"/>
+                        <h:outputText value="#{passageiro.nome}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Sexo"/>
                         </f:facet>
-                        <h:outputText value="#{item.sexo}"/>
+                        <h:outputText value="#{passageiro.sexo}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Email"/>
                         </f:facet>
-                        <h:outputText value="#{item.email}"/>
+                        <h:outputText value="#{passageiro.email}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Ações"/>
                         </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarPassageiro(item.id)}">
+                        <h:commandLink action="#{linkUtilBean.editarPassageiro(passageiro.id)}" rendered="#{request.isUserInRole('ROLE_EDITAR_PASSAGEIROS')}">
                             <i class="material-icons orange-text">edit</i>
                         </h:commandLink>
-                        <p:commandLink action="#{onibusBean.removerOnibus(item)}" update=":passageirosTable">
+                        <p:commandLink action="#{pessoaBean.removerPassageiro(passageiro)}" rendered="#{request.isUserInRole('ROLE_EDITAR_PASSAGEIROS')}" 
+                                       update="passageirosTable">
                             <i class="material-icons red-text">cancel</i>
                         </p:commandLink>
                     </h:column>

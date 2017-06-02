@@ -58,7 +58,7 @@
                         <f:facet name="header">
                             <h:outputText value="Ações"/>
                         </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarUsuario(usuario.id)}">
+                        <h:commandLink action="#{linkUtilBean.editarUsuario(usuario.id)}" rendered="#{request.isUserInRole('ROLE_EDITAR_USUARIOS')}">
                             <i class="material-icons orange-text">edit</i>
                         </h:commandLink>
                         <i class="material-icons red-text">cancel</i>

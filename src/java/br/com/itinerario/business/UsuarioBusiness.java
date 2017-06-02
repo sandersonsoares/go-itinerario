@@ -28,7 +28,11 @@ public class UsuarioBusiness {
     }
 
     public synchronized void salvar(Usuario usuario) throws DAOException {
-        usuarioDao.save(usuario);
+        if (usuario.getId() != null) {
+            atualizar(usuario);
+        } else {
+            usuarioDao.save(usuario);
+        }
     }
 
     public synchronized void atualizar(Usuario usuario) throws DAOException {
@@ -48,7 +52,7 @@ public class UsuarioBusiness {
             return usuarioDao.buscarLogin(login);
         } catch (DAOException ex) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), null));
         }
         return null;
     }

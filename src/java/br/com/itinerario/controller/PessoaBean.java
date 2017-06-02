@@ -2,139 +2,118 @@ package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Sexo;
 import br.com.itinerario.exception.DAOException;
-import br.com.itinerario.facade.Facade;
-import br.com.itinerario.model.Cidade;
-import br.com.itinerario.model.Endereco;
-import br.com.itinerario.model.Funcionario;
 import br.com.itinerario.model.Passageiro;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class PessoaBean extends DefaultBean implements Serializable {
-
-    private Funcionario funcionario;
+public class PessoaBean extends DefaultBean {
+    
     private Passageiro passageiro;
-    private List<Passageiro> passageirosList;
-    private Cidade cidade;
-    private Endereco endereco;
+    private List<Passageiro> passageiros;
     private Sexo sexo;
-    private Facade facade;
     private String busca;
-    private LinkUtilBean linkbean;
-
+    
     public PessoaBean() {
-        funcionario = new Funcionario();
-        passageiro = new Passageiro();
-        endereco = new Endereco();
-        cidade = new Cidade();
-        linkbean = new LinkUtilBean();
+        super();
     }
-
+    
     @PostConstruct
     private void init() {
-        facade = new Facade();
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        
         try {
-            passageirosList = facade.listarPassageiros();
-        } catch (DAOException ex) {
-            Logger.getLogger(PessoaBean.class.getName()).log(Level.SEVERE, null, ex);
+            if (id != null) {
+                this.passageiro = this.fachada.buscarPassageiro(Long.parseLong(id));
+            } else {
+                this.passageiro = new Passageiro();
+            }
+            passageiros = this.fachada.listarPassageiros();
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
         }
     }
-
+    
     public void filtrar() {
         try {
-            passageirosList = facade.listarPassageiros();
-        } catch (DAOException ex) {
-            Logger.getLogger(PessoaBean.class.getName()).log(Level.SEVERE, null, ex);
+            passageiros = this.fachada.listarPassageiros();
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
         }
-        Iterator<Passageiro> intOnibus = this.passageirosList.iterator();
+        Iterator<Passageiro> intOnibus = this.passageiros.iterator();
         List<Passageiro> tempList = new ArrayList<Passageiro>();
-
+        
         while (intOnibus.hasNext()) {
             Passageiro passageiro = intOnibus.next();
-
+            
             if (passageiro.getCpf().contains(busca)
                     || passageiro.getEmail().contains(busca)
                     || passageiro.getNome().contains(busca)) {
                 tempList.add(passageiro);
             }
         }
-
-        this.passageirosList = tempList;
+        
+        this.passageiros = tempList;
     }
-
+    
     public String salvarPassageiro() {
         try {
-            facade.cadastrarPassageiro(this.passageiro);
-            return linkbean.listaPassageiros();
+            this.fachada.cadastrarPassageiro(this.passageiro);
+            return this.linkBean.listaPassageiros();
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
         }
         return null;
     }
     
-    public void removerPassageiro(Passageiro passageiro) throws DAOException{
-        facade.removerPassageiro(passageiro);
+    public void removerPassageiro(Passageiro passageiro) {
+        try {
+            this.fachada.removerPassageiro(passageiro);
+        } catch (DAOException ex) {
+            imprimirErro(ex.getMessage());
+        }
     }
     
     public Sexo[] getListarSexos() {
         return Sexo.values();
     }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
+    
     public Passageiro getPassageiro() {
         return passageiro;
     }
-
+    
     public void setPassageiro(Passageiro passageiro) {
         this.passageiro = passageiro;
     }
-
-    public List<Passageiro> getPassageirosList() {
-        return passageirosList;
+    
+    public List<Passageiro> getPassageiros() {
+        return passageiros;
     }
-
-    public void setPassageirosList(List<Passageiro> passageirosList) {
-        this.passageirosList = passageirosList;
+    
+    public void setPassageiros(List<Passageiro> passageiros) {
+        this.passageiros = passageiros;
     }
-
-    public Cidade getCidade() {
-        return cidade;
+    
+    public Sexo getSexo() {
+        return sexo;
     }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
+    
     public String getBusca() {
         return busca;
     }
-
+    
     public void setBusca(String busca) {
         this.busca = busca;
     }
-
+    
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.itinerario.business;
 
 import br.com.itinerario.exception.DAOException;
@@ -25,14 +20,22 @@ public class PassageiroBusiness implements Serializable {
     }
 
     public void salvar(Passageiro passageiro) throws DAOException {
-        passageiroDao.save(passageiro);
+        if (passageiro.getId() != null) {
+            passageiroDao.update(passageiro);
+        } else {
+            passageiroDao.save(passageiro);
+        }
     }
-    
+
     public List<Passageiro> listar() throws DAOException {
-       return passageiroDao.getAll();
+        return passageiroDao.getAll();
     }
-    
-    public void remover(Passageiro passageiro) throws DAOException{
+
+    public Passageiro buscar(Long id) throws DAOException {
+        return (Passageiro) passageiroDao.getById(id);
+    }
+
+    public void remover(Passageiro passageiro) throws DAOException {
         passageiroDao.remove(passageiro);
     }
 }

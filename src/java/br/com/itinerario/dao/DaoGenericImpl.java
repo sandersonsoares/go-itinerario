@@ -48,7 +48,7 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
             tx.begin();
             manager.merge(t);
             manager.flush();
-            manager.refresh(t);
+//            manager.refresh(t);
             tx.commit();
             return t;
         } catch (Exception e) {
@@ -63,12 +63,9 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
         EntityManager manager = PersistenceUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         try {
-            // t = (T) manager.find(classe, t);
-//            manager.getTransaction().begin();
             tx.begin();
             manager.remove(t);
             manager.flush();
-//            manager.getTransaction().commit();
             tx.commit();
             return t;
         } catch (Exception e) {

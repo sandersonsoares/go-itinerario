@@ -16,17 +16,27 @@ import java.util.List;
  * @author Sanderson
  */
 public class GrupoBusiness {
-     private DaoGeneric gruposDao;
+
+    private DaoGeneric gruposDao;
 
     public GrupoBusiness() {
         this.gruposDao = DAOFactory.createGrupoDAO();
     }
-    
-     public void salvar(Grupo grupo) throws DAOException {
-        gruposDao.save(grupo);
+
+    public void salvar(Grupo grupo) throws DAOException {
+        if (grupo.getId() != null) {
+            gruposDao.update(grupo);
+        } else {
+            gruposDao.save(grupo);
+
+        }
     }
 
     public List<Grupo> listar() throws DAOException {
-       return gruposDao.getAll();
+        return gruposDao.getAll();
+    }
+    
+    public Grupo buscarGrupo(Long id) throws DAOException {
+        return (Grupo) gruposDao.getById(id);
     }
 }

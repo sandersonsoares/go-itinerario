@@ -23,12 +23,12 @@
             <li><div class="divider"></div></li>
             <li><a class="subheader">Principal</a></li>
             <li>
-                <h:commandLink action="#{linkUtilBean.listaVeiculos()}">
+                <h:commandLink action="#{linkUtilBean.listaVeiculos()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_VEICULOS')}">
                     <i class="material-icons">directions_bus</i> Veículos
                 </h:commandLink>
             </li>
             <li>
-                <h:commandLink action="#{linkUtilBean.listaPassageiros()}">
+                <h:commandLink action="#{linkUtilBean.listaPassageiros()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_PASSAGEIROS')}">
                     <i class="material-icons">people_outline</i> Passageiros
                 </h:commandLink>
             </li>
@@ -40,7 +40,7 @@
             <li><div class="divider"></div></li>
             <li><a class="subheader">Administrativo</a></li>
             <li>
-                <h:commandLink action="#{linkUtilBean.listaUsuarios()}">
+                <h:commandLink action="#{linkUtilBean.listaUsuarios()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_USUARIOS')}">
                     <i class="material-icons">people</i> Usuários
                 </h:commandLink>    
             </li>
