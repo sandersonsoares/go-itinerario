@@ -103,14 +103,22 @@ public class Facade implements Serializable {
     public List<Onibus> listarOnibus() throws Exception {
         return onibusBusiness.listar();
     }
+    
+    public void removerOnibus(Onibus onibus) throws DAOException{
+        onibusBusiness.remover(onibus);
+    }
+    
+    public Onibus buscarOnibus(Long id) throws DAOException{
+        return onibusBusiness.buscar(id);
+    }
 
     // Passageiro
     public void cadastrarPassageiro(Passageiro passageiro) throws DAOException {
         passageiroBusiness.salvar(passageiro);
     }
 
-    public void removerPassageiro() {
-
+    public void removerPassageiro(Passageiro passageiro) throws DAOException {
+        passageiroBusiness.remover(passageiro);
     }
 
     public void buscarPassageiro() {
@@ -188,5 +196,13 @@ public class Facade implements Serializable {
     public List<Grupo> listarGrupos() throws Exception {
         return grupoBusiness.listar();
     }
+
+    public Onibus buscarOnibus(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+//    public void atualizarOnibus(Onibus onibus) throws Exception {
+//        onibusBusiness.atualizar(onibus);
+//    }
 
 }

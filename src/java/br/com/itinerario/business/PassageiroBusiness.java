@@ -31,4 +31,8 @@ public class PassageiroBusiness implements Serializable {
     public List<Passageiro> listar() throws DAOException {
        return passageiroDao.getAll();
     }
+    
+    public void remover(Passageiro passageiro) throws DAOException{
+        passageiroDao.remove(passageiro);
+    }
 }

@@ -10,18 +10,20 @@
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <http use-expressions="true">
         
-        <!--Acesso ao Sistema-->
-        <intercept-url pattern="/faces/privado/**" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
+<!--        Acesso ao Sistema
+        <intercept-url pattern="/faces/privado/**" access="hasRole('ROLE_ACESSO_SISTEMA')"/>
         
-        <!--Usuarios-->
+        Usuarios
+        <intercept-url pattern="/faces/privado/usuario/" access="hasRole('ROLE_VISUALIZAR_USUARIOS')"/>
         
+        Passageiros
+        <intercept-url pattern="/faces/privado/passageiros/" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
         
-        <!--Passageiros-->
+        Veiculos
+        <intercept-url pattern="/faces/privado/veiculo/" access="hasRole('ROLE_VISUALIZAR_VEICULOS')"/>
         
-        <!--Veiculos-->
-        
-        <!--Grupos-->
-        <intercept-url pattern="/faces/privado/grupos/" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>
+        Grupos
+        <intercept-url pattern="/faces/privado/grupos/" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>-->
         
         <form-login login-page="/faces/index.xhtml" login-processing-url="/j_spring_security_check"
                     always-use-default-target="false" default-target-url="/faces/privado/principal.xhtml"

@@ -10,7 +10,7 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 public class DefaultBean implements Serializable {
 
-    private Facade facade;
+    protected Facade facade;
     private LinkUtilBean linkBean;
 
     public DefaultBean() {

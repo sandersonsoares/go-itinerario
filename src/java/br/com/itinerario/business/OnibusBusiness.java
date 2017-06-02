@@ -10,23 +10,37 @@ import br.com.itinerario.factory.DAOFactory;
 import br.com.itinerario.interfaces.DaoGeneric;
 import br.com.itinerario.model.Onibus;
 import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  *
  * @author Sanderson
  */
 public class OnibusBusiness {
+
     private DaoGeneric onibusDao;
 
     public OnibusBusiness() {
         this.onibusDao = DAOFactory.createOnibusDAO();
     }
-    
-     public void salvar(Onibus onibus) throws DAOException {
-        onibusDao.save(onibus);
+
+    public synchronized void salvar(Onibus onibus) throws DAOException {
+        if (onibus.getId() != null) {
+            onibusDao.update(onibus);
+        } else {
+            onibusDao.save(onibus);
+        }
     }
 
     public List<Onibus> listar() throws DAOException {
-       return onibusDao.getAll();
+        return onibusDao.getAll();
+    }
+
+    public synchronized void remover(Onibus onibus) throws DAOException {
+        onibusDao.remove(onibus);
+    }
+
+    public Onibus buscar(Long id) throws DAOException {
+        return (Onibus) onibusDao.getById(id);
     }
 }

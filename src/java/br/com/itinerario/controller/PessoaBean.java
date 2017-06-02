@@ -81,6 +81,10 @@ public class PessoaBean extends DefaultBean implements Serializable {
         return null;
     }
     
+    public void removerPassageiro(Passageiro passageiro) throws DAOException{
+        facade.removerPassageiro(passageiro);
+    }
+    
     public Sexo[] getListarSexos() {
         return Sexo.values();
     }

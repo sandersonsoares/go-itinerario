@@ -55,6 +55,17 @@
                         </f:facet>
                         <h:outputText value="#{item.email}"/>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Ações"/>
+                        </f:facet>
+                        <h:commandLink action="#{linkUtilBean.editarPassageiro(item.id)}">
+                            <i class="material-icons orange-text">edit</i>
+                        </h:commandLink>
+                        <p:commandLink action="#{onibusBean.removerOnibus(item)}" update=":passageirosTable">
+                            <i class="material-icons red-text">cancel</i>
+                        </p:commandLink>
+                    </h:column>
                 </h:dataTable>
             </div>
         </h:form>

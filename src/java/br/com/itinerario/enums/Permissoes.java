@@ -2,6 +2,8 @@ package br.com.itinerario.enums;
 
 public enum Permissoes {
 
+    //    SISTEMA
+    ROLE_ACESSO_SISTEMA("Cadastro de Sistemas"),
     //    PASSAGEIROS
     ROLE_CADASTRAR_PASSAGEIROS("Cadastro de Passageiros"),
     ROLE_VISUALIZAR_PASSAGEIROS("Visualização de Passageiros"),

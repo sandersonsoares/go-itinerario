@@ -43,11 +43,16 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
     @Override
     public T update(T t) throws DAOException {
         EntityManager manager = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
         try {
+            tx.begin();
             manager.merge(t);
             manager.flush();
+            manager.refresh(t);
+            tx.commit();
             return t;
         } catch (Exception e) {
+            tx.rollback();
             e.printStackTrace();
             throw new DAOException(ExceptionsType.getMessage(ExceptionsType.UPDATE_ERROR), e);
         }
@@ -56,12 +61,18 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
     @Override
     public T remove(T t) throws DAOException {
         EntityManager manager = PersistenceUtil.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
         try {
-            t = manager.merge(t);
+            // t = (T) manager.find(classe, t);
+//            manager.getTransaction().begin();
+            tx.begin();
             manager.remove(t);
             manager.flush();
+//            manager.getTransaction().commit();
+            tx.commit();
             return t;
         } catch (Exception e) {
+            tx.rollback();
             e.printStackTrace();
             throw new DAOException(ExceptionsType.getMessage(ExceptionsType.REMOVE_ERROR), e);
         }

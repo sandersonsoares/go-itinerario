@@ -11,6 +11,7 @@
                 <div class="row">
                      <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
                      
+                     
                     <div class="input-field col s12 m4">
                         <h:inputText id="num" value="#{onibusBean.onibus.numero}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
                         <label class="normal" for="num">Número</label>
@@ -44,7 +45,7 @@
                     <div class="col s12">
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
                                        action="#{onibusBean.salvar()}">
-                            <i class="material-icons">check</i>
+                            <i class="material-icons">#{onibusBean.onibus.id == null ? 'check' : 'sync'}</i>
                         </h:commandLink>
                         <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
                                        action="#{linkUtilBean.listaVeiculos()}">

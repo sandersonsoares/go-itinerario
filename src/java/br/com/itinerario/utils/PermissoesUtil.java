@@ -11,7 +11,8 @@ import java.util.List;
 public class PermissoesUtil {
 
 //    PERMISSOES ////////////////////////////////
-    
+    // Sistema
+    private boolean acessoSistema;
     // Passageiros
     private boolean cadastroPassageiros;
     private boolean visualizarPassageiros;
@@ -87,6 +88,9 @@ public class PermissoesUtil {
         }
         if (removerGrupos){
             permissoes.add(Permissoes.ROLE_REMOVER_GRUPOS);
+        }
+        if (acessoSistema) {
+            permissoes.add(Permissoes.ROLE_ACESSO_SISTEMA);
         }
         
         return permissoes;
@@ -220,4 +224,21 @@ public class PermissoesUtil {
         this.removerGrupos = removerGrupos;
     }
 
+    public boolean isAcessoSistema() {
+        return acessoSistema;
+    }
+
+    public void setAcessoSistema(boolean acessoSistema) {
+        this.acessoSistema = acessoSistema;
+    }
+
+    public List<Permissoes> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(List<Permissoes> permissoes) {
+        this.permissoes = permissoes;
+    }
+
+    
 }
