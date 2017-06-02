@@ -59,10 +59,10 @@
                         <f:facet name="header">
                             <h:outputText value="Ações"/>
                         </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarPassageiro(passageiro.id)}" rendered="#{request.isUserInRole('ROLE_EDITAR_PASSAGEIROS')}">
+                        <h:commandLink action="#{linkUtilBean.editarPassageiro(passageiro.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_PASSAGEIROS')}">
                             <i class="material-icons orange-text">edit</i>
                         </h:commandLink>
-                        <p:commandLink action="#{pessoaBean.removerPassageiro(passageiro)}" rendered="#{request.isUserInRole('ROLE_EDITAR_PASSAGEIROS')}" 
+                        <p:commandLink action="#{pessoaBean.removerPassageiro(passageiro)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_PASSAGEIROS')}" 
                                        update="passageirosTable">
                             <i class="material-icons red-text">cancel</i>
                         </p:commandLink>

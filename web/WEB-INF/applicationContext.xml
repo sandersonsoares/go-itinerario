@@ -15,19 +15,19 @@
         
         <!--Usuarios-->
         <intercept-url pattern="/faces/privado/usuario/*" access="hasRole('ROLE_VISUALIZAR_USUARIOS')"/>
-        <intercept-url pattern="/faces/privado/usuario/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_USUARIOS', 'ROLE_EDITAR_USUARIOS')"/>
+        <intercept-url pattern="/faces/privado/usuario/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_USUARIOS', 'ROLE_ALTERAR_USUARIOS')"/>
         
         <!--Passageiros-->
         <intercept-url pattern="/faces/privado/passageiros/*" access="hasRole('ROLE_VISUALIZAR_PASSAGEIROS')"/>
-        <intercept-url pattern="/faces/privado/passageiros/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_PASSAGEIROS', 'ROLE_EDITAR_PASSAGEIROS')"/>
+        <intercept-url pattern="/faces/privado/passageiros/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_PASSAGEIROS', 'ROLE_ALTERAR_PASSAGEIROS')"/>
         
         <!--Veiculos-->
         <intercept-url pattern="/faces/privado/veiculo/*" access="hasRole('ROLE_VISUALIZAR_VEICULOS')"/>
-        <intercept-url pattern="/faces/privado/veiculo/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_VEICULOS', 'ROLE_EDITAR_VEICULOS')"/>
+        <intercept-url pattern="/faces/privado/veiculo/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_VEICULOS', 'ROLE_ALTERAR_VEICULOS')"/>
         
         <!--Grupos-->
         <intercept-url pattern="/faces/privado/grupos/*" access="hasRole('ROLE_VISUALIZAR_GRUPOS')"/>
-        <intercept-url pattern="/faces/privado/grupos/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_GRUPOS', 'ROLE_EDITAR_GRUPOS')"/>
+        <intercept-url pattern="/faces/privado/grupos/formulario.xhtml" access="hasAnyRole('ROLE_CADASTRAR_GRUPOS', 'ROLE_ALTERAR_GRUPOS')"/>
         
         <form-login login-page="/faces/index.xhtml" login-processing-url="/j_spring_security_check"
                     always-use-default-target="false" default-target-url="/faces/privado/principal.xhtml"

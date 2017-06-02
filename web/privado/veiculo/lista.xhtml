@@ -71,7 +71,7 @@
                         <f:facet name="header">
                             <h:outputText value="Ações"/>
                         </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarVeiculo(veiculo.id)}" rendered="#{request.isUserInRole('ROLE_EDITAR_VEICULOS')}">
+                        <h:commandLink action="#{linkUtilBean.editarVeiculo(veiculo.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_VEICULOS')}">
                             <i class="material-icons orange-text">edit</i>
                         </h:commandLink>
                         <p:commandLink action="#{veiculoBean.removerOnibus(veiculo)}" rendered="#{request.isUserInRole('ROLE_REMOVER_VEICULOS')}">
