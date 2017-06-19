@@ -9,7 +9,7 @@
         <h:form id="form-grupos-list" class="card">
             <div class="fixed-action-btn">
                 <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novoGrupo()}">
+                               action="#{linkUtilBean.novoGrupo()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_GRUPOS')}">
                     <i class="material-icons">add</i>
                 </p:commandLink>
             </div>

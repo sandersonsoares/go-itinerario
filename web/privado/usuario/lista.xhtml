@@ -7,7 +7,7 @@
     <ui:define name="content">
         <h:form id="form-usuario-list" class="card">
             <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
+                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" rendered="#{request.isUserInRole('ROLE_CADASTRAR_USUARIOS')}"
                                action="#{linkUtilBean.novoUsuario()}">
                     <i class="material-icons">add</i>
                 </p:commandLink>
@@ -61,7 +61,7 @@
                         <h:commandLink action="#{linkUtilBean.editarUsuario(usuario.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_USUARIOS')}">
                             <i class="material-icons orange-text">edit</i>
                         </h:commandLink>
-                        <i class="material-icons red-text">cancel</i>
+                        <!--<i class="material-icons red-text">cancel</i>-->
                     </h:column>
                 </h:dataTable>
             </div>

@@ -23,7 +23,7 @@ public class GrupoBusiness {
         this.gruposDao = DAOFactory.createGrupoDAO();
     }
 
-    public void salvar(Grupo grupo) throws DAOException {
+    public synchronized void salvar(Grupo grupo) throws DAOException {
         if (grupo.getId() != null) {
             gruposDao.update(grupo);
         } else {

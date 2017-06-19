@@ -63,7 +63,7 @@
                             <label class="normal" for="email">Email</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <h:selectOneMenu id="grupos" value="#{usuarioBean.usuario.grupo}" disabled="#{usuarioBean.usuario.id != null}"
+                            <h:selectOneMenu id="grupos" value="#{usuarioBean.usuario.grupo}"
                                              converter="GrupoConverter">
                                 <f:selectItem  itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{grupoBean.grupos}" var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.titulo}"/>

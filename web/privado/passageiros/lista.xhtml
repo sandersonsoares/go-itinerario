@@ -9,7 +9,7 @@
         <h:form id="form-onibus-list" class="card">
             <div class="fixed-action-btn">
                 <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novoPassageiro()}">
+                               action="#{linkUtilBean.novoPassageiro()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_PASSAGEIROS')}">
                     <i class="material-icons">add</i>
                 </p:commandLink>
             </div>
