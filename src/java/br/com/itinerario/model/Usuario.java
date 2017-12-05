@@ -1,6 +1,7 @@
 package br.com.itinerario.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -17,7 +18,7 @@ public class Usuario extends Pessoa implements Serializable {
     @NotNull
     @Size(min = 6, max = 20)
     private String senha;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Grupo grupo;
     private boolean status;
 

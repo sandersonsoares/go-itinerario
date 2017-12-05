@@ -5,6 +5,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/template.xhtml">
     <ui:define name="content">
-        Bem Vindo!
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="Card TexAlCenter">
+                    <p:outputLabel value="Bem Vindo, #{requestBean.usuarioLogado.nome}"/>
+                </div>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>

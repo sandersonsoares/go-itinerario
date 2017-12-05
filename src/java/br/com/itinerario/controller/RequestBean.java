@@ -59,6 +59,7 @@ public class RequestBean extends DefaultBean {
             dispatcher.forward((ServletRequest) extenalContext.getRequest(),
                     (ServletResponse) extenalContext.getResponse());
             facesContext.responseComplete();
+            return this.linkBean.home();
         } catch (Exception e) {
             imprimirErro(e.getMessage());
         }

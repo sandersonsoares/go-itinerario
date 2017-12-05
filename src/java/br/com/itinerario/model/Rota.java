@@ -3,10 +3,14 @@ package br.com.itinerario.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Rota implements Serializable{
@@ -14,10 +18,15 @@ public class Rota implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
-    private Date horario;
+    @Temporal(TemporalType.DATE)
+    private Date partida;
+    @Temporal(TemporalType.DATE)
+    private Date chegada;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cidade cidadeOrigem;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cidade cidadeDestino;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Motorista> motoristas;
 
     public Long getId() {
@@ -28,12 +37,20 @@ public class Rota implements Serializable{
         this.id = id;
     }
 
-    public Date getHorario() {
-        return horario;
+    public Date getPartida() {
+        return partida;
     }
 
-    public void setHorario(Date horario) {
-        this.horario = horario;
+    public void setPartida(Date partida) {
+        this.partida = partida;
+    }
+
+    public Date getChegada() {
+        return chegada;
+    }
+
+    public void setChegada(Date chegada) {
+        this.chegada = chegada;
     }
 
     public Cidade getCidadeOrigem() {

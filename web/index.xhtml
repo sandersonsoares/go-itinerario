@@ -8,52 +8,51 @@
     <h:head>
         <title>GO. Itinerário</title>
 
-        <!--JQuery-->
-        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.js"></script>
-
-        <!--Css-->
-        <link rel="stylesheet" type="text/css" href="resources/css/materialize.css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-
-        <!--JavaScripts-->
-        <script type="text/javascript" src="resources/js/materialize.min.js"></script>
-        <script src="resources/js/font-awesome.js"></script>
-        <script type="text/javascript" src="resources/js/scripts.js"></script>
-
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
     </h:head>
-    <h:body id="login">
+    <h:body>
 
-        <div class="row">
-            <div class="col s12 m6 offset-m3 l4 offset-l4" style="margin-top: 20vh">
-                <div class="card hoverable">
-                    <h:form>
-                        <div class="card-content">
-                            <p class="card-title bold">Login</p>
+        <div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+            <div class="Wid33 MarAuto WidAutoOnMobile">
+                <h:form id="form-login">
+                    <div class="EmptyBox120"></div>
+                    <div class="Card ShadowEffect">
+                        <div class="EmptyBox20" />
+                        <center>
+                            <div class="Wid100 OvHidden">
+                                <h:panelGrid columns="2">
+                                    <img src="resources/img/logo.png" width="100vw" style="margin: 20px" />
+                                </h:panelGrid>
+                            </div>
+                        </center>
+                        <div class="EmptyBox10" />
+                        <i class="icon-vpn_key Fs30 BoldGray DispBlock Orange"></i><div class="Container100 Fs30 FontRobotoLight Orange"> Login </div>
+                        <div class="EmptyBox30"></div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <p:messages showDetail="false" autoUpdate="true" /> 
+                            </div>
+                            <div class="ui-g-12">
+                                <p:outputLabel for="j_username" value="Nome de Usuário ou Email"/>
+                                <p:inputText id="j_username" value="#{requestBean.user}" required="true" requiredMessage="O campo de usuário está vazio!"/>                            
+                            </div>
 
-                            <div class="card-action">
-                                <div class="row">
-                                    <p:messages id="growl" showDetail="false" autoUpdate="true" /> 
-                                    <div class="input-field col s12">
-                                        <p:inputText id="j_username" value="#{requestBean.user}" required="true" requiredMessage="O campo de usuário está vazio!"/>                            
-                                        <label for="j_username" >Nome de Usuário ou Email</label>
-                                    </div>
-
-                                    <div class="input-field col s12">
-                                        <p:password id="j_password" class="form-control" value="#{requestBean.senha}" required="true" requiredMessage="O campo de senha está vazio!" />
-                                        <label for="j_password">Senha</label>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <p class="right">
-                                        <a href="#">Esqueci minha senha</a>
-                                    </p>
-                                </div>
+                            <div class="ui-g-12">
+                                <p:outputLabel for="j_password" value="Senha"/>
+                                <p:password id="j_password" value="#{requestBean.senha}" required="true" requiredMessage="O campo de senha está vazio!" />
                             </div>
                         </div>
-                        <div class="card-action row">
-                            <p:commandButton id="btn-entrar" value="Login" action="#{requestBean.login()}" class="btn waves-effect waves-light col s12" ajax="false" />
+                        <p class="Fright">
+                            <p:commandLink value="Esqueci minha senha" actionListener="#" />
+                        </p>
+                        <div class="ui-g-12">
+                            <p:commandButton id="btn-entrar" class="ui-g-12" value="Login" icon="fa fa-sign-in" action="#{requestBean.login()}" ajax="false"/>
 
                             <p:outputPanel>
                                 <f:metadata>  
@@ -63,10 +62,32 @@
 
                             <p:defaultCommand target="btn-entrar" />
                         </div>
-                    </h:form>
-                </div>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                </h:form>
             </div>
         </div>
+
+        <h:outputScript name="js/ripple-effect.js" library="adamantium-layout" />
+        <h:outputScript name="js/perfect-scrollbar.js"
+                        library="adamantium-layout" />
+        <h:outputScript name="js/layout.js" library="adamantium-layout" />
+        <h:outputScript name="jquery/jquery.js" library="primefaces" />
+        <h:outputStylesheet name="css/core-layout.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/animate.css" library="adamantium-layout" />
+        <h:outputStylesheet name="css/adamantium-font.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/ripple-effect.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/perfect-scrollbar.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/font-awesome.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/adamantium-layout.css"
+                            library="adamantium-layout" />
+        <h:outputStylesheet name="css/estilos.css"
+                            library="adamantium-layout" />
 
     </h:body>
 </html>

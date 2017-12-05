@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.itinerario.enums;
 
 /**
@@ -10,5 +5,25 @@ package br.com.itinerario.enums;
  * @author Sandersoon
  */
 public enum Situacao {
-    
+
+    DISPONIVEL("Disponível"),
+    RESERVADO("Reservado"),
+    VENDIDO("Vendido"),
+    CANCELADO("Cancelado");
+
+    private String situacao;
+
+    private Situacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+    public String getSexo() {
+        return situacao;
+    }
+
+    @Override
+    public String toString() {
+        return situacao;
+    }
+
 }

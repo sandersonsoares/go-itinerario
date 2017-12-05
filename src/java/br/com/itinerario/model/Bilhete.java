@@ -2,21 +2,29 @@ package br.com.itinerario.model;
 
 import br.com.itinerario.enums.Situacao;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Bilhete implements Serializable{
+public class Bilhete implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
     private int numero;
     private String assento;
+    @Enumerated(EnumType.STRING)
     private Situacao situacao;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Passageiro passageiro;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Rota rota;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Onibus onibus;
     private double valor;
 

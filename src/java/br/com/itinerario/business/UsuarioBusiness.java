@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.itinerario.business;
 
 import br.com.itinerario.exception.DAOException;
@@ -10,14 +5,12 @@ import br.com.itinerario.factory.DAOFactory;
 import br.com.itinerario.interfaces.IUsuarioDAO;
 import br.com.itinerario.model.Usuario;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
  *
- * @author klerm
+ * @author sanderson
  */
 public class UsuarioBusiness {
 

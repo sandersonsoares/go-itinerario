@@ -6,7 +6,6 @@ import br.com.itinerario.dao.CidadeDAO;
 import br.com.itinerario.dao.EnderecoDAO;
 import br.com.itinerario.dao.FuncionarioDAO;
 import br.com.itinerario.dao.GrupoDAO;
-import br.com.itinerario.dao.HorarioDAO;
 import br.com.itinerario.dao.MotoristaDAO;
 import br.com.itinerario.dao.OnibusDAO;
 import br.com.itinerario.dao.PassageiroDAO;
@@ -16,7 +15,6 @@ import br.com.itinerario.dao.UsuarioDAO;
 import br.com.itinerario.dao.VendaBilheteDAO;
 import br.com.itinerario.interfaces.DaoGeneric;
 import br.com.itinerario.interfaces.IUsuarioDAO;
-import br.com.itinerario.model.Grupo;
 
 public class DAOFactory {
 
@@ -38,10 +36,6 @@ public class DAOFactory {
 
     public static DaoGeneric createFuncionarioDAO() {
         return new FuncionarioDAO();
-    }
-
-    public static DaoGeneric createHorarioDAO() {
-        return new HorarioDAO();
     }
 
     public static DaoGeneric createMotoristaDAO() {

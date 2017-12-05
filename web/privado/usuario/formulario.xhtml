@@ -5,123 +5,135 @@
                 template="/WEB-INF/templates/template.xhtml"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <h:form id="form-usuario">
-            <div class="card">
-                <div class="row">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>   
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                        <p:menuitem value="Usuários" url="#{linkUtilBean.listaUsuarios()}" />
+                        <p:menuitem value="#{usuarioBean.usuario.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                    </p:breadCrumb>
+                </div>
+                
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true"/>
+                </div>
 
-                    <div class="section col s12">
-                        <h5 class="bold">Dados Pessoais</h5>
-                        <div class="divider col s12"></div>
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Dados Pessoais</div>
+                        <div class="SeparatorFull"></div>
 
-                        <div class="input-field col s12 m4">
-                            <p:inputMask mask="999.999.999-99" id="cpf" value="#{usuarioBean.usuario.cpf}" required="true" requiredMessage="Campo CPF está vazio!"/>
-                            <label class="normal" for="cpf">CPF</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="cpf" value="CPF"/>
+                            <p:inputMask  mask="999.999.999-99" id="cpf" value="#{usuarioBean.usuario.cpf}" required="true" requiredMessage="Campo CPF está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m8">
-                            <h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Campo Nome está vazio!"/>
-                            <label class="normal" for="nome">Nome</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="nome" value="Nome"/>
+                            <p:inputText  id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Campo Nome está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <p:inputMask id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.telefone}" required="true" requiredMessage="Campo Telefone está vazio!"/>
-                            <label class="normal" for="tel">Telefone</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="tel" value="Telefone"/>
+                            <p:inputMask  id="tel" mask="(99) 9999-9999" value="#{usuarioBean.usuario.telefone}" required="true" requiredMessage="Campo Telefone está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:selectOneMenu id="sexo" value="#{usuarioBean.usuario.sexo}" required="true" requiredMessage="Campo Sexo está vazio!">
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel value="Sexo" for="sexo" />
+                            <p:selectOneMenu id="sexo"  value="#{usuarioBean.usuario.sexo}" required="true" requiredMessage="Campo Sexo está vazio!">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{usuarioBean.listarSexos}" var="s" itemLabel="#{s.sexo}" itemValue="#{sexo}"/>
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Sexo" for="sexo" />
+                            </p:selectOneMenu>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <input type="date" id="data" class="datepicker" value="#{usuarioBean.usuario.dataNascimento}"/>
-                            <label class="normal" for="data">Data de Nacimento</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="datetime" value="Data de Nascimento" />
+                            <p:calendar id="datetime"  value="#{usuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
                         </div>
-                    </div>
+                        
+                        <div class="ui-g-12 CardTopic MarTop40">Acesso ao Sistema</div>
+                        <div class="EmptyBox5"></div>
+                        <div class="SeparatorFull"></div>
 
-                    <div class="section col s12 grey lighten-4">
-                        <h5 class="bold">Acesso ao Sistema</h5>
-                        <div class="divider col s12"></div>
-
-                        <div class="input-field col s12 m4">
-                            <h:inputText id="user" value="#{usuarioBean.usuario.username}" 
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="user" value="Nome de Usuário"/>
+                            <p:inputText  id="user" value="#{usuarioBean.usuario.username}" 
                                          required="true" requiredMessage="Campo Nome está vazio!"/>
-                            <label class="normal" for="user">Nome de Usuário</label>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
-                                           required="true" requiredMessage="Campo Nome está vazio!"/>
-                            <label class="normal" for="senha">Senha</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="senha" value="Senha"/>
+                            <p:password  id="senha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
+                                        required="true" requiredMessage="Campo Nome está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:inputSecret id="csenha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
-                                           required="true" requiredMessage="Campo Nome está vazio!"/>
-                            <label class="normal" for="csenha">Confirmar Senha</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="csenha" value="Confirmar Senha"/>
+                            <p:password  id="csenha" value="#{usuarioBean.usuario.senha}" disabled="#{usuarioBean.usuario.id != null}"
+                                        required="true" requiredMessage="Campo Nome está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Campo Email está vazio!"/>
-                            <label class="normal" for="email">Email</label>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="email" value="Email" />
+                            <p:inputText  id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Campo Email está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <h:selectOneMenu id="grupos" value="#{usuarioBean.usuario.grupo}"
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="grupos" value="Grupos" />
+                            <p:selectOneMenu  id="grupos" value="#{usuarioBean.usuario.grupo}"
                                              converter="GrupoConverter">
                                 <f:selectItem  itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{grupoBean.grupos}" var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.titulo}"/>
-                            </h:selectOneMenu>
-                        </div>
-                    </div>
-
-                    <div class="section col s12">
-                        <h5 class="bold">Endereço</h5>
-                        <div class="divider col s12"></div>
-                        <div class="input-field col s12 m6">
-                            <h:inputText id="rua" value="#{usuarioBean.usuario.endereco.logradouro}" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
-                            <label class="normal" for="rua">Logradouro</label>
-                        </div>
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="num" value="#{usuarioBean.usuario.endereco.numero}"/>
-                            <label class="normal" for="num">Numero</label>
+                            </p:selectOneMenu>
                         </div>
 
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="bairro" value="#{usuarioBean.usuario.endereco.bairro}" required="true" requiredMessage="Campo Bairro está vazio!"/>
-                            <label class="normal" for="bairro">Bairro</label>
+                        <div class="ui-g-12 CardTopic MarTop40">Endereço</div>
+                        <div class="EmptyBox5"></div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="rua" value="Logradouro"/>
+                            <p:inputText  id="rua" value="#{usuarioBean.usuario.endereco.logradouro}" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m3">
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="num" value="Número" />
+                            <p:inputText id="num" value="#{usuarioBean.usuario.endereco.numero}"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="bairro" value="Bairro"/>
+                            <p:inputText id="bairro" value="#{usuarioBean.usuario.endereco.bairro}" required="true" requiredMessage="Campo Bairro está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="cep" value="Cep"/>
                             <p:inputMask id="cep" mask="99999-999" value="#{usuarioBean.usuario.endereco.cep}"  class="validate" required="true" requiredMessage="Campo CEP está vazio!"/>
-                            <label class="normal" for="cep">CEP</label>
                         </div>
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="cidade" value="#{usuarioBean.usuario.endereco.cidade.nome}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
-                            <label class="normal" for="cidade">Cidade</label>
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="cidade" value="Cidade"/>
+                            <p:inputText id="cidade" value="#{usuarioBean.usuario.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m2">
-                            <h:selectOneMenu id="uf" value="#{usuarioBean.usuario.endereco.cidade.estado}">
+                        <div class="ui-g-12 ui-md-2">
+                            <p:outputLabel for="uf" value="Estado"/>
+                            <p:selectOneMenu id="uf" value="#{usuarioBean.usuario.endereco.estado}">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione" />
                                 <f:selectItems value="#{usuarioBean.listarEstados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.sigla}" />
-                            </h:selectOneMenu>
-                            <label class="normal" for="uf">Estado</label>
+                            </p:selectOneMenu>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:inputText id="comp" value="#{usuarioBean.usuario.endereco.complemento}"/>
-                            <label class="normal" for="comp">Complemento</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="comp" value="Complemento"/>
+                            <p:inputText id="comp" value="#{usuarioBean.usuario.endereco.complemento}"/>
                         </div>
-                        <div class="input-field col s12">
-                            <h:inputText id="ponto" value="#{usuarioBean.usuario.endereco.pontoReferencia}" />
-                            <label class="normal" for="ponto">Ponto de Referência</label>
+                        <div class="ui-g-12">
+                            <p:outputLabel for="ponto" value="Ponto de Referência"/>
+                            <p:inputText id="ponto" value="#{usuarioBean.usuario.endereco.pontoReferencia}" />
                         </div>
-                    </div>
-
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{usuarioBean.salvar()}">
-                            <i class="material-icons">#{usuarioBean.usuario.id == null ? 'check' : 'sync'}</i>
-                        </h:commandLink>
                         
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaUsuarios()}" immediate="true">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaUsuarios()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{usuarioBean.usuario.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{usuarioBean.salvar()}">
+                            </p:commandButton>
+
+                        </div>
                     </div>
                 </div>
             </div>

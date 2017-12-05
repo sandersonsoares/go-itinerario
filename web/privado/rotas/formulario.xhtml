@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <div class="card">
+            <div class="row">
+                <h:form id="form">
+                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
+
+                    <div class="section col s12">
+                        <h5 class="bold">Dados da Rota</h5>
+                        <div class="divider col s12"></div>
+
+                        <div class="input-field col s12 m6">
+                            <input type="date" id="partida" class="datepicker" value="#{rotaBean.rota.partida}" required="true"/>
+                            <label class="normal" for="partida">Data/Hora de Partida</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="date" id="chegada" class="datepicker" value="#{rotaBean.rota.chegada}" required="true"/>
+                            <label class="normal" for="chegada">Data/Hora de Chegada</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <h:selectOneMenu id="origem" value="#{rotaBean.rota.cidadeOrigem}" required="true" requiredMessage="Campo Cidade de Origem está vazio!" converter="CidadeConverter">
+                                <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
+                                <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Cidade de Origem" for="origem" />
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <h:selectOneMenu id="destino" value="#{rotaBean.rota.cidadeDestino}" required="true" requiredMessage="Campo Cidade de Destino está vazio!" converter="CidadeConverter">
+                                <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
+                                <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Cidade de Destino" for="destino" />
+                        </div>
+                    </div>
+
+                    <div class="col s12">
+                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
+                                       action="#{rotaBean.salvar()}">
+                            <i class="material-icons">#{rotaBean.rota.id != null ? 'sync' : 'check'}</i>
+                        </h:commandLink>
+                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
+                                       action="#{linkUtilBean.listaRotas()}" immediate="true">
+                            <i class="material-icons">close</i>
+                        </h:commandLink>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

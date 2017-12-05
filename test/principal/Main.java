@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package principal;
 
+import br.com.itinerario.enums.Estados;
 import br.com.itinerario.enums.Permissoes;
 import br.com.itinerario.enums.Sexo;
 import br.com.itinerario.facade.Facade;
+import br.com.itinerario.model.Endereco;
 import br.com.itinerario.model.Grupo;
 import br.com.itinerario.model.Usuario;
 import java.util.ArrayList;
@@ -23,11 +21,21 @@ import java.util.logging.Logger;
 public class Main {
 
     public static void main(String[] args) {
+        Facade fachada = new Facade();
+        
+        Endereco endereco = new Endereco();
+        endereco.setCep("58704310");
+        endereco.setBairro("Belo Horizonte");
+        endereco.setCidade("Patos");
+        endereco.setEstado(Estados.PARAIBA);
+        endereco.setLogradouro("Rua Luiz José");
+        endereco.setNumero(624);
         
         Usuario user = new Usuario();
         user.setCpf("888.888.888-88");
         user.setDataNascimento(new Date());
         user.setEmail("admin@admin.com");
+        user.setEndereco(endereco);
         
         List<Permissoes> permissoes = new ArrayList<>();
         for (Permissoes p : Permissoes.values()) {
@@ -40,13 +48,12 @@ public class Main {
         
         user.setGrupo(gp);
         user.setNome("Administrador");
-        user.setSenha("admin");
+        user.setSenha("@dmin456");
         user.setSexo(Sexo.MASCULINO);
         user.setTelefone("(83) 9999-9999");
         user.setStatus(true);
         user.setUsername("admin");
         
-        Facade fachada = new Facade();
         try {
             fachada.cadastrarUsuario(user);
         } catch (Exception ex) {

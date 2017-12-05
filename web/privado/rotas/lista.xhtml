@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form-onibus-list" class="card">
+            <div class="fixed-action-btn">
+                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
+                               action="#{linkUtilBean.novaRota()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_PASSAGEIROS')}">
+                    <i class="material-icons">add</i>
+                </p:commandLink>
+            </div>
+
+            <div class="row">
+                <h4 class="bold">Lista de Rotas</h4>
+                <div class="card-action"></div>
+
+                <h:dataTable id="rotasTable" value="#{rotaBean.rotas}" var="rota" class="centered responsive-table striped">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data/Hora de Partida"/>
+                        </f:facet>
+                        <h:outputText value="#{rota.partida}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data/Hora de Chegada"/>
+                        </f:facet>
+                        <h:outputText value="#{rota.chegada}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cidade de Origem"/>
+                        </f:facet>
+                        <h:outputText value="#{rota.cidadeOrigem.nome} - #{rota.cidadeOrigem.estado.sigla}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cidade de Destino"/>
+                        </f:facet>
+                        <h:outputText value="#{rota.cidadeDestino.nome} - #{rota.cidadeDestino.estado.sigla}"/>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

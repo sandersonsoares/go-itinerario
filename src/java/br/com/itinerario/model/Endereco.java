@@ -1,11 +1,12 @@
 package br.com.itinerario.model;
 
+import br.com.itinerario.enums.Estados;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco implements Serializable{
@@ -19,11 +20,11 @@ public class Endereco implements Serializable{
     private String bairro;
     private String pontoReferencia;
     private String complemento;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Cidade cidade;
+    private String cidade;
+    @Enumerated(EnumType.STRING)
+    private Estados estado;
 
     public Endereco() {
-        cidade = new Cidade();
     }
     
     public Long getId() {
@@ -82,14 +83,20 @@ public class Endereco implements Serializable{
         this.complemento = complemento;
     }
 
-    public Cidade getCidade() {
+    public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(Cidade cidade) {
+    public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    
-    
-    
+
+    public Estados getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estados estado) {
+        this.estado = estado;
+    }
+
 }

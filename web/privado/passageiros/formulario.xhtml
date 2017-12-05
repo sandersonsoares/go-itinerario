@@ -65,11 +65,11 @@
                             <label class="normal" for="cep">CEP</label>
                         </div>
                         <div class="input-field col s12 m3">
-                            <h:inputText id="cidade" value="#{pessoaBean.passageiro.endereco.cidade.nome}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
+                            <h:inputText id="cidade" value="#{pessoaBean.passageiro.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
                             <label class="normal" for="cidade">Cidade</label>
                         </div>
                         <div class="input-field col s12 m2">
-                            <h:selectOneMenu id="uf" value="#{pessoaBean.passageiro.endereco.cidade.estado}">
+                            <h:selectOneMenu id="uf" value="#{pessoaBean.passageiro.endereco.estado}">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione" />
                                 <f:selectItems value="#{usuarioBean.listarEstados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.sigla}" />
                             </h:selectOneMenu>

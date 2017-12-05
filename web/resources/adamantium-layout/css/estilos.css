@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04/12/2017, 19:33:02
+    Author     : Sanderson
+*/
+
+.ui-inputfield {
+    width: 100% !important;
+}
+
+.ui-datepicker-trigger {
+    position: absolute;
+    margin-left: -36px !important;
+}
+
+.ui-calendar {
+    padding: 0;
+}
+
+.layout-menu-cover-left .layout-menu > li > a {
+    color: #666f77 !important;
+}

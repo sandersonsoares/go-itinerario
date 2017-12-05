@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Onibus implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String numero;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Assento> assentos;
     private String modelo;
     private String marca;

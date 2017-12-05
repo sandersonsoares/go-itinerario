@@ -16,6 +16,10 @@ public class LinkUtilBean {
     public String home() {
         return "/privado/index.xhtml" + FACES_REDIRECT;
     }
+    
+    public String paginaPrincipal() {
+        return "/privado/principal.xhtml" + FACES_REDIRECT;
+    }
 
     public String formularioCursos(Long id) {
         final String link = "/privado/academico/cursos/formulario.xhtml" + FACES_REDIRECT;
@@ -26,6 +30,9 @@ public class LinkUtilBean {
         }
     }
 
+    /*
+    Usuários
+    */
     public String novoUsuario() {
         return "/privado/usuario/formulario.xhtml" + FACES_REDIRECT;
     }
@@ -38,6 +45,9 @@ public class LinkUtilBean {
         return "/privado/usuario/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
     }
 
+    /*
+    Passageiros
+    */
     public String novoPassageiro() {
         return "/privado/passageiros/formulario.xhtml" + FACES_REDIRECT;
     }
@@ -45,7 +55,14 @@ public class LinkUtilBean {
     public String editarPassageiro(Long id) {
         return "/privado/passageiros/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
     }
+    
+    public String listaPassageiros() {
+        return "/privado/passageiros/lista.xhtml" + FACES_REDIRECT;
+    }
 
+    /*
+    Veículos
+    */
     public String novoVeiculo() {
         return "/privado/veiculo/formulario.xhtml" + FACES_REDIRECT;
     }
@@ -53,7 +70,14 @@ public class LinkUtilBean {
     public String editarVeiculo(Long id) {
         return "/privado/veiculo/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
     }
+    
+    public String listaVeiculos() {
+        return "/privado/veiculo/lista.xhtml" + FACES_REDIRECT;
+    }
 
+    /*
+    Grupos
+    */
     public String novoGrupo() {
         return "/privado/grupos/formulario.xhtml" + FACES_REDIRECT;
     }
@@ -65,16 +89,49 @@ public class LinkUtilBean {
     public String editarGrupo(Long id) {
         return "/privado/grupos/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
     }
-
-    public String listaVeiculos() {
-        return "/privado/veiculo/lista.xhtml" + FACES_REDIRECT;
+    
+    /*
+    Bilhetes
+    */
+    public String novoBilhete() {
+        return "/privado/bilhetes/formulario.xhtml" + FACES_REDIRECT;
     }
 
-    public String listaPassageiros() {
-        return "/privado/passageiros/lista.xhtml" + FACES_REDIRECT;
+    public String listaBilhetes() {
+        return "/privado/bilhetes/lista.xhtml" + FACES_REDIRECT;
+    }
+    
+    public String editarBilhete(Long id) {
+        return "/privado/bilhetes/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
+    }
+    
+    /*
+    Cidades
+    */
+    public String novaCidade() {
+        return "/privado/cidades/formulario.xhtml" + FACES_REDIRECT;
     }
 
-    public String paginaPrincipal() {
-        return "/privado/principal.xhtml" + FACES_REDIRECT;
+    public String listaCidades() {
+        return "/privado/cidades/lista.xhtml" + FACES_REDIRECT;
+    }
+    
+    public String editarCidade(Long id) {
+        return "/privado/cidades/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
+    }
+    
+    /*
+    Rotas
+    */
+    public String novaRota() {
+        return "/privado/rotas/formulario.xhtml" + FACES_REDIRECT;
+    }
+
+    public String listaRotas() {
+        return "/privado/rotas/lista.xhtml" + FACES_REDIRECT;
+    }
+    
+    public String editarRota(Long id) {
+        return "/privado/rotas/formulario.xhtml" + FACES_REDIRECT + "&id=" + id;
     }
 }

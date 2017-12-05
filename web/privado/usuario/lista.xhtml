@@ -5,66 +5,60 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/template.xhtml">
     <ui:define name="content">
-        <h:form id="form-usuario-list" class="card">
-            <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" rendered="#{request.isUserInRole('ROLE_CADASTRAR_USUARIOS')}"
-                               action="#{linkUtilBean.novoUsuario()}">
-                    <i class="material-icons">add</i>
-                </p:commandLink>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <p:breadCrumb>
+                    <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                    <p:menuitem value="Usuários" url="#" />
+                </p:breadCrumb>
             </div>
 
-            <div class="row">
-                <h4 class="bold">Lista de Usuários</h4>
-                <div class="card-action"></div>
+            <div class="ui-g-12">
+            <h:form id="form-busca">
+                <div class="Card">
+                    <div class="CardTopic">Buscar</div>
+                    <div class="SeparatorFull"></div>
 
-                <div class="row">
-                    <div class="col s10 l11 input-field">
-                        <h:inputText id="busca" value="#{usuarioBean.busca}"  class="validate"/>
-                        <label class="normal" for="busca">Busca</label>
+                    <div class="ui-g-12 ui-md-10">
+                        <p:inputText id="busca" value="#{usuarioBean.busca}" placeholder="Nome de usuário, CPF ou Email"/>
                     </div>
-                    <div class="col s2 l1">
-                        <p:commandLink class="waves-effect waves-light btn-floating btn-large" actionListener="#{usuarioBean.filtrar()}" update="usuarioTable">
-                            <i class="material-icons">search</i>
-                        </p:commandLink>
-                    </div> 
+                    <div class="ui-g-12 ui-md-2">
+                        <p:commandButton actionListener="#{usuarioBean.filtrar()}" update=":form-table:usuarioTable" value="Buscar" icon="fa fa-search"/>
+                    </div>
                 </div>
-
-                <h:dataTable id="usuarioTable" value="#{usuarioBean.usuarios}" var="usuario" class="centered responsive-table striped">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.nome}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome de Usuário"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.username}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.email}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Grupo"/>
-                        </f:facet>
-                        <h:outputText value="#{usuario.grupo.titulo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ações"/>
-                        </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarUsuario(usuario.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_USUARIOS')}">
-                            <i class="material-icons orange-text">edit</i>
-                        </h:commandLink>
-                        <!--<i class="material-icons red-text">cancel</i>-->
-                    </h:column>
-                </h:dataTable>
+            </h:form>
             </div>
-        </h:form>
+            <h:form id="form-table">
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:commandButton rendered="#{request.isUserInRole('ROLE_CADASTRAR_USUARIOS')}" action="#{linkUtilBean.novoUsuario()}" value="Novo" icon="fa fa-plus" style="max-width: 150px" />
+                        </div>
+                        <div class="SeparatorFull"></div>
+
+                        <p:dataTable id="usuarioTable" value="#{usuarioBean.usuarios}" var="usuario" paginator="true" rowStyleClass="TexAlCenter">
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{usuario.nome}"/>
+                            </p:column>
+                            <p:column headerText="Nome de Usuário">
+                                <h:outputText value="#{usuario.username}"/>
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{usuario.email}"/>
+                            </p:column>
+                            <p:column headerText="Grupo">
+                                <h:outputText value="#{usuario.grupo.titulo}"/>
+                            </p:column>
+                            <p:column headerText="Ações">
+                                <p:commandButton class="ui-button-icon-only OrangeButton" icon="fa fa-pencil"
+                                                 action="#{linkUtilBean.editarUsuario(usuario.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_USUARIOS')}" immediate="true">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>

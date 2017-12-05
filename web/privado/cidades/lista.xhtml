@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form-grupos-list" class="card">
+            <div class="fixed-action-btn">
+                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
+                               action="#{linkUtilBean.novaCidade()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_GRUPOS')}">
+                    <i class="material-icons">add</i>
+                </p:commandLink>
+            </div>
+
+            <div class="row">
+                <h4 class="bold">Lista de Cidades</h4>
+                <div class="card-action"></div>
+
+                <h:dataTable id="cidadesTable" value="#{cidadeBean.cidades}" var="cidade" class="responsive-table striped centered">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cidade"/>
+                        </f:facet>
+                        <h:outputText value="#{cidade.nome}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Estado"/>
+                        </f:facet>
+                        <h:outputText value="#{cidade.estado.nome}"/>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

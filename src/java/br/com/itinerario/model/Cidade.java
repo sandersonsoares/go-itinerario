@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Cidade implements Serializable{
+public class Cidade implements Serializable {
 
     @Id
     @GeneratedValue
