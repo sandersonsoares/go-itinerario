@@ -6,61 +6,62 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <h:form id="form-grupos-list" class="card">
-            <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novoGrupo()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_GRUPOS')}">
-                    <i class="material-icons">add</i>
-                </p:commandLink>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <p:breadCrumb>
+                    <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                    <p:menuitem value="Grupos" url="#" />
+                </p:breadCrumb>
             </div>
 
-            <div class="row">
-                <h4 class="bold">Lista de Grupos</h4>
-                <div class="card-action"></div>
+            <h:form id="form-table">
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:commandButton rendered="#{request.isUserInRole('ROLE_CADASTRAR_GRUPOS')}" action="#{linkUtilBean.novoGrupo()}" value="Novo" icon="fa fa-plus" style="max-width: 150px" />
+                        </div>
+                        <div class="SeparatorFull"></div>
 
-                <h:dataTable id="veiculosTable" value="#{grupoBean.grupos}" var="grupo" class="responsive-table striped centered">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome do Grupo"/>
-                        </f:facet>
-                        <h:outputText value="#{grupo.titulo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Permissões"/>
-                        </f:facet>
-
-                        <p:commandLink actionListener="#{grupoBean.verPermissoesGrupo(grupo)}" oncomplete="abrirDialog('#permissoes');"  update=":form-permissoes:tabela-p">
-                            <i class="material-icons purple-text">lock</i>
-                        </p:commandLink>
-
-                    </h:column>
-                    <h:column rendered="#{request.isUserInRole('ROLE_ALTERAR_GRUPOS')}">
-                        <f:facet name="header">
-                            <h:outputText value="Ações"/>
-                        </f:facet>
-                        <p:commandLink action="#{linkUtilBean.editarGrupo(grupo.id)}">
-                            <i class="material-icons orange-text">edit</i>
-                        </p:commandLink>
-                    </h:column>
-                </h:dataTable>
-            </div>
-        </h:form>
-
-        <!-- Modal Structure -->
-        <div id="permissoes" class="modal modal-fixed-footer">
-            <h:form id="form-permissoes">
-                <div class="modal-content">
-                    <h4 class="bold">Permissoes do grupo</h4>
-
-                    <h:dataTable id="tabela-p" value="#{grupoBean.permissoes}" var="permissoes" class="striped centered" >
-                        <h:column>
-                            <f:facet name="header">Permissão</f:facet>
-                                #{permissoes.permissao}
-                        </h:column>
-                    </h:dataTable>
+                        <p:dataTable id="usuarioTable" value="#{grupoBean.grupos}" var="grupo" paginator="true" rowStyleClass="TexAlCenter" rows="15">
+                            <p:column headerText="Nome do Grupo">
+                                <h:outputText value="#{grupo.titulo}"/>
+                            </p:column>
+                            <p:column headerText="Permissões">
+                                <p:commandButton class="ui-button-icon-only PurpleButton" actionListener="#{grupoBean.verPermissoesGrupo(grupo, 'permissoes-dlg')}" 
+                                                 icon="fa fa-lock"  update=":form-permissoes:tabela-p">
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="Ações">
+                                <p:commandButton class="ui-button-icon-only OrangeButton" icon="fa fa-pencil"
+                                                 action="#{linkUtilBean.editarGrupo(grupo.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_GRUPOS')}" immediate="true">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
                 </div>
             </h:form>
         </div>
+
+        <!--Dialog Permissões-->
+        <p:dialog header="Permissões do Grupo" widgetVar="permissoes-dlg" modal="true" 
+                  responsive="true" width="80%" resizable="false">
+            <h:form id="form-permissoes">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:dataTable id="tabela-p" value="#{grupoBean.permissoes}" var="permissoes" paginator="true" rows="10"
+                                     rowStyleClass="TexAlCenter">
+                            <f:facet name="header">
+                                <p:outputLabel class="White FontAdamantiumBold" value="#{grupoBean.grupo.titulo}"/>
+                            </f:facet>
+                            <p:column headerText="Permissão">
+                                <p:outputLabel value="#{permissoes.permissao}" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

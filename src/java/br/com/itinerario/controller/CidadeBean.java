@@ -4,6 +4,7 @@ import br.com.itinerario.enums.Estados;
 import br.com.itinerario.exception.DAOException;
 import br.com.itinerario.model.Cidade;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,11 +22,13 @@ public class CidadeBean extends DefaultBean {
     private Cidade cidade;
     private List<Cidade> cidades;
 
+    private String busca;
+
     public CidadeBean() {
         this.cidade = new Cidade();
         this.cidades = new ArrayList<>();
     }
-    
+
     @PostConstruct
     private void init() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
@@ -42,6 +45,27 @@ public class CidadeBean extends DefaultBean {
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
+    }
+
+    public void filtrar() {
+        try {
+            this.cidades = fachada.listarCidades();
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
+        }
+
+        Iterator<Cidade> insCidade = this.cidades.iterator();
+        List<Cidade> tempList = new ArrayList<Cidade>();
+
+        while (insCidade.hasNext()) {
+            Cidade cidade = insCidade.next();
+
+            if (cidade.getNome().contains(busca)) {
+                tempList.add(cidade);
+            }
+        }
+
+        this.cidades = tempList;
     }
 
     public String salvar() {
@@ -72,6 +96,14 @@ public class CidadeBean extends DefaultBean {
 
     public void setCidades(List<Cidade> cidades) {
         this.cidades = cidades;
+    }
+
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
     }
 
 }

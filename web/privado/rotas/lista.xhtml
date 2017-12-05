@@ -6,45 +6,56 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <h:form id="form-onibus-list" class="card">
-            <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novaRota()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_PASSAGEIROS')}">
-                    <i class="material-icons">add</i>
-                </p:commandLink>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <p:breadCrumb>
+                    <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                    <p:menuitem value="Rotas" url="#" />
+                </p:breadCrumb>
             </div>
 
-            <div class="row">
-                <h4 class="bold">Lista de Rotas</h4>
-                <div class="card-action"></div>
+            <div class="ui-g-12">
+                <h:form id="form-busca">
+                    <div class="Card">
+                        <div class="CardTopic">Buscar</div>
+                        <div class="SeparatorFull"></div>
 
-                <h:dataTable id="rotasTable" value="#{rotaBean.rotas}" var="rota" class="centered responsive-table striped">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Data/Hora de Partida"/>
-                        </f:facet>
-                        <h:outputText value="#{rota.partida}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Data/Hora de Chegada"/>
-                        </f:facet>
-                        <h:outputText value="#{rota.chegada}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Cidade de Origem"/>
-                        </f:facet>
-                        <h:outputText value="#{rota.cidadeOrigem.nome} - #{rota.cidadeOrigem.estado.sigla}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Cidade de Destino"/>
-                        </f:facet>
-                        <h:outputText value="#{rota.cidadeDestino.nome} - #{rota.cidadeDestino.estado.sigla}"/>
-                    </h:column>
-                </h:dataTable>
+                        <div class="ui-g-12 ui-md-10">
+                            <p:inputText id="busca" value="#{rotaBean.busca}" placeholder="Nome da Cidade"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p:commandButton actionListener="#{rotaBean.filtrar()}" update=":form-table:rotasTable" value="Buscar" icon="fa fa-search"/>
+                        </div>
+                    </div>
+                </h:form>
             </div>
-        </h:form>
+            <h:form id="form-table">
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:commandButton action="#{linkUtilBean.novaRota()}" value="Novo" icon="fa fa-plus" style="max-width: 150px" />
+                        </div>
+                        <div class="SeparatorFull"></div>
+
+                        <p:dataTable id="rotasTable" value="#{rotaBean.rotas}" var="rota" paginator="true" rowStyleClass="TexAlCenter">
+                            <p:column headerText="Data/Hora de Partida">
+                                <h:outputText value="#{rota.partida}"/>
+                            </p:column>
+                            <p:column headerText="Data/Hora de Chegada">
+                                <h:outputText value="#{rota.chegada}"/>
+                            </p:column>
+                            <p:column headerText="Cidade de Origem">
+                                <h:outputText value="#{rota.cidadeOrigem.nome} - #{rota.cidadeOrigem.estado.sigla}"/>
+                            </p:column>
+                            <p:column headerText="Cidade de Destino">
+                                <h:outputText value="#{rota.cidadeDestino.nome} - #{rota.cidadeDestino.estado.sigla}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
     </ui:define>
 </ui:composition>

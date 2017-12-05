@@ -6,134 +6,125 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h:form id="form-grupos">
-            <div class="card">
-                <div class="row">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
-                    <h4 class="bold">Cadastro de Grupos</h4>
-                    <div class="card-action"></div>
-                    <div class="input-field col s12 m12">
-                        <h:inputText id="titulo" value="#{grupoBean.grupo.titulo}"  class="validate" required="true" requiredMessage="Campo Número está vazio!"/>
-                        <label class="normal" for="titulo">Título do Grupo</label>
-                    </div>
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                        <p:menuitem value="Grupos" url="#{linkUtilBean.listaGrupos()}" />
+                        <p:menuitem value="#{grupoBean.grupo.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                    </p:breadCrumb>
+                </div>
 
-                    <div class="col s12">
-                        <div class="section">
-                            <h5 class="medium">Permissões do Grupo</h5>
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+                </div>
 
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Informações do Grupo</div>
+                        <div class="SeparatorFull"></div>
 
-                            <div class="row">
-                                <div class="col s12">
-                                    <ul class="tabs">
-                                        <li class="tab col s3"><a class="medium" href="#administrativo">Administrativo</a></li>
-                                        <li class="tab col s3"><a class="medium" href="#gerencial">Gerencial</a></li>
-                                    </ul>
-                                </div>
-                                <div id="administrativo" class="col s12">
-                                    <div class="row">
-                                        <div class="section">
-                                            <h5 class="medium card-content">Usuários</h5>
+                        <div class="ui-g-12">
+                            <p:outputLabel for="titulo" value="Título do Grupo"/>
+                            <p:inputText id="titulo" value="#{grupoBean.grupo.titulo}" required="true"/>
+                        </div>
 
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="c-usuarios" value="#{grupoBean.permissoesUtil.cadastroUsuarios}"/>
-                                                <h:outputLabel for="c-usuarios" value="CADASTRAR USUÁRIOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="v-usuarios" value="#{grupoBean.permissoesUtil.visualizarUsuarios}" />
-                                                <h:outputLabel for="v-usuarios" value="VISUALIZAR USUÁRIOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="a-usuarios" value="#{grupoBean.permissoesUtil.alterarUsuarios}" />
-                                                <h:outputLabel for="a-usuarios" value="ALTERAR USUÁRIOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="r-usuarios" value="#{grupoBean.permissoesUtil.removerUsuarios}" />
-                                                <h:outputLabel for="r-usuarios" value="REMOVER USUÁRIOS" /> 
-                                            </div>
-                                        </div>
+                        <div class="ui-g-12 CardTopic MarTop40">Permissões</div>
+                        <div class="EmptyBox5"></div>
+                        <div class="SeparatorFull"></div>
 
-                                        <div class="section">
-                                            <h5 class="medium card-content">Grupos</h5>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="c-grupos" value="#{grupoBean.permissoesUtil.cadastroGrupos}"/>
-                                                <h:outputLabel for="c-grupos" value="CADASTRAR GRUPOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="v-grupos" value="#{grupoBean.permissoesUtil.visualizarGrupos}" />
-                                                <h:outputLabel for="v-grupos" value="VISUALIZAR GRUPOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="a-grupos" value="#{grupoBean.permissoesUtil.alterarGrupos}" />
-                                                <h:outputLabel for="a-grupos" value="ALTERAR GRUPOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="r-grupos" value="#{grupoBean.permissoesUtil.removerGrupos}" />
-                                                <h:outputLabel for="r-grupos" value="REMOVER GRUPOS" /> 
-                                            </div>
-                                        </div>
+                        <div class="ui-g-12">
+                            <p:tabView>
+                                <p:tab title="Gerencial">
+                                    <!--Passageiros-->
+                                    <p:panel header="Passageiros">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA PASSAGEIROS" value="#{grupoBean.permissoesUtil.cadastroPassageiros}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA PASSAGEIROS" value="#{grupoBean.permissoesUtil.visualizarPassageiros}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA PASSAGEIROS" value="#{grupoBean.permissoesUtil.alterarPassageiros}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE PASSAGEIROS" value="#{grupoBean.permissoesUtil.removerPassageiros}" />
+                                        </p:panelGrid>
+                                    </p:panel>
 
-                                    </div>
-                                </div>
-                                <div id="gerencial" class="col s12">
-                                    <div class="row">
-                                        <div class="section">
-                                            <h5 class="medium card-content">Passageiros</h5>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="c-passageiros" value="#{grupoBean.permissoesUtil.cadastroPassageiros}"/>
-                                                <h:outputLabel for="c-passageiros" value="CADASTRAR PASSAGEIROS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="v-passageiros" value="#{grupoBean.permissoesUtil.visualizarPassageiros}" />
-                                                <h:outputLabel for="v-passageiros" value="VISUALIZAR PASSAGEIROS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="a-passageiros" value="#{grupoBean.permissoesUtil.alterarPassageiros}" />
-                                                <h:outputLabel for="a-passageiros" value="ALTERAR PASSAGEIROS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="r-passageiros" value="#{grupoBean.permissoesUtil.removerPassageiros}" />
-                                                <h:outputLabel for="r-passageiros" value="REMOVER PASSAGEIROS" /> 
-                                            </div>
-                                        </div>
-                                        <div class="section">
-                                            <h5 class="medium card-content">Veiculos</h5>
+                                    <!--Veículos-->
+                                    <p:panel header="Veículos">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA VEÍCULOS" value="#{grupoBean.permissoesUtil.cadastroVeiculos}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA VEÍCULOS" value="#{grupoBean.permissoesUtil.visualizarVeiculos}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA VEÍCULOS" value="#{grupoBean.permissoesUtil.alterarVeiculos}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE VEÍCULOS" value="#{grupoBean.permissoesUtil.removerVeiculos}" />
+                                        </p:panelGrid>
+                                    </p:panel>
 
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="c-veiculos" value="#{grupoBean.permissoesUtil.cadastroVeiculos}"/>
-                                                <h:outputLabel for="c-veiculos" value="CADASTRAR VEICULOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="v-veiculos" value="#{grupoBean.permissoesUtil.visualizarVeiculos}" />
-                                                <h:outputLabel for="v-veiculos" value="VISUALIZAR VEICULOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="a-veiculos" value="#{grupoBean.permissoesUtil.alterarVeiculos}" />
-                                                <h:outputLabel for="a-veiculos" value="ALTERAR VEICULOS" />
-                                            </div>
-                                            <div class="col m3 valign-wrapper">
-                                                <h:selectBooleanCheckbox id="r-veiculos" value="#{grupoBean.permissoesUtil.removerVeiculos}" />
-                                                <h:outputLabel for="r-veiculos" value="REMOVER VEICULOS" /> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <!--Rotas-->
+                                    <p:panel header="Rotas">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA ROTAS" value="#{grupoBean.permissoesUtil.cadastroRotas}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA ROTAS" value="#{grupoBean.permissoesUtil.visualizarRotas}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA ROTAS" value="#{grupoBean.permissoesUtil.alterarRotas}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE ROTAS" value="#{grupoBean.permissoesUtil.removerRotas}" />
+                                        </p:panelGrid>
+                                    </p:panel>
 
+                                    <!--Bilhetes-->
+                                    <p:panel header="Bilhetes">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA BILHETES" value="#{grupoBean.permissoesUtil.cadastroBilhetes}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA BILHETES" value="#{grupoBean.permissoesUtil.visualizarBilhetes}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA BILHETES" value="#{grupoBean.permissoesUtil.alterarBilhetes}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE BILHETES" value="#{grupoBean.permissoesUtil.removerBilhetes}" />
+                                        </p:panelGrid>
+                                    </p:panel>
+
+                                    <!--Cidades-->
+                                    <p:panel header="Cidades">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA CIDADES" value="#{grupoBean.permissoesUtil.cadastroCidades}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA CIDADES" value="#{grupoBean.permissoesUtil.visualizarCidades}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA CIDADES" value="#{grupoBean.permissoesUtil.alterarCidades}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE CIDADES" value="#{grupoBean.permissoesUtil.removerCidades}" />
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab title="Administrativo">
+                                    <!--Usuários-->
+                                    <p:panel header="Usuários">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA USUÁRIOS" value="#{grupoBean.permissoesUtil.cadastroUsuarios}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA USUÁRIOS" value="#{grupoBean.permissoesUtil.visualizarUsuarios}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA USUÁRIOS" value="#{grupoBean.permissoesUtil.alterarUsuarios}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE USUÁRIOS" value="#{grupoBean.permissoesUtil.removerUsuarios}" />
+                                        </p:panelGrid>
+                                    </p:panel>
+
+                                    <!--Grupos-->
+                                    <p:panel header="Grupos">
+                                        <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" class="PadWithBorder10" layout="grid">
+                                            <p:selectBooleanCheckbox itemLabel="CADASTRA GRUPOS" value="#{grupoBean.permissoesUtil.cadastroGrupos}" />
+                                            <p:selectBooleanCheckbox itemLabel="VISUALIZA GRUPOS" value="#{grupoBean.permissoesUtil.visualizarGrupos}" />
+                                            <p:selectBooleanCheckbox itemLabel="ALTERA GRUPOS" value="#{grupoBean.permissoesUtil.alterarGrupos}" />
+                                            <p:selectBooleanCheckbox itemLabel="REMOVE GRUPOS" value="#{grupoBean.permissoesUtil.removerGrupos}" />
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                            </p:tabView>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaGrupos()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{grupoBean.grupo.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{grupoBean.salvar()}">
+                            </p:commandButton>
                         </div>
                     </div>
-                    <div class="divider" style="margin: 20px;"></div>
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{grupoBean.salvar()}">
-                            <i class="material-icons">#{grupoBean.grupo.id == null ? 'check' : 'sync'}</i>
-                        </h:commandLink>
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaGrupos()}">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
-                    </div>
-
                 </div>
             </div>
         </h:form>

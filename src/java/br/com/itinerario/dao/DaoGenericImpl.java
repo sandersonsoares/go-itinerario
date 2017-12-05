@@ -64,6 +64,7 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
         EntityTransaction tx = manager.getTransaction();
         try {
             tx.begin();
+            t = manager.merge(t);
             manager.remove(t);
             manager.flush();
             tx.commit();

@@ -25,39 +25,42 @@ public class VeiculoBean extends DefaultBean {
     @PostConstruct
     public void init() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-        
+
         try {
             if (id != null) {
                 this.veiculo = this.fachada.buscarOnibus(Long.parseLong(id));
             } else {
                 this.veiculo = new Onibus();
             }
-            
+
             veiculos = fachada.listarOnibus();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
     }
-    
-     public String salvar() {
-        System.out.println(this.veiculo.getId());
+
+    public void salvar() {
         try {
             fachada.cadastrarOnibus(this.veiculo);
-            return linkBean.listaVeiculos();
+            abrirDialog("sucess-dlg");
         } catch (Exception ex) {
-            ex.getStackTrace();
-        }
-        return null;
-    }
-
-    public String removerOnibus(Onibus onibus) {
-        try {
-            fachada.removerOnibus(onibus);
-            return linkBean.listaVeiculos();
-        } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
         }
-        return null;
+    }
+
+    public void preparaVeiculo(Onibus veiculo) {
+        this.veiculo = veiculo;
+        abrirDialog("apagar-dlg");
+    }
+
+    public void removerOnibus() {
+        try {
+            fachada.removerOnibus(this.veiculo);
+            abrirDialog("sucess-dlg");
+        } catch (DAOException ex) {
+            fecharDialog("apagar-dlg");
+            imprimirErro(ex.getMessage());
+        }
     }
 
     public void filtrar() {

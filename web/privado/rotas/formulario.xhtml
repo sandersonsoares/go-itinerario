@@ -6,51 +6,64 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <div class="card">
-            <div class="row">
-                <h:form id="form">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
-                    <div class="section col s12">
-                        <h5 class="bold">Dados da Rota</h5>
-                        <div class="divider col s12"></div>
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                        <p:menuitem value="Rotas" url="#{linkUtilBean.listaRotas()}" />
+                        <p:menuitem value="#{rotaBean.rota.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                    </p:breadCrumb>
+                </div>
 
-                        <div class="input-field col s12 m6">
-                            <input type="date" id="partida" class="datepicker" value="#{rotaBean.rota.partida}" required="true"/>
-                            <label class="normal" for="partida">Data/Hora de Partida</label>
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Informações da Rota</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="partida" value="Data/Hora de Partida"/>
+                            <p:calendar id="partida" value="#{rotaBean.rota.partida}" required="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <input type="date" id="chegada" class="datepicker" value="#{rotaBean.rota.chegada}" required="true"/>
-                            <label class="normal" for="chegada">Data/Hora de Chegada</label>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="chegada" value="Data/Hora de Chegada"/>
+                            <p:calendar id="chegada" value="#{rotaBean.rota.chegada}" required="true" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <h:selectOneMenu id="origem" value="#{rotaBean.rota.cidadeOrigem}" required="true" requiredMessage="Campo Cidade de Origem está vazio!" converter="CidadeConverter">
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel value="Cidade de Origem" for="origem" />
+                            <p:selectOneMenu id="origem" value="#{rotaBean.rota.cidadeOrigem}" required="true" requiredMessage="Campo Cidade de Origem está vazio!" converter="CidadeConverter">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Cidade de Origem" for="origem" />
+                            </p:selectOneMenu>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <h:selectOneMenu id="destino" value="#{rotaBean.rota.cidadeDestino}" required="true" requiredMessage="Campo Cidade de Destino está vazio!" converter="CidadeConverter">
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel value="Cidade de Destino" for="destino" />
+                            <p:selectOneMenu id="destino" value="#{rotaBean.rota.cidadeDestino}" required="true" requiredMessage="Campo Cidade de Destino está vazio!" converter="CidadeConverter">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Cidade de Destino" for="destino" />
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaRotas()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{rotaBean.rota.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{rotaBean.salvar()}">
+                            </p:commandButton>
                         </div>
                     </div>
-
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{rotaBean.salvar()}">
-                            <i class="material-icons">#{rotaBean.rota.id != null ? 'sync' : 'check'}</i>
-                        </h:commandLink>
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaRotas()}" immediate="true">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
-                    </div>
-                </h:form>
+                </div>
             </div>
-        </div>
+        </h:form>
     </ui:define>
 </ui:composition>

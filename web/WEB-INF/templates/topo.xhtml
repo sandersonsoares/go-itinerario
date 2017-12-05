@@ -30,16 +30,15 @@
                 <span id="menuline2" class="Animated05"></span>
                 <span id="menuline3" class="Animated05"></span>
             </a>
-            <a href="#"><img src="../../resources/img/logo.png" width="60vw" style="margin: 20px" /></a>
+            <a href="#"><p:graphicImage library="img" name="logo.png" style="margin: 20px" width="50px"/></a>
             <ul id="top-menu">
                 <li>
-                    <a><i class="icon-user2"></i> <span><p:outputLabel value="Seja bem vindo: #{requestBean.usuarioLogado.nome}"/> </span></a>
+                    <a><i class="icon-user2 MarRight10"></i> <span><p:outputLabel value="#{requestBean.usuarioLogado.nome}"/> </span></a>
 
                 </li>
                 <li>
-                    <!--                <a class="menulink Animated05"><i class="icon-x"></i> <span><p:outputLabel value="Sair do sistema"/></span></a>-->
                     <h:commandLink class="menulink" action="#{requestBean.logout()}" immediate="true">
-                        <i class="fa fa-close"></i> <span>Sair</span>
+                        <i class="fa fa-close MarRight10"></i> <span>Sair</span>
                     </h:commandLink>
                 </li>
             </ul>
@@ -52,56 +51,42 @@
             <ul class="layout-menu">
                 <li>
                     <p:commandLink class="menulink" action="#{linkUtilBean.paginaPrincipal()}">
-                        <i class="icon-home"></i> Dashboard
+                        <i class="icon-home MarRight10"></i> Dashboard
                     </p:commandLink>
                 </li>
                 <li>
-                    <p:commandLink class="menulink" action="#{linkUtilBean.listaUsuarios()}">
-                        <i class="icon-feather"></i> Usuarios
+                    <p:commandLink class="menulink" action="#{linkUtilBean.listaVeiculos()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_VEICULOS')}">
+                        <i class=" icon-steering-wheel MarRight10"></i> Veículos
                     </p:commandLink>
-                </li>
-                <li>
-                    <h:commandLink action="#{linkUtilBean.paginaPrincipal()}">
-                        <i class="material-icons">home</i> Início
-                    </h:commandLink>
-                </li>
-                <li><div class="divider"></div></li>
-                <li><a class="subheader">Principal</a></li>
-                <li>
-                    <h:commandLink action="#{linkUtilBean.listaVeiculos()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_VEICULOS')}">
-                        <i class="material-icons">directions_bus</i> Veículos
-                    </h:commandLink>
                 </li>
                 <li>
                     <h:commandLink action="#{linkUtilBean.listaPassageiros()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_PASSAGEIROS')}">
-                        <i class="material-icons">people_outline</i> Passageiros
+                        <i class="icon-user MarRight10"></i> Passageiros
                     </h:commandLink>
                 </li>
                 <li>
                     <h:commandLink action="#{linkUtilBean.listaBilhetes()}">
-                        <i class="material-icons">local_activity</i> Bilhetes
+                        <i class="icon-document-stroke MarRight10"></i> Bilhetes
                     </h:commandLink>    
                 </li>
                 <li>
                     <h:commandLink action="#{linkUtilBean.listaRotas()}">
-                        <i class="material-icons">near_me</i> Rotas
+                        <i class="icon-compass MarRight10"></i> Rotas
                     </h:commandLink>    
                 </li>
                 <li>
                     <h:commandLink action="#{linkUtilBean.listaCidades()}">
-                        <i class="material-icons">location_city</i> Cidades
+                        <i class=" icon-pin MarRight10"></i> Cidades
                     </h:commandLink>    
                 </li>
-                <li><div class="divider"></div></li>
-                <li><a class="subheader">Administrativo</a></li>
                 <li>
-                    <h:commandLink action="#{linkUtilBean.listaUsuarios()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_USUARIOS')}">
-                        <i class="material-icons">people</i> Usuários
-                    </h:commandLink>    
+                    <p:commandLink class="menulink" action="#{linkUtilBean.listaUsuarios()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_USUARIOS')}">
+                        <i class="icon-user2 MarRight10"></i> Usuários
+                    </p:commandLink>
                 </li>
                 <li>
                     <h:commandLink action="#{linkUtilBean.listaGrupos()}" rendered="#{request.isUserInRole('ROLE_VISUALIZAR_GRUPOS')}">
-                        <i class="material-icons">group_work</i> Grupos
+                        <i class="icon-users MarRight10"></i> Grupos
                     </h:commandLink>    
                 </li>
             </ul>

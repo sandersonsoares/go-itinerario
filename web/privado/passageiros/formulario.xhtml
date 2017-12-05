@@ -6,97 +6,129 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <div class="card">
-            <div class="row">
-                <h:form id="form">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
-                    <div class="section col s12">
-                        <h5 class="bold">Dados Pessoais</h5>
-                        <div class="divider col s12"></div>
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Passageiros" action="#{linkUtilBean.listaPassageiros()}" immediate="true"/>
+                        <p:menuitem value="#{pessoaBean.passageiro.id == null ? 'Cadastrar' : 'Alterar'}" />
+                    </p:breadCrumb>
+                </div>
 
-                        <div class="input-field col s12 m3">
-                            <p:inputMask mask="999.999.999-99" id="cpf" value="#{pessoaBean.passageiro.cpf}" required="true" requiredMessage="Campo CPF está vazio!"/>
-                            <label class="normal" for="cpf">CPF</label>
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Dados Pessoais</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="cpf" value="CPF"/>
+                            <p:inputMask  mask="999.999.999-99" id="cpf" value="#{pessoaBean.passageiro.cpf}" required="true" requiredMessage="Campo CPF está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:inputText id="nome" value="#{pessoaBean.passageiro.nome}" required="true" requiredMessage="Campo Nome está vazio!"/>
-                            <label class="normal" for="nome">Nome</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="nome" value="Nome"/>
+                            <p:inputText  id="nome" value="#{pessoaBean.passageiro.nome}" required="true" requiredMessage="Campo Nome está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m5">
-                            <h:inputText id="email" value="#{pessoaBean.passageiro.email}" required="true" requiredMessage="Campo Email está vazio!"/>
-                            <label class="normal" for="email">Email</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="tel" value="Telefone"/>
+                            <p:inputMask  id="tel" mask="(99) 9999-9999" value="#{pessoaBean.passageiro.telefone}" required="true" requiredMessage="Campo Telefone está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <p:inputMask id="tel" mask="(99) 9999-9999" value="#{pessoaBean.passageiro.telefone}" required="true" requiredMessage="Campo Telefone está vazio!"/>
-                            <label class="normal" for="tel">Telefone</label>
-                        </div>
-                        <div class="input-field col s12 m4">
-                            <h:selectOneMenu id="sexo" value="#{pessoaBean.passageiro.sexo}" required="true" requiredMessage="Campo Sexo está vazio!">
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel value="Sexo" for="sexo" />
+                            <p:selectOneMenu id="sexo"  value="#{pessoaBean.passageiro.sexo}" required="true" requiredMessage="Campo Sexo está vazio!">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
-                                <f:selectItems value="#{usuarioBean.listarSexos}" var="s" itemLabel="#{s.sexo}" itemValue="#{sexo}"/>
-                            </h:selectOneMenu>
-                            <h:outputLabel value="Sexo" for="sexo" />
+                                <f:selectItems value="#{pessoaBean.listarSexos}" var="s" itemLabel="#{s.sexo}" itemValue="#{sexo}"/>
+                            </p:selectOneMenu>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <input type="date" id="data" class="datepicker" value="#{pessoaBean.passageiro.dataNascimento}"/>
-                            <label class="normal" for="data">Data de Nacimento</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="datetime" value="Data de Nascimento" />
+                            <p:calendar id="datetime"  value="#{pessoaBean.passageiro.dataNascimento}" navigator="true" pattern="dd/MM/yyyy" showOn="button"/>
                         </div>
-                    </div>
-
-                    <div class="section col s12">
-                        <h5 class="bold">Endereço</h5>
-                        <div class="divider col s12"></div>
-                        <div class="input-field col s12 m6">
-                            <h:inputText id="rua" value="#{pessoaBean.passageiro.endereco.logradouro}" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
-                            <label class="normal" for="rua">Logradouro</label>
-                        </div>
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="num" value="#{pessoaBean.passageiro.endereco.numero}"/>
-                            <label class="normal" for="num">Numero</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:selectBooleanCheckbox id="estudante" class="MarTop20" value="#{pessoaBean.passageiro.estudante}" itemLabel="Estudante"/>
                         </div>
 
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="bairro" value="#{pessoaBean.passageiro.endereco.bairro}" required="true" requiredMessage="Campo Bairro está vazio!"/>
-                            <label class="normal" for="bairro">Bairro</label>
+                        <div class="ui-g-12 CardTopic MarTop40">Endereço</div>
+                        <div class="EmptyBox5"></div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-6">
+                            <p:outputLabel for="rua" value="Logradouro"/>
+                            <p:inputText  id="rua" value="#{pessoaBean.passageiro.endereco.logradouro}" required="true" requiredMessage="Campo Lugradouro está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m3">
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="num" value="Número" />
+                            <p:inputText id="num" value="#{pessoaBean.passageiro.endereco.numero}"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="bairro" value="Bairro"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.passageiro.endereco.bairro}" required="true" requiredMessage="Campo Bairro está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="cep" value="Cep"/>
                             <p:inputMask id="cep" mask="99999-999" value="#{pessoaBean.passageiro.endereco.cep}"  class="validate" required="true" requiredMessage="Campo CEP está vazio!"/>
-                            <label class="normal" for="cep">CEP</label>
                         </div>
-                        <div class="input-field col s12 m3">
-                            <h:inputText id="cidade" value="#{pessoaBean.passageiro.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
-                            <label class="normal" for="cidade">Cidade</label>
+                        <div class="ui-g-12 ui-md-3">
+                            <p:outputLabel for="cidade" value="Cidade"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.passageiro.endereco.cidade}"  class="validate" required="true" requiredMessage="Campo Cidade está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m2">
-                            <h:selectOneMenu id="uf" value="#{pessoaBean.passageiro.endereco.estado}">
+                        <div class="ui-g-12 ui-md-2">
+                            <p:outputLabel for="uf" value="Estado"/>
+                            <p:selectOneMenu id="uf" value="#{pessoaBean.passageiro.endereco.estado}">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione" />
-                                <f:selectItems value="#{usuarioBean.listarEstados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.sigla}" />
-                            </h:selectOneMenu>
-                            <label class="normal" for="uf">Estado</label>
+                                <f:selectItems value="#{pessoaBean.listarEstados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.sigla}" />
+                            </p:selectOneMenu>
                         </div>
-                        <div class="input-field col s12 m4">
-                            <h:inputText id="comp" value="#{pessoaBean.passageiro.endereco.complemento}"/>
-                            <label class="normal" for="comp">Complemento</label>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="comp" value="Complemento"/>
+                            <p:inputText id="comp" value="#{pessoaBean.passageiro.endereco.complemento}"/>
                         </div>
-                        <div class="input-field col s12">
-                            <h:inputText id="ponto" value="#{pessoaBean.passageiro.endereco.pontoReferencia}" />
-                            <label class="normal" for="ponto">Ponto de Referência</label>
+                        <div class="ui-g-12">
+                            <p:outputLabel for="ponto" value="Ponto de Referência"/>
+                            <p:inputText id="ponto" value="#{pessoaBean.passageiro.endereco.pontoReferencia}" />
                         </div>
-                    </div>
 
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{pessoaBean.salvarPassageiro()}">
-                            <i class="material-icons">#{pessoaBean.passageiro.id != null ? 'sync' : 'check'}</i>
-                        </h:commandLink>
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaPassageiros()}" immediate="true">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaPassageiros()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{pessoaBean.passageiro.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{pessoaBean.salvarPassageiro()}">
+                            </p:commandButton>
+                        </div>
                     </div>
-                </h:form>
+                </div>
             </div>
-        </div>
+        </h:form>
+
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dados #{pessoaBean.passageiro.id == null ? 'Salvos' : 'Alterados'} com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaPassageiros()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

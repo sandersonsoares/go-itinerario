@@ -2,6 +2,7 @@ package br.com.itinerario.controller;
 
 import br.com.itinerario.model.Bilhete;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,9 +12,11 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class BilheteBean extends DefaultBean {
-    
+
     private Bilhete bilhete;
     private List<Bilhete> bilhetes;
+
+    private String busca;
 
     public BilheteBean() {
         super();
@@ -22,21 +25,43 @@ public class BilheteBean extends DefaultBean {
     }
 
     @PostConstruct
-    private void init(){
+    private void init() {
         String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-        
+
         try {
             if (id != null) {
                 this.bilhete = this.fachada.buscarBilhete(Long.parseLong(id));
             } else {
                 this.bilhete = new Bilhete();
             }
-            
+
             this.bilhetes = fachada.listarBilhetes();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
 
+    }
+
+    public void filtrar() {
+        try {
+            this.bilhetes = fachada.listarBilhetes();
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
+        }
+
+        Iterator<Bilhete> intBilhete = this.bilhetes.iterator();
+        List<Bilhete> tempList = new ArrayList<Bilhete>();
+
+        while (intBilhete.hasNext()) {
+            Bilhete bilhete = intBilhete.next();
+
+            if (bilhete.getPassageiro().getNome().contains(busca)
+                    || bilhete.getNumero() == (Integer.parseInt(busca))) {
+                tempList.add(bilhete);
+            }
+        }
+        
+        this.bilhetes = tempList;
     }
 
     public Bilhete getBilhete() {
@@ -54,6 +79,13 @@ public class BilheteBean extends DefaultBean {
     public void setBilhetes(List<Bilhete> bilhetes) {
         this.bilhetes = bilhetes;
     }
-    
-    
+
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
+    }
+
 }

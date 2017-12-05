@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,10 +35,10 @@ public class Pessoa implements Serializable{
     private String cpf;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Endereco endereco;
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
-    @NotNull
     @Size(max = 255)
     private String email;
     private String telefone;

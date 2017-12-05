@@ -6,40 +6,54 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <div class="card">
-            <div class="row">
-                <h:form id="form">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
-                    <div class="section col s12">
-                        <h5 class="bold">Dados da Cidade</h5>
-                        <div class="divider col s12"></div>
+        <h:form>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
+                        <p:menuitem value="Cidades" url="#{linkUtilBean.listaCidades()}" />
+                        <p:menuitem value="#{cidadeBean.cidade.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                    </p:breadCrumb>
+                </div>
 
-                        <div class="input-field col s12 m4">
-                            <h:inputText id="nome" value="#{cidadeBean.cidade.nome}" required="true" requiredMessage="Campo Nome da Cidade está vazio!"/>
-                            <label class="normal" for="nome">Nome da Cidade</label>
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Informações da Cidade</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="nome" value="Nome da Cidade"/>
+                            <p:inputText id="nome" value="#{cidadeBean.cidade.nome}" required="true" requiredMessage="Campo Nome da Cidade está vazio!"/>
                         </div>
-                        <div class="input-field col s12 m2">
-                            <h:selectOneMenu id="uf" value="#{cidadeBean.cidade.estado}" required="true" requiredMessage="O campo de Estado é requerido!">
+                        <div class="ui-g-12 ui-md-2">
+                            <p:outputLabel for="uf" value="Estado"/>
+                            <p:selectOneMenu id="uf" value="#{cidadeBean.cidade.estado}" required="true" requiredMessage="O campo de Estado é requerido!">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione" />
                                 <f:selectItems value="#{cidadeBean.listarEstados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.sigla}" />
-                            </h:selectOneMenu>
-                            <label class="normal" for="uf">Estado</label>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaCidades()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{cidadeBean.cidade.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{cidadeBean.salvar()}">
+                            </p:commandButton>
                         </div>
                     </div>
-                        
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{cidadeBean.salvar()}">
-                            <i class="material-icons">#{cidadeBean.cidade.id != null ? 'sync' : 'check'}</i>
-                        </h:commandLink>
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaCidades()}" immediate="true">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
-                    </div>
-                </h:form>
+                </div>
             </div>
-        </div>
+        </h:form>
+        
     </ui:define>
 </ui:composition>

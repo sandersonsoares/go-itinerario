@@ -81,6 +81,8 @@ public class UsuarioBean extends DefaultBean implements Serializable {
                 tempList.add(user);
             }
         }
+        
+        this.usuarios = tempList;
     }
 
     public Usuario getUsuario() {

@@ -56,8 +56,10 @@ public class GrupoBean extends DefaultBean {
         return null;
     }
 
-    public void verPermissoesGrupo(Grupo grupo) {
+    public void verPermissoesGrupo(Grupo grupo, String dialog) {
         this.permissoes = grupo.getPermissoes();
+        this.grupo = grupo;
+        abrirDialog(dialog);
     }
 
     public List<Permissoes> getPermissoes() {

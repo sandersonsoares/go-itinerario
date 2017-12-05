@@ -6,69 +6,116 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <h:form id="form-onibus-list" class="card">
-            <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novoPassageiro()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_PASSAGEIROS')}">
-                    <i class="material-icons">add</i>
-                </p:commandLink>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <h:form id="breadcrumb">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" />
+                        <p:menuitem value="Passageiros" />
+                    </p:breadCrumb>
+                </h:form>
             </div>
 
-            <div class="row">
-                <h4 class="bold">Lista de Passageiros</h4>
-                <div class="card-action"></div>
+            <div class="ui-g-12">
+                <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+            </div>
 
-                <div class="row">
-                    <div class="col s10 l11 input-field">
-                        <h:inputText id="busca" value="#{pessoaBean.busca}"/>
-                        <label class="normal" for="busca">Busca</label>
+            <div class="ui-g-12">
+                <h:form id="form-busca">
+                    <div class="Card">
+                        <div class="CardTopic">Buscar</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-10">
+                            <p:inputText id="busca" value="#{pessoaBean.busca}" placeholder="Nome ou CPF"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p:commandButton actionListener="#{pessoaBean.filtrarPassageiros()}" update=":form-table:passageirosTable" value="Buscar" icon="fa fa-search"/>
+                        </div>
                     </div>
-                    <div class="col s2 l1">
-                        <p:commandLink class="waves-effect waves-light btn-floating btn-large" actionListener="#{pessoaBean.filtrar()}" update="passageirosTable">
-                            <i class="material-icons">search</i>
-                        </p:commandLink>
-                    </div> 
-                </div>
-
-                <h:dataTable id="passageirosTable" value="#{pessoaBean.passageiros}" var="passageiro" class="centered responsive-table striped">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Cpf"/>
-                        </f:facet>
-                        <h:outputText value="#{passageiro.cpf}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <h:outputText value="#{passageiro.nome}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Sexo"/>
-                        </f:facet>
-                        <h:outputText value="#{passageiro.sexo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{passageiro.email}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ações"/>
-                        </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarPassageiro(passageiro.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_PASSAGEIROS')}">
-                            <i class="material-icons orange-text">edit</i>
-                        </h:commandLink>
-                        <p:commandLink action="#{pessoaBean.removerPassageiro(passageiro)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_PASSAGEIROS')}" 
-                                       update="passageirosTable">
-                            <i class="material-icons red-text">cancel</i>
-                        </p:commandLink>
-                    </h:column>
-                </h:dataTable>
+                </h:form>
             </div>
-        </h:form>
+            <h:form id="form-table">
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:commandButton rendered="#{request.isUserInRole('ROLE_CADASTRAR_PASSAGEIROS')}" action="#{linkUtilBean.novoPassageiro()}" value="Novo" icon="fa fa-plus" style="max-width: 150px" />
+                        </div>
+                        <div class="SeparatorFull"></div>
+
+                        <p:dataTable id="passageirosTable" value="#{pessoaBean.passageiros}" var="passageiro" paginator="true" 
+                                     rows="15" reflow="true" rowStyleClass="TexAlCenter">
+                            <p:column headerText="CPF">
+                                <h:outputText value="#{passageiro.cpf}"/>
+                            </p:column>
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{passageiro.nome}"/>
+                            </p:column>
+                            <p:column headerText="Sexo">
+                                <h:outputText value="#{passageiro.sexo}"/>
+                            </p:column>
+                            <p:column headerText="Data de Nascimento">
+                                <p:outputLabel value="#{passageiro.dataNascimento}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Ações">
+                                <p:commandButton class="ui-button-icon-only OrangeButton" icon="fa fa-pencil"
+                                                 action="#{linkUtilBean.editarPassageiro(passageiro.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_PASSAGEIROS')}">
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-trash"
+                                                 action="#{pessoaBean.preparaPassageiro(passageiro)}" rendered="#{request.isUserInRole('ROLE_REMOVER_PASSAGEIROS')}"
+                                                 update=":form-apagar">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+        
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dado Apagado com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaPassageiros()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
+        <!--Dialog Apagar-->
+        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <h:form id="form-apagar">
+                    <div class="ui-g-12 TexAlCenter">
+                        <i class="icon-trash-alt Fs30 TexAlCenter"></i>
+                        <h4 class="TexAlCenter">Deseja relamente apagar <b>#{pessoaBean.passageiro.nome}</b>?</h4>
+                    </div>
+                    <div class="Separator"></div>
+                    <div class="ui-g-12">
+                        <p:commandButton class="RedButton" value="NÃO"
+                                         onclick="PF('apagar-dlg').hidden()">
+                        </p:commandButton>
+
+                        <p:commandButton class="GreenButton Fright" value="SIM"
+                                         action="#{pessoaBean.removerPassageiro()}" update=":form-table:passageirosTable">
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </p:dialog>
+        
     </ui:define>
 </ui:composition>

@@ -6,48 +6,85 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <div class="card">
-            <div class="row">
-                <h:form id="form">
-                    <p:messages showDetail="true" autoUpdate="true" showSummary="false" closable="true"/>
 
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="num" value="#{veiculoBean.veiculo.numero}" required="true" requiredMessage="Campo Número está vazio!"/>
-                        <label class="normal" for="num">Número</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="marca" value="#{veiculoBean.veiculo.marca}" required="true" requiredMessage="Campo Marca está vazio!"/>
-                        <label class="normal" for="marca">Marca</label>
-                    </div>
-                    <div class="input-field col s12 m4">
-                        <h:inputText id="modelo" value="#{veiculoBean.veiculo.modelo}" required="true" requiredMessage="Campo Modelo está vazio!"/>
-                        <label class="normal" for="modelo">Modelo</label>
-                    </div>
-                    <div class="input-field col s12 m2">
-                        <p:inputMask id="ano" mask="9999" value="#{veiculoBean.veiculo.ano}" required="true" requiredMessage="Campo Ano está vazio"/>
-                        <label class="normal" for="ano">Ano</label>
-                    </div>
-                    <div class="input-field col s12 m5">
-                        <p:inputMask id="chassi" mask="9999999" value="#{veiculoBean.veiculo.chassi}" required="true" requiredMessage="Campo Chassi está vazio!"/>
-                        <label class="normal" for="chassi" >Chassi</label>
-                    </div>
-                    <div class="input-field col s12 m5">
-                        <h:inputText class="validate" id="placa" value="#{veiculoBean.veiculo.placa}" required="true" requiredMessage="Campo Placa está vazio!"/>
-                        <label class="normal" for="placa">Placa</label>
-                    </div>
+        <h:form id="form-veiculo">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Veículos" action="#{linkUtilBean.listaVeiculos()}" immediate="true"/>
+                        <p:menuitem value="#{veiculoBean.veiculo.id == null ? 'Cadastrar' : 'Alterar'}" />
+                    </p:breadCrumb>
+                </div>
 
-                    <div class="col s12">
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light green right" 
-                                       action="#{veiculoBean.salvar()}">
-                            <i class="material-icons">#{veiculoBean.veiculo.id != null ? 'sync' : 'check'}</i>
-                        </h:commandLink>
-                        <h:commandLink class="btn btn-floating btn-large waves-effect waves-light red" 
-                                       action="#{linkUtilBean.listaVeiculos()}" immediate="true">
-                            <i class="material-icons">close</i>
-                        </h:commandLink>
+                <div class="ui-g-12">
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+                </div>
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">Informações do Veículo</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="num" value="Número"/>
+                            <p:inputText id="num" value="#{veiculoBean.veiculo.numero}" required="true" requiredMessage="Campo Número está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="marca" value="Marca"/>
+                            <p:inputText id="marca" value="#{veiculoBean.veiculo.marca}" required="true" requiredMessage="Campo Marca está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <p:outputLabel for="modelo" value="Modelo"/>
+                            <p:inputText id="modelo" value="#{veiculoBean.veiculo.modelo}" required="true" requiredMessage="Campo Modelo está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p:outputLabel for="ano" value="Ano"/>
+                            <p:inputMask id="ano" mask="9999" value="#{veiculoBean.veiculo.ano}" required="true" requiredMessage="Campo Ano está vazio"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-5">
+                            <p:outputLabel for="chassi" value="Chassi"/>
+                            <p:inputMask id="chassi" mask="9999999" value="#{veiculoBean.veiculo.chassi}" required="true" requiredMessage="Campo Chassi está vazio!"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-5">
+                            <p:outputLabel for="placa" value="Placa"/>
+                            <p:inputText class="validate" id="placa" value="#{veiculoBean.veiculo.placa}" required="true" requiredMessage="Campo Placa está vazio!"/>
+                        </div>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Separator"></div>
+
+                        <div class="ui-g-12">
+                            <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                             action="#{linkUtilBean.listaVeiculos()}" immediate="true">
+                            </p:commandButton>
+
+                            <p:commandButton class="ui-button-icon-only Fright" icon="fa #{veiculoBean.veiculo.id == null ? 'fa-check' : 'fa-refresh'}"
+                                             action="#{veiculoBean.salvar()}">
+                            </p:commandButton>
+                        </div>
                     </div>
-                </h:form>
+                </div>
             </div>
-        </div>
+        </h:form>
+
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dados #{veiculoBean.veiculo.id == null ? 'Salvos' : 'Alterados'} com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaVeiculos()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

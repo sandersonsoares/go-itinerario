@@ -6,80 +6,119 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        <h:form id="form-onibus-list" class="card">
-            <div class="fixed-action-btn">
-                <p:commandLink class="waves-effect waves-light  btn-floating btn-large" 
-                               action="#{linkUtilBean.novoVeiculo()}" rendered="#{request.isUserInRole('ROLE_CADASTRAR_VEICULOS')}">
-                    <i class="material-icons">add</i>
-                </p:commandLink>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <h:form id="breadcrumb">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true" />
+                        <p:menuitem value="Veículos" url="#" />
+                    </p:breadCrumb>
+                </h:form>
             </div>
 
-            <div class="row">
-                <h4 class="bold">Lista de Veículos</h4>
-                <div class="card-action"></div>
+            <div class="ui-g-12">
+                <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+            </div>
 
-                <div class="row">
-                    <div class="col s10 l11 input-field">
-                        <h:inputText id="busca" value="#{veiculoBean.busca}"  class="validate"/>
-                        <label class="normal" for="busca">Busca</label>
+            <div class="ui-g-12">
+                <h:form id="form-busca">
+                    <div class="Card">
+                        <div class="CardTopic">Buscar</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-10">
+                            <p:inputText id="busca" value="#{veiculoBean.busca}" placeholder="Modelo, Número ou Placa"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p:commandButton actionListener="#{veiculoBean.filtrar()}" update=":form-table:veiculosTable" value="Buscar" icon="fa fa-search"/>
+                        </div>
                     </div>
-                    <div class="col s2 l1">
-                        <p:commandLink class="waves-effect waves-light btn-floating btn-large" actionListener="#{veiculoBean.filtrar()}" update="veiculosTable">
-                            <i class="material-icons">search</i>
-                        </p:commandLink>
-                    </div> 
-                </div>
-
-                <h:dataTable id="veiculosTable" value="#{veiculoBean.veiculos}" var="veiculo" class="centered responsive-table striped">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Numero"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.numero}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Modelo"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.modelo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Marca"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.marca}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ano"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.ano}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Chassi"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.chassi}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Placa"/>
-                        </f:facet>
-                        <h:outputText value="#{veiculo.placa}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ações"/>
-                        </f:facet>
-                        <h:commandLink action="#{linkUtilBean.editarVeiculo(veiculo.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_VEICULOS')}">
-                            <i class="material-icons orange-text">edit</i>
-                        </h:commandLink>
-                        <p:commandLink action="#{veiculoBean.removerOnibus(veiculo)}" rendered="#{request.isUserInRole('ROLE_REMOVER_VEICULOS')}">
-                            <i class="material-icons red-text">cancel</i>
-                        </p:commandLink>
-                    </h:column>
-                </h:dataTable>
+                </h:form>
             </div>
-        </h:form>
+            <h:form id="form-table">
+                <div class="ui-g-12">
+                    <div class="Card">
+                        <div class="CardTopic">
+                            <p:commandButton rendered="#{request.isUserInRole('ROLE_CADASTRAR_VEICULOS')}" 
+                                             action="#{linkUtilBean.novoVeiculo()}" value="Novo" icon="fa fa-plus" style="max-width: 150px" />
+                        </div>
+                        <div class="SeparatorFull"></div>
+
+                        <p:dataTable id="veiculosTable" value="#{veiculoBean.veiculos}" var="veiculo" rows="15"
+                                     paginator="true" rowStyleClass="TexAlCenter" reflow="true">
+                            <p:column headerText="Número">
+                                <h:outputText value="#{veiculo.numero}"/>
+                            </p:column>
+                            <p:column headerText="Modelo">
+                                <h:outputText value="#{veiculo.modelo}"/>
+                            </p:column>
+                            <p:column headerText="Marca">
+                                <h:outputText value="#{veiculo.marca}"/>
+                            </p:column>
+                            <p:column headerText="Ano">
+                                <h:outputText value="#{veiculo.ano}"/>
+                            </p:column>
+                            <p:column headerText="Chassi">
+                                <h:outputText value="#{veiculo.chassi}"/>
+                            </p:column>
+                            <p:column headerText="Placa">
+                                <h:outputText value="#{veiculo.placa}"/>
+                            </p:column>
+                            <p:column headerText="Ações">
+                                <p:commandButton class="ui-button-icon-only OrangeButton" action="#{linkUtilBean.editarVeiculo(veiculo.id)}" icon="fa fa-pencil"
+                                                 rendered="#{request.isUserInRole('ROLE_ALTERAR_VEICULOS')}">
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-icon-only RedButton" action="#{veiculoBean.preparaVeiculo(veiculo)}" icon="fa fa-trash"
+                                                 rendered="#{request.isUserInRole('ROLE_REMOVER_VEICULOS')}" update=":form-apagar">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dado Apagado com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaVeiculos()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
+        <!--Dialog Apagar-->
+        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" 
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <h:form id="form-apagar">
+                    <div class="ui-g-12 TexAlCenter">
+                        <i class="icon-trash-alt Fs30 TexAlCenter"></i>
+                        <h4 class="TexAlCenter">Deseja relamente apagar o veículo de Placa <b>#{veiculoBean.veiculo.placa}</b>?</h4>
+                    </div>
+                    <div class="Separator"></div>
+                    <div class="ui-g-12">
+                        <p:commandButton class="RedButton" value="NÃO"
+                                         onclick="PF('apagar-dlg').hidden()">
+                        </p:commandButton>
+
+                        <p:commandButton class="GreenButton Fright" value="SIM"
+                                         action="#{veiculoBean.removerOnibus()}" update=":form-table:veiculosTable">
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </p:dialog>
     </ui:define>
 </ui:composition>
