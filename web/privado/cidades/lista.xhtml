@@ -6,13 +6,15 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        
-         <div class="ui-g ui-fluid">
+
+        <div class="ui-g ui-fluid">
             <div class="ui-g-12">
-                <p:breadCrumb>
-                    <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
-                    <p:menuitem value="Cidades" url="#" />
-                </p:breadCrumb>
+                <h:form id="breadcrumb">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Cidades"/>
+                    </p:breadCrumb>
+                </h:form>
             </div>
 
             <div class="ui-g-12">
@@ -25,7 +27,7 @@
                             <p:inputText id="busca" value="#{cidadeBean.busca}" placeholder="Nome da Cidade"/>
                         </div>
                         <div class="ui-g-12 ui-md-2">
-                            <p:commandButton actionListener="#{cidadeBean.filtrar()}" update=":form-table:cidadesTable" value="Buscar" icon="fa fa-search"/>
+                            <p:commandButton rendered="#{request.isUserInRole('ROLE_CADASTRAR_CIDADES')}" actionListener="#{cidadeBean.filtrar()}" update=":form-table:cidadesTable" value="Buscar" icon="fa fa-search"/>
                         </div>
                     </div>
                 </h:form>
@@ -45,11 +47,62 @@
                             <p:column headerText="Estado">
                                 <h:outputText value="#{cidade.estado.nome}"/>
                             </p:column>
+                            <p:column headerText="Ações">
+                                <p:commandButton class="ui-button-icon-only OrangeButton" icon="fa fa-pencil"
+                                                 action="#{linkUtilBean.editarCidade(cidade.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_CIDADES')}">
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-trash"
+                                                 action="#{cidadeBean.prepararCidade(cidade)}" rendered="#{request.isUserInRole('ROLE_REMOVER_CIDADES')}"
+                                                 update=":form-apagar">
+                                </p:commandButton>
+                            </p:column>
                         </p:dataTable>
                     </div>
                 </div>
             </h:form>
         </div>
         
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dado Apagado com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaCidades()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
+        <!--Dialog Apagar-->
+        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <h:form id="form-apagar">
+                    <div class="ui-g-12 TexAlCenter">
+                        <i class="icon-trash-alt Fs30 TexAlCenter"></i>
+                        <h4 class="TexAlCenter">Deseja relamente apagar <b>#{cidadeBean.cidade.nome}</b>?</h4>
+                    </div>
+                    <div class="Separator"></div>
+                    <div class="ui-g-12">
+                        <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                         onclick="PF('apagar-dlg').hidden()">
+                        </p:commandButton>
+
+                        <p:commandButton class="ui-button-icon-only GreenButton Fright" icon="fa fa-check"
+                                         actionListener="#{cidadeBean.removerCidade()}" update=":form-table:cidadesTable">
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

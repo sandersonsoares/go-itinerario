@@ -15,10 +15,6 @@ public class Passageiro extends Pessoa implements Serializable{
     @Enumerated(EnumType.STRING)
     private TipoDocumento tipoDocumento;
 
-    public Passageiro() {
-        this.estudante = false;
-    }
-    
     public boolean isEstudante() {
         return estudante;
     }
@@ -34,5 +30,5 @@ public class Passageiro extends Pessoa implements Serializable{
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
-    
+
 }

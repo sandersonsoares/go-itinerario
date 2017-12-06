@@ -83,7 +83,7 @@ public abstract class DaoGenericImpl<T> implements DaoGeneric<T> {
             return manager.merge(t);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new DAOException(ExceptionsType.getMessage(ExceptionsType.REMOVE_ERROR), e);
+            throw new DAOException(ExceptionsType.getMessage(ExceptionsType.UPDATE_ERROR), e);
         }
     }
 

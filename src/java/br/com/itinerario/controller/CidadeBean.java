@@ -41,7 +41,6 @@ public class CidadeBean extends DefaultBean {
             }
 
             this.cidades = fachada.listarCidades();
-            System.out.println(this.cidades);
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
@@ -68,14 +67,28 @@ public class CidadeBean extends DefaultBean {
         this.cidades = tempList;
     }
 
-    public String salvar() {
+    public void salvar() {
         try {
-            this.fachada.cadastrarCidade(this.cidade);
-            return this.linkBean.listaCidades();
+            this.cidade = this.fachada.cadastrarCidade(this.cidade);
+            abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
         }
-        return null;
+    }
+
+    public void prepararCidade(Cidade cidade) {
+        this.cidade = cidade;
+        abrirDialog("apagar-dlg");
+    }
+
+    public void removerCidade() {
+        try {
+            this.cidade = this.fachada.removerCidade(this.cidade);
+            abrirDialog("sucess-dlg");
+        } catch (DAOException ex) {
+            fecharDialog("apagar-dlg");
+            imprimirErro(ex.getMessage());
+        }
     }
 
     public Estados[] getListarEstados() {

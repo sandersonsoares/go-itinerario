@@ -11,9 +11,9 @@
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12">
                     <p:breadCrumb>
-                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
-                        <p:menuitem value="Cidades" url="#{linkUtilBean.listaCidades()}" />
-                        <p:menuitem value="#{cidadeBean.cidade.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Cidades" action="#{linkUtilBean.listaCidades()}" immediate="true" />
+                        <p:menuitem value="#{cidadeBean.cidade.id == null ? 'Cadastrar' : 'Alterar'}"/>
                     </p:breadCrumb>
                 </div>
 
@@ -47,13 +47,32 @@
                             </p:commandButton>
 
                             <p:commandButton class="ui-button-icon-only Fright" icon="fa #{cidadeBean.cidade.id == null ? 'fa-check' : 'fa-refresh'}"
-                                             action="#{cidadeBean.salvar()}">
+                                             actionListener="#{cidadeBean.salvar()}">
                             </p:commandButton>
                         </div>
                     </div>
                 </div>
             </div>
         </h:form>
-        
+
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dados #{cidadeBean.cidade.id == null ? 'Salvos' : 'Alterados'} com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaCidades()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

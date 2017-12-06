@@ -85,7 +85,7 @@ public class PessoaBean extends DefaultBean {
     public void removerPassageiro() {
         try {
             this.fachada.removerPassageiro(this.passageiro);
-            fecharDialog("sucess-dlg");
+            abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
             fecharDialog("apagar-dlg");

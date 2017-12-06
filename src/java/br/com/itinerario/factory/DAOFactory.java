@@ -3,6 +3,7 @@ package br.com.itinerario.factory;
 import br.com.itinerario.dao.AssentoDAO;
 import br.com.itinerario.dao.BilheteDAO;
 import br.com.itinerario.dao.CidadeDAO;
+import br.com.itinerario.dao.DaoGenericImpl;
 import br.com.itinerario.dao.EnderecoDAO;
 import br.com.itinerario.dao.FuncionarioDAO;
 import br.com.itinerario.dao.GrupoDAO;
@@ -15,6 +16,7 @@ import br.com.itinerario.dao.UsuarioDAO;
 import br.com.itinerario.dao.VendaBilheteDAO;
 import br.com.itinerario.interfaces.DaoGeneric;
 import br.com.itinerario.interfaces.IUsuarioDAO;
+import br.com.itinerario.model.Cidade;
 
 public class DAOFactory {
 
@@ -26,7 +28,7 @@ public class DAOFactory {
         return new BilheteDAO();
     }
 
-    public static DaoGeneric createCidadeDAO() {
+    public static DaoGenericImpl<Cidade> createCidadeDAO() {
         return new CidadeDAO();
     }
 

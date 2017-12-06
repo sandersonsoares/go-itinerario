@@ -78,12 +78,12 @@ public class Facade implements Serializable {
     }
 
     // Cidade
-    public void cadastrarCidade(Cidade cidade) throws DAOException {
-        this.cidadeBusiness.salvar(cidade);
+    public Cidade cadastrarCidade(Cidade cidade) throws DAOException {
+        return this.cidadeBusiness.salvar(cidade);
     }
 
-    public void removerCidade(Cidade cidade) throws DAOException {
-        this.cidadeBusiness.remover(cidade);
+    public Cidade removerCidade(Cidade cidade) throws DAOException {
+        return this.cidadeBusiness.remover(cidade);
     }
 
     public Cidade buscarCidade(Long id) throws DAOException {

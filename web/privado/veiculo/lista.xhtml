@@ -80,7 +80,7 @@
         </div>
 
         <!--Dialog Sucesso-->
-        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" 
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
                   responsive="true" width="400" resizable="false" closable="false">
             <div class="ui-g">
                 <div class="ui-g-12 TexAlCenter">
@@ -99,7 +99,7 @@
         </p:dialog>
 
         <!--Dialog Apagar-->
-        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" 
+        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" draggable="false"
                   responsive="true" width="400" resizable="false" closable="false">
             <div class="ui-g">
                 <h:form id="form-apagar">
@@ -109,11 +109,11 @@
                     </div>
                     <div class="Separator"></div>
                     <div class="ui-g-12">
-                        <p:commandButton class="RedButton" value="NÃO"
+                        <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
                                          onclick="PF('apagar-dlg').hidden()">
                         </p:commandButton>
 
-                        <p:commandButton class="GreenButton Fright" value="SIM"
+                        <p:commandButton class="ui-button-icon-only GreenButton Fright" icon="fa fa-check"
                                          action="#{veiculoBean.removerOnibus()}" update=":form-table:veiculosTable">
                         </p:commandButton>
                     </div>

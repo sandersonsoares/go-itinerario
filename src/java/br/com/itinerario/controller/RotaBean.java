@@ -48,14 +48,28 @@ public class RotaBean extends DefaultBean {
         }
     }
 
-    public String salvar() {
+    public void salvar() {
         try {
             this.fachada.cadastrarRota(this.rota);
-            return this.linkBean.listaRotas();
+            abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
         }
-        return null;
+    }
+
+    public void prepararRota(Rota rota) {
+        this.rota = rota;
+        abrirDialog("sucess-dlg");
+    }
+    
+    public void removerRota() {
+        try {
+            this.fachada.removerRota(this.rota);
+            abrirDialog("sucess-dlg");
+        } catch (DAOException ex) {
+            fecharDialog("apagar-dlg");
+            imprimirErro(ex.getMessage());
+        }
     }
 
     public void filtrar() {
