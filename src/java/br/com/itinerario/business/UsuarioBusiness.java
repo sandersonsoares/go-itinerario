@@ -20,20 +20,20 @@ public class UsuarioBusiness {
         this.usuarioDao = DAOFactory.createUsuarioDAO();
     }
 
-    public synchronized void salvar(Usuario usuario) throws DAOException {
+    public synchronized Usuario salvar(Usuario usuario) throws DAOException {
         if (usuario.getId() != null) {
-            atualizar(usuario);
+            return usuarioDao.update(usuario);
         } else {
-            usuarioDao.save(usuario);
+            return usuarioDao.save(usuario);
         }
     }
 
-    public synchronized void atualizar(Usuario usuario) throws DAOException {
-        usuarioDao.update(usuario);
+    public Usuario buscar(Long id) throws DAOException {
+        return usuarioDao.getById(id);
     }
 
-    public Usuario buscar(Long id) throws DAOException {
-        return (Usuario) usuarioDao.getById(id);
+    public Usuario remover(Usuario usuario) throws DAOException {
+        return usuarioDao.remove(usuario);
     }
 
     public List<Usuario> listar() throws DAOException {

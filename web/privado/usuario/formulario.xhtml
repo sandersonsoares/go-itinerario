@@ -9,14 +9,14 @@
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12">
                     <p:breadCrumb>
-                        <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
-                        <p:menuitem value="Usuários" url="#{linkUtilBean.listaUsuarios()}" />
-                        <p:menuitem value="#{usuarioBean.usuario.id == null ? 'Cadastrar' : 'Alterar'}" url="#" />
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Usuários" action="#{linkUtilBean.listaUsuarios()}" immediate="true"/>
+                        <p:menuitem value="#{usuarioBean.usuario.id == null ? 'Cadastrar' : 'Alterar'}"/>
                     </p:breadCrumb>
                 </div>
                 
                 <div class="ui-g-12">
-                    <p:messages autoUpdate="true" showIcon="true"/>
+                    <p:messages autoUpdate="true" showIcon="true" closable="true"/>
                 </div>
 
                 <div class="ui-g-12">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="ui-g-12 ui-md-4">
                             <p:outputLabel for="datetime" value="Data de Nascimento" />
-                            <p:calendar id="datetime"  value="#{usuarioBean.usuario.dataNascimento}" pattern="dd/MM/yyyy HH:mm:ss" showOn="button"/>
+                            <p:calendar id="datetime"  value="#{usuarioBean.usuario.dataNascimento}" navigator="true" pattern="dd/MM/yyyy" showOn="button"/>
                         </div>
                         
                         <div class="ui-g-12 CardTopic MarTop40">Acesso ao Sistema</div>
@@ -138,6 +138,26 @@
                 </div>
             </div>
         </h:form>
+        
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dados #{usuarioBean.usuario.id == null ? 'Salvos' : 'Alterados'} com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaUsuarios()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+        
     </ui:define>
 </ui:composition>
 

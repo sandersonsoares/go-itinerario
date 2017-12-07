@@ -3,12 +3,11 @@ package br.com.itinerario.factory;
 import br.com.itinerario.dao.AssentoDAO;
 import br.com.itinerario.dao.BilheteDAO;
 import br.com.itinerario.dao.CidadeDAO;
-import br.com.itinerario.dao.DaoGenericImpl;
 import br.com.itinerario.dao.EnderecoDAO;
 import br.com.itinerario.dao.FuncionarioDAO;
 import br.com.itinerario.dao.GrupoDAO;
 import br.com.itinerario.dao.MotoristaDAO;
-import br.com.itinerario.dao.OnibusDAO;
+import br.com.itinerario.dao.VeiculoDAO;
 import br.com.itinerario.dao.PassageiroDAO;
 import br.com.itinerario.dao.PessoaDAO;
 import br.com.itinerario.dao.RotaDAO;
@@ -17,6 +16,7 @@ import br.com.itinerario.dao.VendaBilheteDAO;
 import br.com.itinerario.interfaces.DaoGeneric;
 import br.com.itinerario.interfaces.IUsuarioDAO;
 import br.com.itinerario.model.Cidade;
+import br.com.itinerario.model.Rota;
 
 public class DAOFactory {
 
@@ -28,7 +28,7 @@ public class DAOFactory {
         return new BilheteDAO();
     }
 
-    public static DaoGenericImpl<Cidade> createCidadeDAO() {
+    public static DaoGeneric<Cidade> createCidadeDAO() {
         return new CidadeDAO();
     }
 
@@ -44,8 +44,8 @@ public class DAOFactory {
         return new MotoristaDAO();
     }
 
-    public static DaoGeneric createOnibusDAO() {
-        return new OnibusDAO();
+    public static DaoGeneric createVeiculoDAO() {
+        return new VeiculoDAO();
     }
 
     public static DaoGeneric createPassageiroDAO() {
@@ -56,7 +56,7 @@ public class DAOFactory {
         return new PessoaDAO();
     }
 
-    public static DaoGeneric createRotaDAO() {
+    public static DaoGeneric<Rota> createRotaDAO() {
         return new RotaDAO();
     }
 
@@ -67,8 +67,8 @@ public class DAOFactory {
     public static DaoGeneric createVendaBilheteDAO() {
         return new VendaBilheteDAO();
     }
-    
-     public static DaoGeneric createGrupoDAO() {
+
+    public static DaoGeneric createGrupoDAO() {
         return new GrupoDAO();
     }
 

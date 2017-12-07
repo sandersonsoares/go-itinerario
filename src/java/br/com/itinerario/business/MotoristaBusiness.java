@@ -11,17 +11,18 @@ import java.util.List;
  * @author Sanderson
  */
 public class MotoristaBusiness {
-     private DaoGeneric motoristaDao;
-    
-     public MotoristaBusiness() {
-        this.motoristaDao = DAOFactory.createBilheteDAO();
+
+    private DaoGeneric<Motorista> motoristaDao;
+
+    public MotoristaBusiness() {
+        this.motoristaDao = DAOFactory.createMotoristaDAO();
     }
 
-    public synchronized void salvar(Motorista motorista) throws DAOException {
+    public synchronized Motorista salvar(Motorista motorista) throws DAOException {
         if (motorista.getId() != null) {
-            motoristaDao.update(motorista);
+            return motoristaDao.update(motorista);
         } else {
-            motoristaDao.save(motorista);
+            return motoristaDao.save(motorista);
         }
     }
 
@@ -29,11 +30,11 @@ public class MotoristaBusiness {
         return motoristaDao.getAll();
     }
 
-    public synchronized void remover(Motorista motorista) throws DAOException {
-        this.motoristaDao.remove(motorista);
+    public synchronized Motorista remover(Motorista motorista) throws DAOException {
+        return this.motoristaDao.remove(motorista);
     }
 
     public Motorista buscar(Long id) throws DAOException {
-        return (Motorista) this.motoristaDao.getById(id);
+        return this.motoristaDao.getById(id);
     }
 }

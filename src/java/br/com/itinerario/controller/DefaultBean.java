@@ -1,6 +1,5 @@
 package br.com.itinerario.controller;
 
-import br.com.itinerario.facade.Facade;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,11 +9,9 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 public class DefaultBean implements Serializable {
 
-    protected Facade fachada;
     protected LinkUtilBean linkBean;
 
     public DefaultBean() {
-        fachada = new Facade();
         linkBean = new LinkUtilBean();
     }
 

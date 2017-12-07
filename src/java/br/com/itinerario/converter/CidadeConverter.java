@@ -1,7 +1,6 @@
 package br.com.itinerario.converter;
 
-import br.com.itinerario.factory.DAOFactory;
-import br.com.itinerario.interfaces.DaoGeneric;
+import br.com.itinerario.dao.CidadeDAO;
 import br.com.itinerario.model.Cidade;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,7 +14,7 @@ public class CidadeConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
         try {
-            DaoGeneric dao = DAOFactory.createCidadeDAO();
+            CidadeDAO dao = new CidadeDAO();
             return dao.getById(Long.parseLong(arg2));
         } catch (Exception e) {
             throw new ConverterException("Objeto não encontrado!");

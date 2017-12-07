@@ -2,6 +2,8 @@ package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Estados;
 import br.com.itinerario.enums.Sexo;
+import br.com.itinerario.exception.DAOException;
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,16 +17,16 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class UsuarioBean extends DefaultBean implements Serializable {
+    
+    private Facade fachada;
 
     private Usuario usuario;
     private List<Usuario> usuarios;
     private String busca;
 
-    private RequestBean requestBean;
-
     public UsuarioBean() {
         super();
-        requestBean = new RequestBean();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
@@ -51,14 +53,28 @@ public class UsuarioBean extends DefaultBean implements Serializable {
         return Estados.values();
     }
 
-    public String salvar() {
+    public void salvar() {
         try {
-            fachada.cadastrarUsuario(usuario);
-            return this.linkBean.listaUsuarios();
+            this.usuario = this.fachada.cadastrarUsuario(this.usuario);
+            abrirDialog("sucess-dlg");
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
-        return null;
+    }
+    
+    public void preparaUsuario(Usuario usuario){
+        this.usuario = usuario;
+        abrirDialog("apagar-dlg");
+    }
+    
+    public void removerUsuario() {
+        try {
+            this.usuario = this.fachada.removerUsuario(this.usuario);
+            abrirDialog("sucess-dlg");
+        } catch (DAOException ex) {
+            imprimirErro(ex.getMessage());
+            fecharDialog("apagar-dlg");
+        }
     }
 
     public void filtrar() {

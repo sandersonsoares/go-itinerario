@@ -1,6 +1,7 @@
 package br.com.itinerario.controller;
 
 import br.com.itinerario.exception.DAOException;
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Cidade;
 import br.com.itinerario.model.Rota;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class RotaBean extends DefaultBean {
 
+    private Facade fachada;
+
     private Rota rota;
     private List<Rota> rotas;
     private List<Cidade> cidades;
@@ -27,6 +30,7 @@ public class RotaBean extends DefaultBean {
 
     public RotaBean() {
         this.rotas = new ArrayList<>();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
@@ -40,8 +44,8 @@ public class RotaBean extends DefaultBean {
                 this.rota = new Rota();
             }
 
-            this.rotas = fachada.listarRotas();
-            this.cidades = fachada.listarCidades();
+            this.rotas = this.fachada.listarRotas();
+            this.cidades = this.fachada.listarCidades();
             System.out.println(this.rotas);
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
@@ -50,7 +54,7 @@ public class RotaBean extends DefaultBean {
 
     public void salvar() {
         try {
-            this.fachada.cadastrarRota(this.rota);
+            this.rota = this.fachada.cadastrarRota(this.rota);
             abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
@@ -61,10 +65,10 @@ public class RotaBean extends DefaultBean {
         this.rota = rota;
         abrirDialog("sucess-dlg");
     }
-    
+
     public void removerRota() {
         try {
-            this.fachada.removerRota(this.rota);
+            this.rota = this.fachada.removerRota(this.rota);
             abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             fecharDialog("apagar-dlg");
@@ -78,11 +82,11 @@ public class RotaBean extends DefaultBean {
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
-        Iterator<Rota> intOnibus = this.rotas.iterator();
+        Iterator<Rota> intRota = this.rotas.iterator();
         List<Rota> tempList = new ArrayList<Rota>();
 
-        while (intOnibus.hasNext()) {
-            Rota rota = intOnibus.next();
+        while (intRota.hasNext()) {
+            Rota rota = intRota.next();
 
             if (rota.getCidadeDestino().getNome().contains(busca)
                     || rota.getCidadeDestino().getNome().contains(busca)) {

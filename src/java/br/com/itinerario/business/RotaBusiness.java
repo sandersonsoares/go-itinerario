@@ -12,17 +12,17 @@ import java.util.List;
  */
 public class RotaBusiness {
 
-    private DaoGeneric rotaDao;
+    private DaoGeneric<Rota> rotaDao;
 
     public RotaBusiness() {
         this.rotaDao = DAOFactory.createRotaDAO();
     }
 
-    public synchronized void salvar(Rota rota) throws DAOException {
+    public synchronized Rota salvar(Rota rota) throws DAOException {
         if (rota.getId() != null) {
-            rotaDao.update(rota);
+            return rotaDao.update(rota);
         } else {
-            rotaDao.save(rota);
+            return rotaDao.save(rota);
         }
     }
 
@@ -30,11 +30,11 @@ public class RotaBusiness {
         return rotaDao.getAll();
     }
 
-    public synchronized void remover(Rota rota) throws DAOException {
-        rotaDao.remove(rota);
+    public synchronized Rota remover(Rota rota) throws DAOException {
+        return rotaDao.remove(rota);
     }
 
     public Rota buscar(Long id) throws DAOException {
-        return (Rota) rotaDao.getById(id);
+        return rotaDao.getById(id);
     }
 }

@@ -13,17 +13,17 @@ import java.util.List;
  */
 public class PassageiroBusiness implements Serializable {
 
-    private DaoGeneric passageiroDao;
+    private DaoGeneric<Passageiro> passageiroDao;
 
     public PassageiroBusiness() {
         passageiroDao = DAOFactory.createPassageiroDAO();
     }
 
-    public void salvar(Passageiro passageiro) throws DAOException {
+    public synchronized Passageiro salvar(Passageiro passageiro) throws DAOException {
         if (passageiro.getId() != null) {
-            passageiroDao.update(passageiro);
+            return passageiroDao.update(passageiro);
         } else {
-            passageiroDao.save(passageiro);
+            return passageiroDao.save(passageiro);
         }
     }
 
@@ -35,7 +35,7 @@ public class PassageiroBusiness implements Serializable {
         return (Passageiro) passageiroDao.getById(id);
     }
 
-    public void remover(Passageiro passageiro) throws DAOException {
-        passageiroDao.remove(passageiro);
+    public synchronized Passageiro remover(Passageiro passageiro) throws DAOException {
+        return passageiroDao.remove(passageiro);
     }
 }

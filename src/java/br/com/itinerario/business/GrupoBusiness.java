@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.itinerario.business;
 
 import br.com.itinerario.exception.DAOException;
@@ -17,26 +12,30 @@ import java.util.List;
  */
 public class GrupoBusiness {
 
-    private DaoGeneric gruposDao;
+    private DaoGeneric<Grupo> gruposDao;
 
     public GrupoBusiness() {
         this.gruposDao = DAOFactory.createGrupoDAO();
     }
 
-    public synchronized void salvar(Grupo grupo) throws DAOException {
+    public synchronized Grupo salvar(Grupo grupo) throws DAOException {
         if (grupo.getId() != null) {
-            gruposDao.update(grupo);
+            return gruposDao.update(grupo);
         } else {
-            gruposDao.save(grupo);
+            return gruposDao.save(grupo);
 
         }
+    }
+
+    public Grupo remover(Grupo grupo) throws DAOException {
+        return gruposDao.remove(grupo);
     }
 
     public List<Grupo> listar() throws DAOException {
         return gruposDao.getAll();
     }
-    
+
     public Grupo buscarGrupo(Long id) throws DAOException {
-        return (Grupo) gruposDao.getById(id);
+        return gruposDao.getById(id);
     }
 }

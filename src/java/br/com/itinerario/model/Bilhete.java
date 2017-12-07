@@ -25,7 +25,7 @@ public class Bilhete implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     private Rota rota;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Onibus onibus;
+    private Veiculo veiculo;
     private double valor;
 
     public Long getId() {
@@ -76,12 +76,12 @@ public class Bilhete implements Serializable {
         this.rota = rota;
     }
 
-    public Onibus getOnibus() {
-        return onibus;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void setOnibus(Onibus onibus) {
-        this.onibus = onibus;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
     public double getValor() {

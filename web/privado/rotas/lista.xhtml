@@ -40,10 +40,14 @@
 
                         <p:dataTable id="rotasTable" value="#{rotaBean.rotas}" var="rota" paginator="true" rowStyleClass="TexAlCenter">
                             <p:column headerText="Data/Hora de Partida">
-                                <h:outputText value="#{rota.partida}"/>
+                                <h:outputText value="#{rota.partida}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
                             </p:column>
                             <p:column headerText="Data/Hora de Chegada">
-                                <h:outputText value="#{rota.chegada}"/>
+                                <h:outputText value="#{rota.chegada}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
                             </p:column>
                             <p:column headerText="Cidade de Origem">
                                 <h:outputText value="#{rota.cidadeOrigem.nome} - #{rota.cidadeOrigem.estado.sigla}"/>

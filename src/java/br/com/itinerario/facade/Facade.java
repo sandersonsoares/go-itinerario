@@ -4,7 +4,7 @@ import br.com.itinerario.business.BilheteBusiness;
 import br.com.itinerario.business.CidadeBusiness;
 import br.com.itinerario.business.GrupoBusiness;
 import br.com.itinerario.business.MotoristaBusiness;
-import br.com.itinerario.business.OnibusBusiness;
+import br.com.itinerario.business.VeiculoBusiness;
 import br.com.itinerario.business.PassageiroBusiness;
 import br.com.itinerario.business.RotaBusiness;
 import br.com.itinerario.business.UsuarioBusiness;
@@ -14,7 +14,7 @@ import br.com.itinerario.model.Cidade;
 import br.com.itinerario.model.Grupo;
 import br.com.itinerario.model.Motorista;
 
-import br.com.itinerario.model.Onibus;
+import br.com.itinerario.model.Veiculo;
 import br.com.itinerario.model.Passageiro;
 import br.com.itinerario.model.Rota;
 import br.com.itinerario.model.Usuario;
@@ -24,7 +24,7 @@ import java.util.List;
 public class Facade implements Serializable {
 
     private PassageiroBusiness passageiroBusiness;
-    private OnibusBusiness onibusBusiness;
+    private VeiculoBusiness veiculoBusiness;
     private GrupoBusiness grupoBusiness;
     private UsuarioBusiness usuarioBusiness;
     private BilheteBusiness bilheteBusiness;
@@ -34,47 +34,13 @@ public class Facade implements Serializable {
 
     public Facade() {
         this.passageiroBusiness = new PassageiroBusiness();
-        this.onibusBusiness = new OnibusBusiness();
+        this.veiculoBusiness = new VeiculoBusiness();
         this.grupoBusiness = new GrupoBusiness();
         this.usuarioBusiness = new UsuarioBusiness();
         this.bilheteBusiness = new BilheteBusiness();
         this.rotaBusiness = new RotaBusiness();
         this.motoristaBusiness = new MotoristaBusiness();
         this.cidadeBusiness = new CidadeBusiness();
-    }
-
-    // Assento
-    public void cadastrarAssento() {
-
-    }
-
-    public void removerAssento() {
-
-    }
-
-    public void buscarAssento() {
-
-    }
-
-    public void listarAssentos() {
-
-    }
-
-    // Funcionario
-    public void cadastrarFuncionario() {
-
-    }
-
-    public void removerFuncionario() {
-
-    }
-
-    public void buscarFuncionario() {
-
-    }
-
-    public void listarFuncionarios() {
-
     }
 
     // Cidade
@@ -95,46 +61,46 @@ public class Facade implements Serializable {
     }
 
     // Motorista
-    public void cadastrarMotorista(Motorista motorista) throws DAOException {
-        this.motoristaBusiness.salvar(motorista);
+    public Motorista cadastrarMotorista(Motorista motorista) throws DAOException {
+        return this.motoristaBusiness.salvar(motorista);
     }
 
-    public void removerMotorista(Motorista motorista) throws DAOException {
-        this.motoristaBusiness.remover(motorista);
+    public Motorista removerMotorista(Motorista motorista) throws DAOException {
+        return this.motoristaBusiness.remover(motorista);
     }
 
-    public void buscarMotorista(Long id) throws DAOException {
-        this.motoristaBusiness.buscar(id);
+    public Motorista buscarMotorista(Long id) throws DAOException {
+        return this.motoristaBusiness.buscar(id);
     }
 
     public List<Motorista> listarMotoristas() throws DAOException {
         return this.motoristaBusiness.listar();
     }
 
-    // Onibus
-    public void cadastrarOnibus(Onibus onibus) throws Exception {
-        onibusBusiness.salvar(onibus);
+    // Veículo
+    public Veiculo cadastrarVeiculo(Veiculo veiculo) throws Exception {
+        return veiculoBusiness.salvar(veiculo);
     }
 
-    public List<Onibus> listarOnibus() throws Exception {
-        return onibusBusiness.listar();
+    public List<Veiculo> listarVeiculo() throws Exception {
+        return veiculoBusiness.listar();
     }
 
-    public void removerOnibus(Onibus onibus) throws DAOException {
-        onibusBusiness.remover(onibus);
+    public Veiculo removerVeiculo(Veiculo veiculo) throws DAOException {
+        return veiculoBusiness.remover(veiculo);
     }
 
-    public Onibus buscarOnibus(Long id) throws DAOException {
-        return onibusBusiness.buscar(id);
+    public Veiculo buscarVeiculo(Long id) throws DAOException {
+        return veiculoBusiness.buscar(id);
     }
 
     // Passageiro
-    public void cadastrarPassageiro(Passageiro passageiro) throws DAOException {
-        passageiroBusiness.salvar(passageiro);
+    public Passageiro cadastrarPassageiro(Passageiro passageiro) throws DAOException {
+        return passageiroBusiness.salvar(passageiro);
     }
 
-    public void removerPassageiro(Passageiro passageiro) throws DAOException {
-        passageiroBusiness.remover(passageiro);
+    public Passageiro removerPassageiro(Passageiro passageiro) throws DAOException {
+        return passageiroBusiness.remover(passageiro);
     }
 
     public Passageiro buscarPassageiro(Long id) throws DAOException {
@@ -146,12 +112,12 @@ public class Facade implements Serializable {
     }
 
     // Rota
-    public void cadastrarRota(Rota rota) throws DAOException {
-        this.rotaBusiness.salvar(rota);
+    public Rota cadastrarRota(Rota rota) throws DAOException {
+        return this.rotaBusiness.salvar(rota);
     }
 
-    public void removerRota(Rota rota) throws DAOException {
-        this.rotaBusiness.remover(rota);
+    public Rota removerRota(Rota rota) throws DAOException {
+        return this.rotaBusiness.remover(rota);
     }
 
     public Rota buscarRota(Long id) throws DAOException {
@@ -167,16 +133,16 @@ public class Facade implements Serializable {
         return usuarioBusiness.logarUsuario(login);
     }
 
-    public void cadastrarUsuario(Usuario usuario) throws Exception {
-        usuarioBusiness.salvar(usuario);
+    public Usuario cadastrarUsuario(Usuario usuario) throws Exception {
+        return usuarioBusiness.salvar(usuario);
     }
 
-    public void atualizarUsuario(Usuario usuario) throws Exception {
-        usuarioBusiness.atualizar(usuario);
+    public Usuario atualizarUsuario(Usuario usuario) throws Exception {
+        return usuarioBusiness.salvar(usuario);
     }
 
-    public void removerUsuario() {
-
+    public Usuario removerUsuario(Usuario usuario) throws DAOException {
+        return usuarioBusiness.remover(usuario);
     }
 
     public Usuario buscarUsuario(Long id) throws DAOException {
@@ -188,12 +154,12 @@ public class Facade implements Serializable {
     }
 
     // Bilhete
-    public void cadastrarBilhete(Bilhete bilhete) throws DAOException {
-        this.bilheteBusiness.salvar(bilhete);
+    public Bilhete cadastrarBilhete(Bilhete bilhete) throws DAOException {
+        return this.bilheteBusiness.salvar(bilhete);
     }
 
-    public void removerBilhete(Bilhete bilhete) throws DAOException {
-        this.bilheteBusiness.remover(bilhete);
+    public Bilhete removerBilhete(Bilhete bilhete) throws DAOException {
+        return this.bilheteBusiness.remover(bilhete);
     }
 
     public Bilhete buscarBilhete(Long id) throws DAOException {
@@ -205,8 +171,12 @@ public class Facade implements Serializable {
     }
 
     // Grupos de Usuario
-    public void cadastrarGrupo(Grupo grupo) throws Exception {
-        grupoBusiness.salvar(grupo);
+    public Grupo cadastrarGrupo(Grupo grupo) throws Exception {
+        return grupoBusiness.salvar(grupo);
+    }
+
+    public Grupo removerGrupo(Grupo grupo) throws Exception {
+        return grupoBusiness.remover(grupo);
     }
 
     public Grupo buscarGrupo(Long id) throws Exception {
@@ -216,12 +186,4 @@ public class Facade implements Serializable {
     public List<Grupo> listarGrupos() throws Exception {
         return grupoBusiness.listar();
     }
-
-    public Onibus buscarOnibus(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//    public void atualizarOnibus(Onibus onibus) throws Exception {
-//        onibusBusiness.atualizar(onibus);
-//    }
 }

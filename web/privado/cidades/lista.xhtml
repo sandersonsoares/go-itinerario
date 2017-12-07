@@ -61,7 +61,7 @@
                 </div>
             </h:form>
         </div>
-        
+
         <!--Dialog Sucesso-->
         <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
                   responsive="true" width="400" resizable="false" closable="false">
@@ -84,8 +84,8 @@
         <!--Dialog Apagar-->
         <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" draggable="false"
                   responsive="true" width="400" resizable="false" closable="false">
-            <div class="ui-g">
-                <h:form id="form-apagar">
+            <h:form id="form-apagar">
+                <div class="ui-g">
                     <div class="ui-g-12 TexAlCenter">
                         <i class="icon-trash-alt Fs30 TexAlCenter"></i>
                         <h4 class="TexAlCenter">Deseja relamente apagar <b>#{cidadeBean.cidade.nome}</b>?</h4>
@@ -100,8 +100,8 @@
                                          actionListener="#{cidadeBean.removerCidade()}" update=":form-table:cidadesTable">
                         </p:commandButton>
                     </div>
-                </h:form>
-            </div>
+                </div>
+            </h:form>
         </p:dialog>
 
     </ui:define>

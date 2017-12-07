@@ -1,7 +1,8 @@
 package br.com.itinerario.controller;
 
 import br.com.itinerario.exception.DAOException;
-import br.com.itinerario.model.Onibus;
+import br.com.itinerario.facade.Facade;
+import br.com.itinerario.model.Veiculo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,13 +14,16 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class VeiculoBean extends DefaultBean {
+    
+    private Facade fachada;
 
-    private Onibus veiculo;
-    private List<Onibus> veiculos;
+    private Veiculo veiculo;
+    private List<Veiculo> veiculos;
     private String busca;
 
     public VeiculoBean() {
         super();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
@@ -28,12 +32,12 @@ public class VeiculoBean extends DefaultBean {
 
         try {
             if (id != null) {
-                this.veiculo = this.fachada.buscarOnibus(Long.parseLong(id));
+                this.veiculo = this.fachada.buscarVeiculo(Long.parseLong(id));
             } else {
-                this.veiculo = new Onibus();
+                this.veiculo = new Veiculo();
             }
 
-            veiculos = fachada.listarOnibus();
+            veiculos = fachada.listarVeiculo();
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
@@ -41,21 +45,21 @@ public class VeiculoBean extends DefaultBean {
 
     public void salvar() {
         try {
-            fachada.cadastrarOnibus(this.veiculo);
+            this.veiculo = this.fachada.cadastrarVeiculo(this.veiculo);
             abrirDialog("sucess-dlg");
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
     }
 
-    public void preparaVeiculo(Onibus veiculo) {
+    public void preparaVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
         abrirDialog("apagar-dlg");
     }
 
-    public void removerOnibus() {
+    public void removerVeiculo() {
         try {
-            fachada.removerOnibus(this.veiculo);
+            this.veiculo = this.fachada.removerVeiculo(this.veiculo);
             abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             fecharDialog("apagar-dlg");
@@ -65,17 +69,17 @@ public class VeiculoBean extends DefaultBean {
 
     public void filtrar() {
         try {
-            veiculos = fachada.listarOnibus();
+            veiculos = fachada.listarVeiculo();
 
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
 
-        Iterator<Onibus> intOnibus = this.veiculos.iterator();
-        List<Onibus> tempList = new ArrayList<Onibus>();
+        Iterator<Veiculo> intVeiculo = this.veiculos.iterator();
+        List<Veiculo> tempList = new ArrayList<Veiculo>();
 
-        while (intOnibus.hasNext()) {
-            Onibus bus = intOnibus.next();
+        while (intVeiculo.hasNext()) {
+            Veiculo bus = intVeiculo.next();
 
             if (bus.getMarca().contains(busca)
                     || bus.getModelo().contains(busca)
@@ -88,19 +92,19 @@ public class VeiculoBean extends DefaultBean {
         this.veiculos = tempList;
     }
 
-    public Onibus getVeiculo() {
+    public Veiculo getVeiculo() {
         return veiculo;
     }
 
-    public void setVeiculo(Onibus veiculo) {
+    public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
 
-    public List<Onibus> getVeiculos() {
+    public List<Veiculo> getVeiculos() {
         return veiculos;
     }
 
-    public void setVeiculos(List<Onibus> veiculos) {
+    public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
     }
 

@@ -2,6 +2,7 @@ package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Estados;
 import br.com.itinerario.exception.DAOException;
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Cidade;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +19,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class CidadeBean extends DefaultBean {
+    
+    private Facade fachada;
 
     private Cidade cidade;
     private List<Cidade> cidades;
@@ -27,6 +30,7 @@ public class CidadeBean extends DefaultBean {
     public CidadeBean() {
         this.cidade = new Cidade();
         this.cidades = new ArrayList<>();
+        this.fachada = new Facade();
     }
 
     @PostConstruct

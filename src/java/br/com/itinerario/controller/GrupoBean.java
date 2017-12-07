@@ -1,9 +1,11 @@
 package br.com.itinerario.controller;
 
 import br.com.itinerario.enums.Permissoes;
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Grupo;
 import br.com.itinerario.utils.PermissoesUtil;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -14,8 +16,11 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class GrupoBean extends DefaultBean {
 
+    private Facade fachada;
+
     private Grupo grupo;
     private List<Grupo> grupos;
+    private String busca;
 
     private Permissoes permissao;
     private List<Permissoes> permissoes;
@@ -25,6 +30,7 @@ public class GrupoBean extends DefaultBean {
         super();
         permissoes = new ArrayList<>();
         permissoesUtil = new PermissoesUtil();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
@@ -45,21 +51,56 @@ public class GrupoBean extends DefaultBean {
         }
     }
 
-    public String salvar() {
+    public void salvar() {
         try {
             grupo.setPermissoes(this.permissoesUtil.toForm());
-            fachada.cadastrarGrupo(grupo);
-            return this.linkBean.listaGrupos();
+            this.grupo = fachada.cadastrarGrupo(grupo);
+            abrirDialog("sucess-dlg");
         } catch (Exception ex) {
             imprimirErro(ex.getMessage());
         }
-        return null;
+    }
+
+    public void preparaGrupo(Grupo grupo) {
+        this.grupo = grupo;
+        abrirDialog("apagar-dlg");
+    }
+
+    public void removerGrupo() {
+        try {
+            this.grupo = this.fachada.removerGrupo(this.grupo);
+            abrirDialog("sucess-dlg");
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
+            fecharDialog("apagar-dlg");
+        }
     }
 
     public void verPermissoesGrupo(Grupo grupo, String dialog) {
         this.permissoes = grupo.getPermissoes();
         this.grupo = grupo;
         abrirDialog(dialog);
+    }
+
+    public void filtrar() {
+        try {
+            this.grupos = fachada.listarGrupos();
+        } catch (Exception ex) {
+            imprimirErro(ex.getMessage());
+        }
+
+        Iterator<Grupo> intGrupo = this.grupos.iterator();
+        List<Grupo> tempList = new ArrayList<Grupo>();
+
+        while (intGrupo.hasNext()) {
+            Grupo grupo = intGrupo.next();
+
+            if (grupo.getTitulo().contains(busca)) {
+                tempList.add(grupo);
+            }
+        }
+
+        this.grupos = tempList;
     }
 
     public List<Permissoes> getPermissoes() {
@@ -98,4 +139,12 @@ public class GrupoBean extends DefaultBean {
         return permissao;
     }
 
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
+    }
+    
 }

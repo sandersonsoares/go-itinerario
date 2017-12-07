@@ -9,12 +9,34 @@
 
         <div class="ui-g ui-fluid">
             <div class="ui-g-12">
-                <p:breadCrumb>
-                    <p:menuitem value="Home" url="#{linkUtilBean.home()}" />
-                    <p:menuitem value="Grupos" url="#" />
-                </p:breadCrumb>
+                <h:form id="breadcrumb">
+                    <p:breadCrumb>
+                        <p:menuitem value="Home" action="#{linkUtilBean.paginaPrincipal()}" immediate="true"/>
+                        <p:menuitem value="Grupos"/>
+                    </p:breadCrumb>
+                </h:form>
             </div>
 
+            <div class="ui-g-12">
+                <p:messages autoUpdate="true" showIcon="true" closable="true"/>
+            </div>
+
+            <div class="ui-g-12">
+                <h:form id="form-busca">
+                    <div class="Card">
+                        <div class="CardTopic">Buscar</div>
+                        <div class="SeparatorFull"></div>
+
+                        <div class="ui-g-12 ui-md-10">
+                            <p:inputText id="busca" value="#{grupoBean.busca}" placeholder="Título do Grupo"/>
+                        </div>
+                        <div class="ui-g-12 ui-md-2">
+                            <p:commandButton actionListener="#{grupoBean.filtrar()}" update=":form-table:gruposTable" value="Buscar" icon="fa fa-search"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            
             <h:form id="form-table">
                 <div class="ui-g-12">
                     <div class="Card">
@@ -23,7 +45,7 @@
                         </div>
                         <div class="SeparatorFull"></div>
 
-                        <p:dataTable id="usuarioTable" value="#{grupoBean.grupos}" var="grupo" paginator="true" rowStyleClass="TexAlCenter" rows="15">
+                        <p:dataTable id="gruposTable" value="#{grupoBean.grupos}" var="grupo" paginator="true" rowStyleClass="TexAlCenter" rows="15">
                             <p:column headerText="Nome do Grupo">
                                 <h:outputText value="#{grupo.titulo}"/>
                             </p:column>
@@ -35,6 +57,11 @@
                             <p:column headerText="Ações">
                                 <p:commandButton class="ui-button-icon-only OrangeButton" icon="fa fa-pencil"
                                                  action="#{linkUtilBean.editarGrupo(grupo.id)}" rendered="#{request.isUserInRole('ROLE_ALTERAR_GRUPOS')}" immediate="true">
+                                </p:commandButton>
+
+                                <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-trash"
+                                                 action="#{grupoBean.preparaGrupo(grupo)}" rendered="#{request.isUserInRole('ROLE_REMOVER_GRUPOS')}"
+                                                 update=":form-apagar">
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
@@ -58,6 +85,48 @@
                                 <p:outputLabel value="#{permissoes.permissao}" />
                             </p:column>
                         </p:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <!--Dialog Sucesso-->
+        <p:dialog header="Sucesso" widgetVar="sucess-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <div class="ui-g">
+                <div class="ui-g-12 TexAlCenter">
+                    <i class="fa fa-check-circle-o Fs30 TexAlCenter"></i>
+                    <h4 class="TexAlCenter">Dado Apagado com Sucesso!</h4>
+                </div>
+                <div class="Separator"></div>
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:commandButton class="GreenButton ui-g-12" value="OK"
+                                         action="#{linkUtilBean.listaGrupos()}" immediate="true">
+                        </p:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </p:dialog>
+
+        <!--Dialog Apagar-->
+        <p:dialog header="Apagar" widgetVar="apagar-dlg" modal="true" draggable="false"
+                  responsive="true" width="400" resizable="false" closable="false">
+            <h:form id="form-apagar">
+                <div class="ui-g">
+                    <div class="ui-g-12 TexAlCenter">
+                        <i class="icon-trash-alt Fs30 TexAlCenter"></i>
+                        <h4 class="TexAlCenter">Deseja relamente apagar <b>#{grupoBean.grupo.titulo}</b>?</h4>
+                    </div>
+                    <div class="Separator"></div>
+                    <div class="ui-g-12">
+                        <p:commandButton class="ui-button-icon-only RedButton" icon="fa fa-close"
+                                         onclick="PF('apagar-dlg').hidden()">
+                        </p:commandButton>
+
+                        <p:commandButton class="ui-button-icon-only GreenButton Fright" icon="fa fa-check"
+                                         action="#{grupoBean.removerGrupo()}" update=":form-table:gruposTable">
+                        </p:commandButton>
                     </div>
                 </div>
             </h:form>

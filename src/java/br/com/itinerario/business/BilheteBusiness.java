@@ -13,17 +13,17 @@ import java.util.List;
  */
 public class BilheteBusiness implements Serializable {
 
-    private DaoGeneric bilheteDao;
-    
-     public BilheteBusiness() {
+    private DaoGeneric<Bilhete> bilheteDao;
+
+    public BilheteBusiness() {
         this.bilheteDao = DAOFactory.createBilheteDAO();
     }
 
-    public synchronized void salvar(Bilhete bilhete) throws DAOException {
+    public synchronized Bilhete salvar(Bilhete bilhete) throws DAOException {
         if (bilhete.getId() != null) {
-            this.bilheteDao.update(bilhete);
+            return this.bilheteDao.update(bilhete);
         } else {
-            this.bilheteDao.save(bilhete);
+            return this.bilheteDao.save(bilhete);
         }
     }
 
@@ -31,8 +31,8 @@ public class BilheteBusiness implements Serializable {
         return this.bilheteDao.getAll();
     }
 
-    public synchronized void remover(Bilhete bilhete) throws DAOException {
-        this.bilheteDao.remove(bilhete);
+    public synchronized Bilhete remover(Bilhete bilhete) throws DAOException {
+        return this.bilheteDao.remove(bilhete);
     }
 
     public Bilhete buscar(Long id) throws DAOException {

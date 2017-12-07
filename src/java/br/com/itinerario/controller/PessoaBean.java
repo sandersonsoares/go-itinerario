@@ -3,6 +3,7 @@ package br.com.itinerario.controller;
 import br.com.itinerario.enums.Estados;
 import br.com.itinerario.enums.Sexo;
 import br.com.itinerario.exception.DAOException;
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Passageiro;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +17,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class PessoaBean extends DefaultBean {
 
+    private Facade fachada;
+    
     private Passageiro passageiro;
     private List<Passageiro> passageiros;
     private Sexo sexo;
@@ -23,6 +26,7 @@ public class PessoaBean extends DefaultBean {
 
     public PessoaBean() {
         super();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
@@ -75,7 +79,7 @@ public class PessoaBean extends DefaultBean {
 
     public void salvarPassageiro() {
         try {
-            this.fachada.cadastrarPassageiro(this.passageiro);
+            this.passageiro = this.fachada.cadastrarPassageiro(this.passageiro);
             abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());
@@ -84,7 +88,7 @@ public class PessoaBean extends DefaultBean {
 
     public void removerPassageiro() {
         try {
-            this.fachada.removerPassageiro(this.passageiro);
+            this.passageiro = this.fachada.removerPassageiro(this.passageiro);
             abrirDialog("sucess-dlg");
         } catch (DAOException ex) {
             imprimirErro(ex.getMessage());

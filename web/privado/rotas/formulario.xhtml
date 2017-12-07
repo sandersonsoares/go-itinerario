@@ -36,15 +36,15 @@
                         </div>
                         <div class="ui-g-12 ui-md-6">
                             <p:outputLabel value="Cidade de Origem" for="origem" />
-                            <p:selectOneMenu id="origem" value="#{rotaBean.rota.cidadeOrigem}" required="true" requiredMessage="Campo Cidade de Origem está vazio!" converter="CidadeConverter">
+                            <p:selectOneMenu id="origem" value="#{rotaBean.rota.cidadeOrigem}" converter="CidadeConverter">
                                 <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
                                 <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
                             </p:selectOneMenu>
                         </div>
                         <div class="ui-g-12 ui-md-6">
                             <p:outputLabel value="Cidade de Destino" for="destino" />
-                            <p:selectOneMenu id="destino" value="#{rotaBean.rota.cidadeDestino}" required="true" requiredMessage="Campo Cidade de Destino está vazio!" converter="CidadeConverter">
-                                <f:selectItem itemDisabled="true" itemLabel="Selecione"/>
+                            <p:selectOneMenu id="destino" value="#{rotaBean.rota.cidadeDestino}" converter="CidadeConverter">
+                                <f:selectItem itemLabel="Selecione" itemDisabled="true"/>
                                 <f:selectItems value="#{rotaBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
                             </p:selectOneMenu>
                         </div>

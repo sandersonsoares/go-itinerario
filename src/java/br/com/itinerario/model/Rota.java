@@ -29,6 +29,11 @@ public class Rota implements Serializable{
     @OneToMany(cascade = CascadeType.ALL)
     private List<Motorista> motoristas;
 
+    public Rota() {
+        this.cidadeOrigem = new Cidade();
+        this.cidadeDestino = new Cidade();
+    }
+    
     public Long getId() {
         return id;
     }

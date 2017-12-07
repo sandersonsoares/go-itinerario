@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Onibus implements Serializable{
+public class Veiculo implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class Onibus implements Serializable{
     private int chassi;
     private String placa;
     
-    public Onibus(){
+    public Veiculo(){
         this.assentos = new ArrayList<>();
     }
 
@@ -112,7 +112,7 @@ public class Onibus implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Onibus other = (Onibus) obj;
+        final Veiculo other = (Veiculo) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

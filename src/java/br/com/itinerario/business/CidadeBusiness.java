@@ -1,8 +1,8 @@
 package br.com.itinerario.business;
 
-import br.com.itinerario.dao.DaoGenericImpl;
 import br.com.itinerario.exception.DAOException;
 import br.com.itinerario.factory.DAOFactory;
+import br.com.itinerario.interfaces.DaoGeneric;
 import br.com.itinerario.model.Cidade;
 import java.io.Serializable;
 import java.util.List;
@@ -13,17 +13,17 @@ import java.util.List;
  */
 public class CidadeBusiness implements Serializable {
 
-    private DaoGenericImpl<Cidade> cidadeDao;
+    private DaoGeneric<Cidade> cidadeDao;
 
     public CidadeBusiness() {
-        this.cidadeDao = DAOFactory.createCidadeDAO();
+        this.cidadeDao = new DAOFactory().createCidadeDAO();
     }
 
     public synchronized Cidade salvar(Cidade cidade) throws DAOException {
         if (cidade.getId() != null) {
-            return (Cidade) this.cidadeDao.update(cidade);
+            return this.cidadeDao.update(cidade);
         } else {
-            return (Cidade) this.cidadeDao.save(cidade);
+            return this.cidadeDao.save(cidade);
         }
     }
 
@@ -32,11 +32,11 @@ public class CidadeBusiness implements Serializable {
     }
 
     public synchronized Cidade remover(Cidade cidade) throws DAOException {
-        return (Cidade) this.cidadeDao.remove(cidade);
+        return this.cidadeDao.remove(cidade);
     }
 
     public Cidade buscar(Long id) throws DAOException {
-        return (Cidade) this.cidadeDao.getById(id);
+        return this.cidadeDao.getById(id);
     }
 
 }

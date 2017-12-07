@@ -1,5 +1,6 @@
 package br.com.itinerario.controller;
 
+import br.com.itinerario.facade.Facade;
 import br.com.itinerario.model.Bilhete;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +13,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class BilheteBean extends DefaultBean {
+    
+    private Facade fachada;
 
     private Bilhete bilhete;
     private List<Bilhete> bilhetes;
@@ -22,6 +25,7 @@ public class BilheteBean extends DefaultBean {
         super();
         this.bilhete = new Bilhete();
         this.bilhetes = new ArrayList<>();
+        this.fachada = new Facade();
     }
 
     @PostConstruct
